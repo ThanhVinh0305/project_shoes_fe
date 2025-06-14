@@ -1,0 +1,65 @@
+<div class="order-detail-container mt-2 mb-2">
+  <div class="card">
+    @if (isPayment()) {
+      <div class="text-700 text-xl mb-3">
+        Thanks
+      </div>
+      <div class="text-900 font-bold text-4xl mb-3">Đặt hàng thành công</div>
+      <div class="text-700 text-xl">Chúng tôi sẽ liên hệ sớm với bạn trong vòng 24h để xác nhận đơn hàng.</div>
+      <p-divider></p-divider>
+      <div class="flex justify-content-between align-items-center mb-4">
+        <div class="text-700 text-xl">
+          Mã đơn hàng: {{ bill()?.id }}
+        </div>
+        <div>
+          <p-button label="Quay trở lại trang chủ" icon="pi pi-arrow-left" [outlined]="true" severity="secondary" (onClick)="goHome()"/>
+        </div>
+      </div>
+    }
+    <div class="list-product">
+      @for (item of bill()?.products; track $index) {
+        <div class="item flex pt-2 pb-2 border-bottom-1-px">
+          <div class="image">
+            <img [src]="item.product && item.product.images && item.product.images[0] ? item.product.images[0].attachment : noImage" alt="" class="border-radius-6-px">
+          </div>
+          <div class="detail pl-2">
+            <div class="name-and-price flex font-weight-bold mb-2 justify-content-between">
+              <div class="w-80-percent">
+                {{ item.product?.name || ''}}
+              </div>
+              <div class="w-20-percent text-right">
+                {{ item.price | number }} Đ
+              </div>
+            </div>
+            <div class="size mb-2">
+              {{ item.size || ''}}
+            </div>
+            <div class="quantity flex justify-content-between align-items-center">
+              Số lượng: {{ item.amount }}
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+    <div class="contact-info grid">
+      <div class="col-6 md:col-12 lg:col-12 xl:col-6 flex-order-1">
+        <div class="font-weight-bold mb-3 font-18-px">
+          Địa chỉ giao hàng
+        </div>
+        <div class="contact-container">
+          <!-- <div class="mb-3">Họ và tên: {{ bill()?.address }}</div> -->
+          <div class="mb-3">Số điện thoại: {{ bill()?.phone_number }}</div>
+          <!-- <div class="mb-3">Email: {{ bill()?.address }}</div> -->
+          <div class="mb-3">Địa chỉ: {{ bill()?.address }}</div>
+        </div>
+      </div>
+      <div class="col-6 md:col-12 lg:col-12 xl:col-6 flex-order-0">
+        <div class="font-weight-bold mb-3 font-18-px">
+          Summary
+        </div>
+        <div class="mb-3">Tổng số lượng sản phẩm: {{ bill()?.products?.length }} </div>
+        <div class="mb-3">Tổng số tiền: {{ bill()?.total | number }} Đ</div>
+      </div>
+    </div>
+  </div>
+</div>

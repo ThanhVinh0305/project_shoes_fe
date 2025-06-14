@@ -1,0 +1,27 @@
+<div class="flex justify-content-between">
+  <div>
+    <h3>Quản lý kho</h3>
+  </div>
+</div>
+<p-table
+  [value]="warehouse()"
+  [tableStyle]="{ 'min-width': '60rem' }"
+  [rows]="rows()"
+  [first]="first()"
+  [lazy]="true"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Tên sản phẩm</th>
+      <th class="text-center" style="width: 20%">Size</th>
+      <th class="text-center" style="width: 20%">Số lượng</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+    <tr>
+      <td>{{ item.name }}</td>
+      <td class="text-center">{{ item.size }}</td>
+      <td class="text-center">{{ item.amount }}</td>
+    </tr>
+  </ng-template>
+</p-table>

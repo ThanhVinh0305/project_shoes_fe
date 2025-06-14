@@ -1,0 +1,34 @@
+.breadcrumb-custom {
+  .breadcrum-container {
+    width: 60%;
+    margin: auto;
+  }
+}
+
+.shipping-policy-container {
+  .content {
+    width: 60%;
+    margin: auto;
+
+    ul {
+      li {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1500px) {
+  .breadcrumb-custom {
+    .breadcrum-container {
+      width: 90%;
+    }
+  }
+
+  .shipping-policy-container {
+    .content {
+      width: 90%;
+      margin: auto;
+    }
+  }
+}

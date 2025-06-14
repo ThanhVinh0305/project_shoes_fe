@@ -1,0 +1,39 @@
+<div class="flex justify-content-between">
+  <div>
+    <h3>Danh sách sản phẩm (Tổng số sản phẩm {{ totalRecords() }})</h3>
+  </div>
+  <div><p-button icon="pi pi-plus" label="Thêm mới" [outlined]="true" (onClick)="goAddProduct()"/></div>
+</div>
+<p-table [value]="products()" [tableStyle]="{'min-width': '60rem'}" [rows]="rows()" [paginator]="true" [first]="first()"
+  [rowsPerPageOptions]="rowsPerPageOptions()" (onPage)="pageChange($event)" [totalRecords]="totalRecords()" [lazy]="true">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Tên sản phẩm</th>
+      <th class="text-center" style="width: 110px;">Image</th>
+      <th class="text-center" style="width: 15%;">Giá</th>
+      <th class="text-center" style="width: 12%;">Danh mục</th>
+      <th class="text-center" style="width: 12%;">Nhà cung cấp</th>
+      <th class="text-center" style="width: 150px;">Hành động</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+    <tr>
+      <td>{{product.name}}</td>
+      <td class="text-center"><img [src]="product.images[0]?.attachment" [alt]="product.name" width="100" class="shadow-4" /></td>
+      <td class="text-center">{{product.price | number }} Đ</td>
+      <td class="text-center">{{product.categories[0]?.name}}</td>
+      <!-- <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td> -->
+      <td class="text-center">{{ product.brand?.name }}</td>
+      <td class="text-center">
+        <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" (onClick)="onEdit(product.id)"/>
+        <p-button icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger" (onClick)="onDelete(product.id)"/>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<!-- <p-paginator
+    (onPageChange)="onPageChange($event)"
+    [first]="first()"
+    [rows]="rows()"
+    [totalRecords]="totalRecords()"
+    [rowsPerPageOptions]="[1, 2, 3]" /> -->

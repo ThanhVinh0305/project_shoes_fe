@@ -1,0 +1,81 @@
+@use "sass:math";
+@mixin class-pd-mr-px($number) {
+  @for $i from 1 through $number {
+    //   padding
+    .pd-#{$i }-rem {
+      padding: #{$i}rem !important;;
+    }
+
+    .pd-#{$i }-px {
+      padding: #{$i}px !important;
+    }
+    .pl-#{$i }-px {
+      padding-left: #{$i}px !important;
+    }
+    .pr-#{$i }-px {
+      padding-right: #{$i}px !important;
+    }
+    .pt-#{$i }-px {
+      padding-top: #{$i}px !important;
+    }
+    .pb-#{$i }-px {
+      padding-bottom: #{$i}px !important;
+    }
+    .pl-#{$i }-px {
+      padding-left: #{$i}px !important;
+    }
+    //  margin
+    .mg-#{$i }-px {
+      margin: #{$i}px !important;
+    }
+    .ml-#{$i }-px {
+      margin-left: #{$i}px !important;
+    }
+    .mr-#{$i }-px {
+      margin-right: #{$i}px !important;
+    }
+    .mt-#{$i }-px {
+      margin-top: #{$i}px !important;
+    }
+    .mb-#{$i }-px {
+      margin-bottom: #{$i}px !important;
+    }
+    .ml-#{$i }-rem {
+      margin-left: #{$i}rem !important;
+    }
+    //font-size
+    .font-#{$i }-px {
+      font-size: #{$i}px !important;
+    }
+
+    .font-#{$i } {
+      font-size: #{$i}rem !important;
+    }
+
+    .w-#{$i }-rem {
+      width: #{$i}rem !important;
+    }
+    .w-#{$i }-px {
+      width: #{$i}px !important;
+    }
+
+    .h-#{$i }-rem {
+      height: #{$i}rem !important;
+    }
+    .h-#{$i }-px {
+      height: #{$i}px !important;
+    }
+
+    .w-#{$i }-percent {
+      width: round(percentage(math.div($i, 100))) !important;
+    }
+
+    .h-#{$i }-percent {
+      height: round(percentage(math.div($i, 100))) !important;
+    }
+
+    .border-radius-#{$i }-px {
+      border-radius: #{$i }px !important;
+    }
+  }
+}

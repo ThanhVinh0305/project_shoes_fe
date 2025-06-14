@@ -1,0 +1,67 @@
+@import "../../@themes/variable.scss";
+
+.product-container {
+  width: 60%;
+  margin: auto;
+
+  .image {
+    width: 50%;
+  }
+
+  .product-overview {
+    width: 50%;
+
+    .price-and-review-block {
+      .price {
+        color: $primary-color;
+      }
+    }
+
+    .size {
+      .size-list {
+        .size-item {
+          text-align: center;
+          border: 1px solid $border-color;
+        }
+
+        .size-item:hover {
+          background-color: $background-color-hover-size;
+        }
+
+        .active {
+          color: $primary-color;
+          border: 1px solid $primary-color;
+          transition-duration: 0.15s;
+        }
+      }
+    }
+  }
+}
+
+.product-others {
+  width: 60%;
+  margin: auto;
+}
+
+.disable-size {
+  background-color: #f3f4f6;
+}
+
+.disable-pointer {
+  cursor: no-drop !important;
+  pointer-events: none;
+}
+
+@media only screen and (max-width: 1500px) {
+  .product-container {
+    width: 90%;
+  }
+
+  .product-others {
+    width: 90%;
+  }
+
+  .image {
+    width: 60%;
+  }
+}

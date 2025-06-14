@@ -1,0 +1,25 @@
+<div class="customer-review-container">
+  <h2 class="text-align-center mb-3">Reviews</h2>
+  <div class="grid">
+    @for(review of customerReviews; track review.id) {
+      <div class="col-4 md:col-12 lg:col-12 xl:col-4">
+        <div class="avatar text-align-center mb-3">
+          <img [src]="review.image || ''" alt="">
+        </div>
+        <div class="customer-name text-uppercase font-20-px text-align-center">
+          {{ review.name }}
+        </div>
+        <div class="major text-align-center">
+          <strong>{{ review.major }}</strong>
+        </div>
+        <div class="comment">
+          {{ review.comment }}
+        </div>
+        <div class="rate text-align-center flex align-items-center justify-content-center">
+          <div class="mr-2">{{ review.createdDate | date: 'yyyy-MM-dd hh:mm:ss'}}</div>
+          <div><p-rating [(ngModel)]="review.rate" [stars]="5" [readonly]="true" [cancel]="false" /></div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

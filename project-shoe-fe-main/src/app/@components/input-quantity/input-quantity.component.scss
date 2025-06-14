@@ -1,0 +1,23 @@
+::ng-deep .custom-input-quantity {
+  input {
+    text-align: center;
+  }
+
+  .p-inputtext {
+    border-radius: 0;
+    padding: 0.5rem;
+  }
+
+  .btn-decrease {
+    .p-button {
+      border-radius: 6px 0 0 6px;
+    }
+  }
+
+  .btn-increase {
+    .p-button {
+      border-radius: 0 6px 6px 0;
+      padding: 0.5rem 0.93rem;
+    }
+  }
+}

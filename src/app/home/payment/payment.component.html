@@ -1,0 +1,118 @@
+<div class="payment-container">
+  <div class="card">
+    <div class="header">
+      <div class="font-weight-bold font-20-px">Thông tin thanh toán</div>
+    </div>
+    <div class="grid">
+      <div class="col-6 md:col-12 lg:col-12 xl:col-6">
+        <div class="font-weight-bold font-18-px mb-3">Thông tin liên hệ</div>
+        <form [formGroup]="form">
+          <div class="phone mb-3">
+            <app-base-input
+              formControlName="phone_number"
+              inputId="phone"
+              placeholder="Số điện thoại"
+            ></app-base-input>
+          </div>
+          <div class="email mb-3">
+            <app-base-input
+              formControlName="email"
+              inputId="name"
+              placeholder="Email"
+            ></app-base-input>
+          </div>
+          <div class="fullName mb-3 flex">
+            <div class="first-name col-6 pl-0">
+              <app-base-input
+                formControlName="first_name"
+                inputId="name"
+                placeholder="Họ"
+              ></app-base-input>
+            </div>
+            <div class="last-name col-6 pr-0">
+              <app-base-input
+                formControlName="last_name"
+                inputId="name"
+                placeholder="Tên"
+              ></app-base-input>
+            </div>
+          </div>
+          <div class="address mb-3">
+            <app-base-input
+                formControlName="address"
+                inputId="name"
+                placeholder="Địa chỉ"
+              ></app-base-input>
+          </div>
+        </form>
+      </div>
+      <div class="col-6 md:col-12 lg:col-12 xl:col-6">
+        <div class="font-weight-bold font-18-px mb-3">Thông tin sản phẩm</div>
+        <div class="list-product">
+          @for (item of items(); track $index) {
+          <div class="item flex pt-2 pb-2 border-bottom-1-px">
+            <div class="image">
+              <img
+                [src]="
+                  item.product && item.product.images
+                    ? item.product.images[0]?.attachment
+                    : noImage
+                "
+                alt=""
+                class="border-radius-6-px"
+              />
+            </div>
+            <div class="detail pl-2">
+              <div class="name-and-price flex font-weight-bold mb-2">
+                <div class="w-75-percent">
+                  {{ item.name || "" }}
+                </div>
+                <div class="w-25-percent">
+                  {{
+                    item.price | number
+                  }}
+                  Đ
+                </div>
+              </div>
+              <div class="size mb-2">
+                {{ item.size || "" }}
+              </div>
+              <div
+                class="quantity flex justify-content-between align-items-center"
+              >
+                <div>Số lượng {{ item.amount }}</div>
+                <p-button
+                  icon="pi pi-trash"
+                  [rounded]="true"
+                  [text]="true"
+                  severity="danger"
+                />
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+        <div
+          class="total flex justify-content-between align-items-center mt-3 mb-3"
+        >
+          <div>Tổng số tiền phải thanh toán:</div>
+          <div class="mr-2">{{ totalAmount() | number }} Đ</div>
+        </div>
+        <div class="button-group-submit">
+          <p-button
+            label="Quay lại giỏ hàng"
+            class="mr-3"
+            icon="pi pi-arrow-left"
+            severity="contrast"
+            (onClick)="goCart()"
+          />
+          <p-button
+            label="Đặt hàng"
+            icon="pi pi-check"
+            (onClick)="createBill()"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

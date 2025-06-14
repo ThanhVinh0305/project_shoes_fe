@@ -1,0 +1,181 @@
+<div class="flex justify-content-between align-items-center mb-3">
+  <div class="header font-18-px font-bold">
+    {{ importCoupon?.status === 1 ? 'Thông tin' : (isEdit() ? "Cập nhật" : "Tạo mới") }} phiếu nhập
+  </div>
+  <div class="btn-group">
+    <p-button
+      label="Huỷ"
+      severity="secondary"
+      (onClick)="onReturn()"
+    />
+    @if (!this.isEdit()) {
+      <p-button
+        label="Xác nhận"
+        (onClick)="onSave(true)"
+        severity="success"
+        class="ml-3"
+      />
+    }
+    @if (importCoupon?.status !== 1) {
+      @if (importCoupon?.status === 0) {
+        <p-button
+        label="Xác nhận"
+        (onClick)="onSave(true)"
+        severity="success"
+        class="ml-3"
+      />
+      }
+      <p-button
+        label="{{ isEdit() ? 'Lưu' : 'Thêm mới' }}"
+        (onClick)="onSave()"
+        class="ml-3"
+      />
+    }
+  </div>
+</div>
+<form [formGroup]="form">
+  <div>
+    <div class="mb-4">
+      <p-dropdown
+        [options]="suppliers()"
+        formControlName="brand"
+        optionLabel="name"
+        placeholder="Chọn chọn nhà cung cấp"
+        (onChange)="onChangeSupplier()"
+        [style]="{ width: '100%' }"
+      />
+      @if (form.controls['brand'].touched &&
+      form.controls['brand'].errors) {
+      <div class="text-error text-error-form position-absolute">
+        Nhà cung cấp không được để trống
+      </div>
+      }
+    </div>
+    <div class="mb-4">
+      <app-base-input
+        typeInput="textarea"
+        placeholder="Mô tả"
+        formControlName="description"
+      ></app-base-input>
+    </div>
+  </div>
+  <div class="product-list-container">
+    <h3>Danh sách sản phẩm nhập hàng</h3>
+    <p-table
+      [value]="formProducts.controls"
+      [tableStyle]="{ 'min-width': '60rem' }"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="text-center" style="width: 50px">STT</th>
+          <th class="text-center" style="width: 400px;">Sản phẩm</th>
+          <th class="text-center" style="width: 120px">Size</th>
+          <th class="text-center" style="width: 100px">Số lượng</th>
+          <th class="text-center" style="width: 190px">Đơn giá (Giá nhập)</th>
+          <th class="text-center" style="width: 200px">Thành tiền</th>
+          <th class="text-center" style="width: 150px">Hành động</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+        <tr [formGroup]="item">
+          <td style="width: 50px" class="text-center">{{ rowIndex + 1 }}</td>
+          <td>
+            @if (item.controls['isEdit']?.value) {
+            <p-dropdown
+              [options]="products()"
+              formControlName="product_id"
+              optionLabel="name"
+              optionValue="id"
+              placeholder="Chọn sản phẩm"
+              [style]="{ 'width': '400px' }"
+              [showClear]="true"
+              [filter]="true"
+              filterBy="name"
+              (onChange)="onSelectProduct(item)"
+            />
+            } @else {
+            {{ item.controls["product"].value?.name }}
+            }
+          </td>
+          <td style="width: 120px" class="text-right">
+            @if (item.controls['isEdit']?.value) {
+            <p-dropdown
+              [options]="item.controls['sizes']?.value"
+              formControlName="size"
+              optionLabel="size"
+              optionValue="size"
+              [style]="{ width: '100%' }"
+            />
+            } @else {
+            {{ item.controls["size"].value }}
+            }
+          </td>
+          <td class="text-right" style="width: 100px">
+            @if (item.controls['isEdit']?.value) {
+            <p-inputNumber
+              inputId="integeronly"
+              formControlName="amount"
+              [min]="0"
+              [max]="1000000000000"
+              (onBlur)="calculateTotal(item)"
+            />
+            } @else {
+            {{ item.controls["amount"].value | number }}
+            }
+          </td>
+          <td class="text-right" style="width: 190px">
+            @if (item.controls['isEdit']?.value) {
+            <p-inputNumber
+              inputId="integeronly"
+              formControlName="import_cost"
+              [min]="0"
+              [max]="10000000000000"
+              (onBlur)="calculateTotal(item)"
+            />
+            } @else {
+            {{ item.controls["import_cost"].value | number }}
+            }
+          </td>
+          <td class="text-right" style="width: 200px;">
+            {{ (item.controls["total"].value | number) || 0 }} Đ
+          </td>
+          <td class="text-center" style="width: 150px;">
+            @if (importCoupon?.status !== 1) {
+              @if (item.controls['isEdit']?.value) {
+                <p-button
+                  icon="pi pi-save"
+                  [rounded]="true"
+                  [text]="true"
+                  (onClick)="onSaveRow(item)"
+                />
+                } @else {
+                <p-button
+                  icon="pi pi-pencil"
+                  [rounded]="true"
+                  [text]="true"
+                  (onClick)="onEdit(item)"
+                />
+                }
+                <p-button
+                  icon="pi pi-trash"
+                  [rounded]="true"
+                  [text]="true"
+                  severity="danger"
+                  (onClick)="onDelete(rowIndex)"
+                />
+            }
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    @if (importCoupon?.status !== 1) {
+      <div class="btn-add-row mt-2">
+        <p-button
+          label="Thêm sản phẩm"
+          icon="pi pi-plus-circle"
+          (onClick)="addRowProduct(true)"
+        />
+      </div>
+    }
+  </div>
+</form>

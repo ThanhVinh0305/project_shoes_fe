@@ -1,0 +1,33 @@
+<div class="custom-input-quantity flex">
+  <div class="btn-decrease">
+    <button
+      type="button"
+      pButton
+      pRipple
+      label="-"
+      class="p-button-secondary"
+      (click)="onDecease()"
+    ></button>
+  </div>
+  <div class="btn-decease">
+    <p-inputNumber
+      [max]="max()"
+      [style]="{ width: '40px', 'text-align': 'center' }"
+      [min]="min()"
+      inputId="integeronly"
+      [(ngModel)]="value"
+      (onBlur)="onTouch($event)"
+      (onInput)="onInput($event.value)"
+    />
+  </div>
+  <div class="btn-increase">
+    <button
+      type="button"
+      pButton
+      pRipple
+      label="+"
+      class="p-button-secondary"
+      (click)="onIncrease()"
+    ></button>
+  </div>
+</div>

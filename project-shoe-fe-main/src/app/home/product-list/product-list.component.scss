@@ -1,0 +1,57 @@
+@import "../../@themes/variable.scss";
+
+.breadcrumb-custom {
+  .breadcrum-container {
+    width: 60%;
+    margin: auto;
+  }
+}
+
+.product-list-container {
+  width: 60%;
+  margin: auto;
+  padding: 1rem 0 1rem 0;
+
+  .product-item {
+    .image {
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 6px;
+      }
+    }
+  }
+}
+
+.price-color {
+  color: $primary-color;
+}
+
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.search-product-container {
+  ::ng-deep .p-slider {
+    margin: 1rem 0.5rem;
+    padding: 0 0.5rem;
+  }
+}
+
+@media only screen and (max-width: 1500px) {
+  .breadcrumb-custom {
+    .breadcrum-container {
+      width: 90%;
+    }
+  }
+
+  .product-list-container {
+    width: 90%;
+  }
+}
+

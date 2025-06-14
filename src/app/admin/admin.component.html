@@ -1,0 +1,38 @@
+<div class="layout-container">
+  <div class="layout-sidebar" [class.layout-static-inactive]="!sidebarVisible">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="layout-content-wrapper" [class.ml-15-rem]="sidebarVisible">
+    <div class="header flex justify-content-between">
+      <div class="left flex">
+        <div class="btn-collapse-sidebar">
+          <p-button icon="pi pi-bars" [rounded]="true" [text]="true" severity="secondary"
+            (onClick)="sidebarVisible = !sidebarVisible" />
+        </div>
+        <div class="breadcrumb">
+          <p-breadcrumb class="max-w-full" [model]="items()" [home]="home" />
+        </div>
+      </div>
+      <div class="right">
+        <button type="button" class="p-link" (click)="menu.toggle($event)">
+          <img src="../../assets/images/avatar.png" alt="" class="w-2-rem h-2-rem">
+        </button>
+      </div>
+    </div>
+    <div class="content card">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+<p-menu #menu [model]="menus" [popup]="true" />
+<!-- <p-sidebar [(visible)]="sidebarVisibleUser" position="right" [dismissible]="false">
+  <h3 class="mb-6">Xin chào {{ currentUser()?.first_name + ' '}} {{ currentUser()?.last_name }}</h3>
+  <div class="menu-item-container">
+    @for (item of menus; track $index) {
+      <div clas s="menu-item flex mb-3 p-3 cursor-pointer border-1-px border-radius-6-px" [routerLink]="item.routerLink" (click)="onClick(item.command)">
+        <div class="mr-2"><i [class]="item.icon"></i></div>
+        <div>{{ item.label }}</div>
+      </div>
+    }
+  </div>
+</p-sidebar> -->

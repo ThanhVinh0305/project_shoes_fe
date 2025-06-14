@@ -1,0 +1,28 @@
+.breadcrumb-custom {
+  .breadcrum-container {
+    width: 60%;
+    margin: auto;
+  }
+}
+
+.terms-and-service {
+  .content {
+    width: 60%;
+    margin: auto;
+  }
+}
+
+@media only screen and (max-width: 1500px) {
+  .breadcrumb-custom {
+    .breadcrum-container {
+      width: 90%;
+    }
+  }
+
+  .terms-and-service {
+    .content {
+      width: 90%;
+      margin: auto;
+    }
+  }
+}

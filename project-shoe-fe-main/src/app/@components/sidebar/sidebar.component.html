@@ -1,0 +1,84 @@
+<div class="layout-sidebar">
+  <div class="sidebar-header">
+    <div class="logo"></div>
+  </div>
+  <div class="layout-menu-container overflow-y-auto">
+    <ul class="list-none p-3 m-0">
+      <li>
+        <!-- <div pRipple pStyleClass="@next" enterClass="hidden" enterActiveClass="slidedown" leaveToClass="hidden"
+          leaveActiveClass="slideup"
+          class="p-3 flex align-items-center justify-content-between text-600 cursor-pointer p-ripple">
+          <span class="font-medium">FAVORITES</span>
+          <i class="pi pi-chevron-down"></i>
+        </div> -->
+        <ul class="list-none p-0 m-0 overflow-hidden">
+          <li>
+            <a pRipple routerLink="/admin" routerLinkActive="isActive" [routerLinkActiveOptions]="{ exact: true }"
+              class="flex align-items-center cursor-pointer p-3 border-round text-700 transition-duration-150 transition-colors p-ripple">
+              <i class="pi pi-home mr-2"></i>
+              <span class="font-medium">Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a pRipple routerLink="/admin/user-management" routerLinkActive="isActive"
+              class="flex align-items-center cursor-pointer p-3 border-round text-700  transition-duration-150 transition-colors p-ripple">
+              <i class="pi pi-users mr-2"></i>
+              <span class="font-medium">Quản lý người dùng</span>
+            </a>
+          </li>
+          <li>
+            <a pRipple routerLink="/admin/product-management" routerLinkActive="isActive" [routerLinkActiveOptions]="{ exact: true }"
+              class="flex align-items-center cursor-pointer p-3 border-round text-700  transition-duration-150 transition-colors p-ripple">
+              <i class="pi pi-bookmark mr-2"></i>
+              <span class="font-medium">Quản lý sản phẩm</span>
+            </a>
+          </li>
+          <li>
+            <a pRipple routerLink="/admin/category-management" routerLinkActive="isActive" [routerLinkActiveOptions]="{ exact: true }"
+              class="flex align-items-center cursor-pointer p-3 border-round text-700  transition-duration-150 transition-colors p-ripple">
+              <i class="pi pi-bookmark mr-2"></i>
+              <span class="font-medium">Quản lý danh mục</span>
+            </a>
+          </li>
+          <li>
+            <a pRipple routerLink="/admin/supplier-management" routerLinkActive="isActive" [routerLinkActiveOptions]="{ exact: true }"
+              class="flex align-items-center cursor-pointer p-3 border-round text-700  transition-duration-150 transition-colors p-ripple">
+              <i class="pi pi-comments mr-2"></i>
+              <span class="font-medium">Quản lý nhà cung cấp</span>
+              <!-- <span class="inline-flex align-items-center justify-content-center ml-auto bg-primary border-circle"
+                style="min-width: 1.5rem; height: 1.5rem">3</span> -->
+            </a>
+          </li>
+          <li>
+            <a pRipple routerLink="/admin/import-coupon-management" routerLinkActive="isActive" [routerLinkActiveOptions]="{ exact: true }"
+              class="flex align-items-center cursor-pointer p-3 border-round text-700  transition-duration-150 transition-colors p-ripple">
+              <i class="pi pi-calendar mr-2"></i>
+              <span class="font-medium">Quản lý phiếu nhập</span>
+            </a>
+          </li>
+          <li>
+            <a pRipple routerLink="/admin/promotion-program" routerLinkActive="isActive" [routerLinkActiveOptions]="{ exact: true }"
+              class="flex align-items-center cursor-pointer p-3 border-round text-700  transition-duration-150 transition-colors p-ripple">
+              <i class="pi pi-cog mr-2"></i>
+              <span class="font-medium">Quản lý chương trình khuyến mại</span>
+            </a>
+          </li>
+          <li>
+            <a pRipple routerLink="/admin/bill-management" routerLinkActive="isActive" [routerLinkActiveOptions]="{ exact: true }"
+              class="flex align-items-center cursor-pointer p-3 border-round text-700  transition-duration-150 transition-colors p-ripple">
+              <i class="pi pi-cog mr-2"></i>
+              <span class="font-medium">Quản lý đơn hàng</span>
+            </a>
+          </li>
+          <li>
+            <a pRipple routerLink="/admin/warehouse-management" routerLinkActive="isActive" [routerLinkActiveOptions]="{ exact: true }"
+              class="flex align-items-center cursor-pointer p-3 border-round text-700  transition-duration-150 transition-colors p-ripple">
+              <i class="pi pi-cog mr-2"></i>
+              <span class="font-medium">Quản lý kho</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>

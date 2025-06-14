@@ -1,0 +1,28 @@
+<div class="product-other-container">
+  <div class="grid">
+    @for (product of products(); track product.id) {
+      <div class="px-2 col-12 md:col-6 lg:col-4 xl:col-3">
+        <div class="product-item card cursor-pointer" routerLink="/product" [queryParams]="{ id: product.id }">
+          <div class="image">
+            <img [src]="product.images && product.images[0] ? product.images[0].attachment : noImage" alt="">
+          </div>
+          <div class="content">
+            <div class="content__name flex justify-content-between align-items-start mb-3">
+              <div class="text-ellipsis">{{ product.name }}</div>
+            </div>
+            <div class="price flex">
+              @if (product.promotion_price) {
+                <div class="promotion">
+                  <b class="price-color">{{ product.promotion_price | number:'1.0-0' }} Đ</b> -&nbsp;
+                </div>
+              }
+              <div class="origin" [class.line-through]="product.promotion_price">
+                <b class="price-color">{{ product.price | number:'1.0-0' }} Đ</b>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<div class="flex justify-content-between">
+  <div>
+    <h3>Danh sách danh mục</h3>
+  </div>
+  <div><p-button icon="pi pi-plus" label="Thêm mới" [outlined]="true" (onClick)="goAddCategory()"/></div>
+</div>
+<p-table [value]="categories()" [tableStyle]="{'min-width': '60rem'}" [rows]="rows()" [paginator]="true" [first]="first()"
+  (onPage)="pageChange($event)">
+  <ng-template pTemplate="header">
+    <tr>
+      <th class="text-center" style="width: 5%">STT</th>
+      <th class="text-center" style="width: 15%">Ảnh đại diện</th>
+      <th class="text-center">Tên danh mục</th>
+      <th class="text-center" style="width: 35%">Mô tả</th>
+      <th class="text-center" style="width: 150px;">Hành động</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-category let-rowIndex="rowIndex">
+    <tr>
+      <td class="text-center">{{  rowIndex + 1 }}</td>
+      <td>
+        @if (category.image) {
+          <p-image [src]="category.image" alt="Image" width="100" height="100" [preview]="true" />
+        }
+      </td>
+      <td>{{ category.name }}</td>
+      <td>{{ category.router_link }}</td>
+      <td class="text-center">
+        <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" (onClick)="onEdit(category.id)"/>
+        <p-button icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger" (onClick)="onDelete(category.id)"/>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

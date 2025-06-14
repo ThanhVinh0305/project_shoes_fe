@@ -1,0 +1,78 @@
+<div class="breadcrumb-custom mt-2">
+  <div class="breadcrum-container flex justify-content-between align-items-center">
+    <p-breadcrumb class="max-w-full" [model]="items()" [home]="home" />
+  </div>
+</div>
+<div class="cart-item-container">
+  <div class="card">
+    <div class="font-weight-bold font-22-px mb-3">
+      Giỏ hàng ( {{ cart().products?.length }} sản phẩm)
+    </div>
+    <div class="font-weight-bold font-18-px mb-3">Danh sách sản phẩm</div>
+    @for(item of cart().products; track item) {
+    <div class="item grid">
+      <div
+        class="select-item w-50-px flex align-items-center justify-content-center"
+      >
+        <p-checkbox
+          [(ngModel)]="item.checked"
+          (ngModelChange)="changeSelectItem()"
+          [binary]="true"
+          inputId="binary"
+        />
+      </div>
+      <div class="image col-2">
+        <img
+          [src]="
+            item.product && item.product.images && item.product.images.length ? item.product.images[0].attachment : noImage
+          "
+          alt=""
+        />
+      </div>
+      <div class="item-detail col">
+        <div class="name font-weight-bold font-19-px primary-color mb-3">
+          {{ item.product?.name }}
+        </div>
+        <div class="size">Size: {{ item.size }}</div>
+      </div>
+      <div class="quantity col-2 flex align-items-center">
+        <app-input-quantity
+          [(ngModel)]="item.amount"
+          (change)="onChangeQuantity(item)"
+        ></app-input-quantity>
+      </div>
+      <div
+        class="totalAmount font-17-px col-2 flex align-items-center justify-content-between"
+      >
+        {{ item.price | number }} Đ
+        <div>
+          <p-button
+            icon="pi pi-trash"
+            severity="danger"
+            [rounded]="true"
+            [text]="true"
+            (onClick)="deleteItem(item.product_properties_id)"
+          />
+        </div>
+      </div>
+    </div>
+    }
+    <div class="total-money grid justify-content-end font-20-px mb-3">
+      <div class="col-6">
+        <div class="total-select-item grid">
+          <div class="col-8 text-align-right">Tổng số sản phẩm đã chọn:</div>
+          <div class="col-4">{{ totalQuantity() }} sản phẩm</div>
+        </div>
+        <div class="total-amount grid">
+          <div class="col-8 text-align-right">
+            Tổng số tiền phải thanh toán:
+          </div>
+          <div class="col-4">{{ totalAmount() | number }} Đ</div>
+        </div>
+      </div>
+    </div>
+    <div class="btn-group">
+      <p-button label="Thanh toán ngay" [disabled]="selectItems.length === 0" (onClick)="onGoPayment()"/>
+    </div>
+  </div>
+</div>

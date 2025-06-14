@@ -1,0 +1,53 @@
+@import "../../@themes/variable.scss";
+
+::ng-deep .cart-item-container {
+  width: 60%;
+  margin: auto;
+
+  .item {
+    border-bottom: 1px solid $border-color;
+    .image {
+      img {
+        width: 150px;
+        height: 150px;
+        border-radius: 6px;
+      }
+    }
+  }
+
+  .btn-group {
+    .p-button {
+      width: 100%;
+    }
+  }
+}
+
+.breadcrumb-custom {
+  .breadcrum-container {
+    width: 60%;
+    margin: auto;
+  }
+}
+
+@media only screen and (max-width: 1500px) {
+  .cart-item-container {
+    width: 90%;
+    margin: auto;
+
+    // .item {
+    //   .image {
+    //     img {
+    //       width: 300px;
+    //       height: 300px;
+    //     }
+    //   }
+    // }
+  }
+
+  .breadcrumb-custom {
+    .breadcrum-container {
+      width: 90%;
+      margin: auto;
+    }
+  }
+}

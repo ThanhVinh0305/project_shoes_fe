@@ -1,0 +1,48 @@
+@import "../../@themes/variable.scss";
+
+.layout-sidebar {
+  // position: fixed;
+  // height: 100%;
+  // top: 0;
+  // left: 0;
+  // width: 25rem;
+  // background-color: $white;
+  // border-right: 1px solid transparent;
+  // box-shadow: 0 4px 50px #d9ddfc;
+  display: flex;
+  flex-direction: column;
+  // transition: transform 0.2s;
+
+  .sidebar-header {
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .logo {
+      // padding: ;
+    }
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .isActive {
+    background-color: $primary-color;
+
+    span,
+    i {
+      color: $white;
+    }
+
+    &:hover {
+      background-color: $primary-color;
+
+      span,
+      i {
+        color: $white;
+      }
+    }
+  }
+}

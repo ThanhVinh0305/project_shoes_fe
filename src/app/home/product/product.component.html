@@ -1,0 +1,129 @@
+<div class="product-container card mt-3">
+  <div class="flex">
+    <div class="image">
+      @if (images().length) {
+      <p-galleria
+        [value]="images()"
+        [responsiveOptions]="responsiveOptions"
+        [numVisible]="6"
+      >
+        <ng-template pTemplate="item" let-item>
+          <img
+            [src]="item"
+            style="width: 100%; display: block"
+            height="100%"
+            loading="lazy"
+          />
+        </ng-template>
+        <ng-template pTemplate="thumbnail" let-item>
+          <div class="grid justify-content-center">
+            <img
+              [src]="item"
+              width="100%"
+              height="100%"
+              style="display: block"
+              loading="lazy"
+            />
+          </div>
+        </ng-template>
+      </p-galleria>
+      } @else {
+        <img [src]="noImage" alt="no image">
+      }
+    </div>
+    <div class="product-overview pr-1 pl-4">
+      <h1 class="mb-5">{{ product().name }}</h1>
+      <div class="price-and-review-block flex justify-content-between mb-4">
+        <div class="price flex">
+          @if (product().promotion_price) {
+            <div class="price font-weight-bold font-25-px">
+              {{ product().promotion_price | number }} Đ -&nbsp;
+            </div>
+          }
+          <div class="price font-weight-bold font-25-px" [class.line-through]="product().promotion_price">
+            {{ product().price | number }} Đ
+          </div>
+        </div>
+        <!-- <div class="review flex">
+          <p-rating [(ngModel)]="product().rate" [stars]="5" [readonly]="true" [cancel]="false" />
+          <div class="total-review ml-2">
+            {{ product().reviews?.length }} reviews
+          </div>
+        </div> -->
+      </div>
+      <div class="size mb-5">
+        <div class="size__header flex justify-content-between mb-4">
+          <div class="left font-weight-bold">Size</div>
+          <div class="right">Size guide ></div>
+        </div>
+        <div class="size-list grid">
+          @for (item of product().sizes; track $index) {
+          <div
+            class="size-item col-1 mr-3 border-radius-6-px cursor-pointer mb-3"
+            [class.active]="isActive === item.size"
+            (click)="isActive = item.size"
+            [class.disable-size]="!item.amount"
+            [class.disable-pointer]="!item.amount"
+          >
+            {{ item.size }}
+          </div>
+          }
+        </div>
+      </div>
+      <div class="quantity">
+        <div class="font-weight-bold mb-3">Quantity</div>
+        <div class="grid">
+          <div class="col-4">
+            <app-input-quantity [(ngModel)]="quantity"></app-input-quantity>
+          </div>
+          <div class="button-add-to-cart col-8">
+            <p-button label="Thêm vào giỏ hàng" class="mr-2" (onClick)="onAddCart()"/>
+            <p-button label="Mua ngay" (onClick)="goPayment()" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-3 mb-3">
+    <p-tabView>
+      <p-tabPanel header="Mô tả">
+        <div [innerHTML]="product().description"></div>
+      </p-tabPanel>
+      <p-tabPanel header="Đánh giá">
+        <h2>Customer Reviews</h2>
+        <h3>Thêm bình luận</h3>
+        <form [formGroup]="form">
+          <p-rating formControlName="star" class="mb-3"/>
+          <div class="comment mt-3">
+            <app-base-input formControlName="comment" placeholder="Nhập bình luận" typeInput="textarea" [rows]="3"></app-base-input>
+          </div>
+          <div class="btn-group flex justify-content-end mt-3">
+            @if (isEditComment()) {
+              <p-button label="Huỷ" severity="secondary" (onClick)="onCancelEditComment()" class="mr-3"/>
+              <p-button label="Sửa" (onClick)="onEditComment()"/>
+            } @else {
+              <p-button label="Submit" (onClick)="onCreateComment()"/>
+            }
+          </div>
+        </form>
+        <p-divider></p-divider>
+        @for (item of comments(); track $index) {
+          <div class="flex justify-content-between">
+            <p-rating [(ngModel)]="item.star" [readonly]="true" [cancel]="false"/>
+            @if (item.can_edit) {
+              <div class="btn-group">
+                <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" (onClick)="onEdit(item)"/>
+                <p-button icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger" (onClick)="onDelete(item.id)"/>
+              </div>
+            }
+          </div>
+          <p>{{ item.comment }}</p>
+          <p>{{ item.full_name }} - {{ item.created_date }}</p>
+        }
+      </p-tabPanel>
+  </p-tabView>
+  </div>
+</div>
+<div class="card mt-3 mb-3 product-others">
+  <app-products-other [products]="productSell()"></app-products-other>
+</div>

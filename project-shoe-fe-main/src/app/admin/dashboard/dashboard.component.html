@@ -1,0 +1,46 @@
+<div class="grid mb-3">
+  <!-- <div class="sm:col-12 md:col-6 lg:col-3 xl:col-3">
+    <div class="card p-5">
+      <div class="header mb-3">Số lượng đơn hàng</div>
+      <div class="text-4xl font-bold text-900">10</div>
+    </div>
+  </div>
+  <div class="sm:col-12 md:col-6 lg:col-3 xl:col-3">
+    <div class="card p-5">
+      <div class="header mb-3">Lợi nhuận</div>
+      <div class="text-4xl font-bold text-900">{{ 10000000 | number }} Đ</div>
+    </div>
+  </div>
+  <div class="sm:col-12 md:col-6 lg:col-3 xl:col-3">
+    <div class="card p-5">
+      <div class="header mb-3">Số lượng sản phẩm đã bán</div>
+      <div class="text-4xl font-bold text-900">{{ 10 }}</div>
+    </div>
+  </div> -->
+  <div class="sm:col-12 md:col-6 lg:col-3 xl:col-3">
+    <div class="card p-5">
+      <div class="header mb-3 text-ellipsis">Số lượng sản phẩm còn lại trong kho</div>
+      <div class="text-4xl font-bold text-900">{{ totalProduct() }}</div>
+    </div>
+  </div>
+</div>
+<div class="grid mb-3">
+  <h3>Doanh thu</h3>
+  <div class="sm:col-12 md:col-12 lg:col-12 xl:col-12">
+    <p-chart type="bar" [data]="dataRevenue" [options]="options" />
+  </div>
+</div>
+
+<div class="grid mb-3">
+  <h3>Thống kê đơn hàng</h3>
+  <div class="sm:col-12 md:col-12 lg:col-12 xl:col-12">
+    <p-chart type="bar" [data]="dataOrder" [options]="optionsDataOrder" />
+  </div>
+</div>
+
+<div class="grid mb-3">
+  <h3>Thống kê hàng nhập</h3>
+  <div class="sm:col-12 md:col-12 lg:col-12 xl:col-12">
+    <p-chart type="bar" [data]="dataImport" [options]="options" />
+  </div>
+</div>

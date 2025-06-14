@@ -1,0 +1,28 @@
+.breadcrumb-custom {
+  .breadcrum-container {
+    width: 60%;
+    margin: auto;
+  }
+}
+
+.guide-shopping-container {
+  .content {
+    width: 60%;
+    margin: auto;
+  }
+}
+
+@media only screen and (max-width: 1500px) {
+  .breadcrumb-custom {
+    .breadcrum-container {
+      width: 90%;
+    }
+  }
+
+  .guide-shopping-container {
+    .content {
+      width: 90%;
+      margin: auto;
+    }
+  }
+}

@@ -1,0 +1,9 @@
+.register-container {
+  width: 500px;
+  margin: auto;
+  height: 100vh;
+
+  ::ng-deep .p-button {
+    width: 100%;
+  }
+}

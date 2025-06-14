@@ -1,0 +1,56 @@
+<div class="input-container">
+  @if (label()) {
+  <div class="label mb-1">
+    <label for="">{{ label() }}</label>
+  </div>
+  }
+  @switch (typeInput()) {
+  @case ('text') {
+  @if (type() === 'text') {
+  <input type="text" [disabled]="isDisabled" pInputText [(ngModel)]="value" [placeholder]="placeholder()" (ngModelChange)="onInput($event)" (blur)="onTouch($event)" [maxlength]="maxLength()"/>
+  }
+  @else {
+  <p-password [(ngModel)]="value" [disabled]="isDisabled" [feedback]="false" [toggleMask]="true" [placeholder]="placeholder()"
+    (ngModelChange)="onInput($event)" (onBlur)="onTouch($event)" [maxlength]="maxLength()"/>
+  }
+  }
+  @case ('iconField') {
+  <p-iconField [iconPosition]="iconPosition()">
+    <p-inputIcon styleClass="{{ 'pi' + ' ' + icon() }}" />
+    @if (type() === 'text') {
+    <input type="text" pInputText [disabled]="isDisabled" [(ngModel)]="value" [placeholder]="placeholder()" (ngModelChange)="onInput($event)"  (blur)="onTouch($event)" [maxlength]="maxLength()"/>
+    }
+    @else {
+    <p-password [(ngModel)]="value" [disabled]="isDisabled" [feedback]="false" [toggleMask]="true" [placeholder]="placeholder()"
+      (ngModelChange)="onInput($event)" (onBlur)="onTouch($event)" [maxlength]="maxLength()"/>
+    }
+  </p-iconField>
+  }
+  @case ('textarea') {
+  <textarea [rows]="rows()" [disabled]="isDisabled" [autoResize]="autoResize()" pInputTextarea [(ngModel)]="value" [placeholder]="placeholder()"
+    (ngModelChange)="onInput($event)" (blur)="onTouch($event)" [maxlength]="maxLength()"></textarea>
+  }
+  @case ('floatLabel') {
+  <p-floatLabel>
+    @if (type() === 'text') {
+    <input type="text" pInputText [disabled]="isDisabled" [(ngModel)]="value" [placeholder]="placeholder()" (ngModelChange)="onInput($event)" (blur)="onTouch($event)" [maxlength]="maxLength()"/>
+    }
+    @else {
+    <p-password [(ngModel)]="value" [disabled]="isDisabled" [feedback]="false" [toggleMask]="true" [placeholder]="placeholder()"
+      (ngModelChange)="onInput($event)" (onBlur)="onTouch($event)" [maxlength]="maxLength()"/>
+    }
+    <label for="">{{ label() }}</label>
+  </p-floatLabel>
+  }
+  @case ("mask") {
+  <p-inputMask [mask]="mask()" [disabled]="isDisabled" [(ngModel)]="value" [placeholder]="mask()" (ngModelChange)="onInput($event)" (blur)="onTouch($event)" [maxlength]="maxLength()"/>
+  }
+  }
+  @if (ngControl.touched && ngControl.errors) {
+    @for (item of errors(); track $index) {
+      <div class="text-error text-error-form position-absolute" *ngIf="ngControl.errors[item.key]">
+        {{ item.message }}
+      </div>
+    }
+  }
+</div>

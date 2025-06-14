@@ -1,0 +1,17 @@
+.profile-container {
+  width: 550px;
+  margin: auto;
+  min-height: 100vh;
+
+  .image {
+    img {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+    }
+  }
+
+  ::ng-deep .p-button {
+    width: 100%;
+  }
+}

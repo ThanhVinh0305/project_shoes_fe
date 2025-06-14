@@ -1,0 +1,76 @@
+<div class="breadcrumb-custom mt-2">
+  <div class="breadcrum-container flex justify-content-between align-items-center">
+    <p-breadcrumb class="max-w-full" [model]="items()" [home]="home" />
+    <p-button label="Bộ lọc" [outlined]="true" severity="secondary" icon="pi pi-sliders-v" iconPos="right"
+      (onClick)="visible = !visible" />
+  </div>
+</div>
+<div class="sort-container">
+
+</div>
+<div class="product-list-container grid">
+  @for (product of products(); track product.id) {
+  <div class="px-2 col-12 md:col-6 lg:col-4 xl:col-3">
+    <div class="product-item card cursor-pointer" routerLink="/product" [queryParams]="{ id: product.id}">
+      <div class="image mb-2">
+        <img [src]="product.images && product.images[0] ? product.images[0].attachment : ''" alt="">
+      </div>
+      <div class="content">
+        <div class="content__name flex justify-content-between align-items-start mb-2">
+          <div class="text-ellipsis">{{ product.name }}</div>
+          <!-- <div class="flex align-items-center">
+            <p-rating [(ngModel)]="rating" [stars]="1" [readonly]="true" [cancel]="false" />
+            <div class="ml-1">{{ product.rate | number: '1.1-1' }}</div>
+          </div> -->
+        </div>
+        <b class="price-color">{{ product.price | number:'1.0-0' }} Đ</b>
+      </div>
+    </div>
+  </div>
+  }
+</div>
+<div class="pagenation mb-4">
+  <p-paginator (onPageChange)="onPageChange($event)" [first]="first()" [rows]="rows()" [totalRecords]="totalRecords()"
+    [rowsPerPageOptions]="rowsPerPageOptions"/>
+</div>
+<p-dialog header="Tìm kiếm sản phẩm" [modal]="true" [(visible)]="visible" [style]="{ width: '50%' }">
+  <div class="search-product-container">
+    <form [formGroup]="form">
+      <div class="mb-3 mt-3">
+        <p-dropdown [options]="suppliers()" [style]="{ 'width': '100%'}" optionValue="id" formControlName="brand" placeholder="Chọn thương hiệu" optionLabel="name"
+          [showClear]="true" />
+      </div>
+      <div class="mb-3">
+        <p-dropdown [options]="categories()" [style]="{ 'width': '100%'}" optionValue="id" formControlName="categories" placeholder="Chọn danh mục" optionLabel="name"
+          [showClear]="true" />
+      </div>
+      <div class="mb-3">
+        <app-base-input formControlName="code" placeholder="Tìm kiếm mã sản phẩm"></app-base-input>
+      </div>
+      <div class="mb-3">
+        <app-base-input formControlName="name" placeholder="Tìm kiếm theo tên"></app-base-input>
+      </div>
+      <div class="mb-3">
+        <div class="mb-2">
+          <label for="">Khoảng giá</label>
+        </div>
+        <div>
+          <p-slider formControlName="range" [range]="true" [min]="0" [max]="10000000" [animate]="true"
+            [step]="500000" />
+        </div>
+        <div class="flex justify-content-between mb-3">
+          <div>
+            {{ (form.controls['range'] && form.controls['range'].value ? form.controls['range'].value[0] : 0) | number}}
+            Đ</div>
+          <div>
+            {{ (form.controls['range'] && form.controls['range'].value ? form.controls['range'].value[1] : 10000000) | number}}
+            Đ</div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="btn-group flex justify-content-end">
+    <p-button label="Hủy" [outlined]="true" severity="secondary" class="mr-2" (onClick)="visible = !visible" />
+    <p-button label="Tìm kiếm" (onClick)="onSearchProduct()" />
+  </div>
+</p-dialog>

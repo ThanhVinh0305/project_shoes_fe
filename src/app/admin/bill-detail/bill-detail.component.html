@@ -1,0 +1,46 @@
+<div class="btn-group flex justify-content-end mb-3">
+  <p-button label="Hủy" severity="secondary" class="mr-3" (onClick)="goBillManagement()"/>
+  @if (bill().status === 0) {
+    <p-button label="Hủy đơn hàng" severity="danger" class="mr-3" (onClick)="onCancelBill()"/>
+    <p-button label="Xác nhận đơn hàng" (onClick)="confirmBill()"/>
+  }
+</div>
+<div class="order card mb-3 p-0">
+  <div class="header flex">
+    <!-- <div class="col p-3 border-right-1-px">
+      <div>Mã đơn hàng</div>
+      <div>{{ bill().id }}</div>
+    </div> -->
+    <div class="col p-3 border-right-1-px">
+      <div>Ngày đặt hàng</div>
+      <div>{{ bill().created_date | date : "dd-MM-yyyy" }}</div>
+    </div>
+    <div class="col p-3">
+      <div>Tổng tiền</div>
+      <div>{{ bill().total | number }} Đ</div>
+    </div>
+  </div>
+  @for (product of bill().products; track $index) {
+  <div class="product flex p-3">
+    <div class="image">
+      <img
+        class="border-round"
+        [src]="
+          product.images && product.images[0]
+            ? product.images[0].attachment
+            : noImage
+        "
+        [alt]="product.name"
+      />
+    </div>
+    <div class="description ml-3">
+      <div class="font-weight-bold font-18-px mb-2">
+        {{ product.product?.name || "" }}
+      </div>
+      <div class="mb-1">Size: {{ product.size }}</div>
+      <div class="mb-2">Giá: {{ product.price | number }} Đ</div>
+      <!-- <p-button label="Mua lại" [outlined]="true" (onClick)="goPayment(product)"/> -->
+    </div>
+  </div>
+  }
+</div>

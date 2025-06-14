@@ -1,0 +1,48 @@
+@import "../../@themes/variable.scss";
+
+.order-history-container {
+  width: 60%;
+  margin: auto;
+
+  .order {
+    .header {
+      background-color: $background-color-header-card;
+      .col {
+        
+      }
+    }
+  }
+
+  .product {
+    .image {
+      width: 111px;
+      height: 111px;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  .function {
+    .col {
+      cursor: pointer;
+      color: $primary-color;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .col:hover {
+      background-color: $primary-color;
+      color: $white;
+    }
+  }
+}
+
+@media only screen and (max-width: 1500px) {
+  .order-history-container {
+    width: 90%;
+    margin: auto;
+  }
+}

@@ -1,0 +1,56 @@
+<div class="header-container">
+  <div class="header-top-container">
+    <div class="grid header-top pd-10-px">
+      <div class="col-4 contact flex align-items-center">
+        <div class="mr-5-px">
+        </div>
+        <div class="mr-5-px">Bán hàng online: </div>
+        <div><b>19002192</b></div>
+      </div>
+      <div class="col-4 flex justify-content-center">
+        <img src="./assets/images/vugia.png" width="176px" height="56px">
+      </div>
+      <div class="col-4 flex justify-content-end align-items-center">
+        @if (currentUser()) {
+          <div class="user flex justify-content-center align-items-center mr-3 cursor-pointer" (click)="sidebarVisible = !sidebarVisible">
+            <img src="../../../assets/images/IDR_PROFILE_AVATAR_27@1x.png" alt="avatar" class="mr-2">
+            <div class="font-17-px">Xin chào {{ currentUser()?.first_name + ' '}} {{ currentUser()?.last_name }}</div>
+          </div>
+        } @else {
+          <div class="login-container flex align-items-center mr-3">
+            <div class="login mr-3">
+              <a routerLink="/login">Đăng nhập</a>
+            </div>
+            <div class="register">
+              <a routerLink="/register">Đăng ký</a>
+            </div>
+          </div>
+        }
+        <i class="pi pi-shopping-cart font-25-px cursor-pointer" pBadge [value]="cart()?.products?.length || 0" (click)="goCart()"></i>
+      </div>
+    </div>
+  </div>
+  <div class="header-menu">
+    <div class="grid header-menu-container pd-10-px">
+      <div class="col-7 menu-nav flex align-items-center justify-content-between">
+        <div class="menu-nav-item" routerLink="/home">Home</div>
+        @for (item of categories(); track $index) {
+          @if ($index < 4) {
+            <div class="menu-nav-item" routerLink="/products" [queryParams]="{ category: item.id }">{{ item.name }}</div>
+          }
+        }
+      </div>
+    </div>
+  </div>
+</div>
+<p-sidebar [(visible)]="sidebarVisible" position="right" [dismissible]="false">
+  <h3 class="mb-6">Xin chào {{ currentUser()?.first_name + ' '}} {{ currentUser()?.last_name }}</h3>
+  <div class="menu-item-container">
+    @for (item of menus; track $index) {
+      <div class="menu-item flex mb-3 p-3 cursor-pointer border-1-px border-radius-6-px" [routerLink]="item.routerLink" (click)="onClick(item.command)">
+        <div class="mr-2"><i [class]="item.icon"></i></div>
+        <div>{{ item.label }}</div>
+      </div>
+    }
+  </div>
+</p-sidebar>

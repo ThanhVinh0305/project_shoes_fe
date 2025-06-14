@@ -1,0 +1,30 @@
+p {
+  font-family: Lato;
+}
+.dropzone {
+  min-height: 150px;
+  width: 100%;
+  display: table;
+  width: 100%;
+  background-color: #eee;
+  border: dotted 1px #aaa;
+  border-radius: 6px;
+}
+
+.text-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.centered {
+  font-family: sans-serif;
+  font-size: 1.3em;
+  font-weight: bold;
+  text-align:center;
+}
+
+::ng-deep .btn-upload {
+  .p-button {
+    width: 100%;
+  }
+}

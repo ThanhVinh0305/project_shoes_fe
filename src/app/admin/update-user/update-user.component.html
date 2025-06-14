@@ -1,0 +1,58 @@
+<div class="header flex justify-content-between mb-3">
+  <div>{{ isEdit() ? 'Thêm mới' : 'Chỉnh sửa' }} người dùng</div>
+  <div class="btn-group">
+    <p-button label="Huỷ" severity="secondary" class="mr-3" (onClick)="goReturn()"/>
+    <p-button label="{{ isEdit() ? 'Lưu' : 'Thêm mới' }}" (onClick)="onSave()"/>
+  </div>
+</div>
+<form [formGroup]="form">
+  @if (!isEdit()) {
+    <div class="username mb-4">
+      <app-base-input formControlName="username" placeholder="Tên đăng nhập" icon="pi-user"
+        [errors]="[{ key: 'required', message: 'Tên đăng nhập không được để trống'}]"></app-base-input>
+    </div>
+    <div class="password mb-4">
+      <app-base-input formControlName="password" placeholder="Mật khẩu" type="password" icon="pi-lock"
+        [errors]="[{ key: 'required', message: 'Mật khẩu không được để trống'}]"></app-base-input>
+    </div>
+    <div class="confirm-password mb-4">
+      <app-base-input formControlName="confirmPassword" placeholder="Nhập lại mật khẩu" type="password" icon="pi-lock"
+        [errors]="[{ key: 'required', message: 'Mật khẩu không được để trống'}]"></app-base-input>
+    </div>
+  }
+  <div class="mb-4 flex">
+    <div class="mr-1 w-50-percent">
+      <app-base-input formControlName="first_name" placeholder="Họ"
+        [errors]="[{ key: 'required', message: 'Họ không được để trống'}]"></app-base-input>
+    </div>
+    <div class="ml-1 w-50-percent">
+      <app-base-input formControlName="last_name" placeholder="Tên"
+        [errors]="[{ key: 'required', message: 'Tên không được để trống'}]"></app-base-input>
+    </div>
+  </div>
+  <div class="mb-4">
+    <app-base-input formControlName="phone_number" placeholder="Số điện thoại"
+      [errors]="[{ key: 'required', message: 'Số điện thoại không được để trống'}]"></app-base-input>
+  </div>
+  <div class="mb-4">
+    <app-base-input formControlName="email" placeholder="Email"
+      [errors]="[{ key: 'required', message: 'Email không được để trống'}, { key: 'email', message: 'Sai định dạng email' }]">
+    </app-base-input>
+  </div>
+  <div class="mb-4">
+    <app-base-input formControlName="address" placeholder="Địa chỉ" typeInput="textarea"
+      [errors]="[{ key: 'required', message: 'Địa chỉ không được để trống'}]">
+    </app-base-input>
+  </div>
+  @if (this.isEdit()) {
+    <div class="mb-4">
+      <p-dropdown
+      [options]="ROLES"
+      formControlName="role"
+      optionLabel="name"
+      optionValue="value"
+      [style]="{ 'width': '100%'}"
+      placeholder="Select role" />
+    </div>
+  }
+</form>

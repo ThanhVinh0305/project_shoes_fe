@@ -1,0 +1,34 @@
+<div class="flex justify-content-between align-items-center mb-3">
+  <div class="header font-18-px font-bold">
+    Tạo mới danh mục
+  </div>
+  <div class="btn-group">
+    <p-button label="Huỷ" severity="secondary" class="mr-3" (onClick)="goReturn()"/>
+    <p-button label="{{ isEdit() ? 'Lưu' : 'Thêm mới' }}" (onClick)="onSave()"/>
+  </div>
+</div>
+<form [formGroup]="form">
+  <div class="grid">
+    <div class="col-12 md:col-12 lg:col-12 xl:col-12">
+      <div class="mb-3">
+        <app-base-input formControlName="name" placeholder="Tên danh mục"
+          [errors]="[{key: 'required', message:  'Tên danh mục không được bỏ trống.'}]"></app-base-input>
+      </div>
+    </div>
+    <div class="col-12 md:col-12 lg:col-12 xl:col-12">
+      <div class="mb-3">
+        <app-base-input formControlName="router_link" placeholder="Mô tả" typeInput="textarea"
+          [errors]="[{key: 'required', message:  'Mô tả danh mục không được bỏ trống.'}]"></app-base-input>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3 flex align-items-center">
+    Ảnh đại diện cho danh mục
+    <p-button label="Upload" icon="pi pi-upload" severity="secondary" class="ml-3" (onClick)="visible = !visible"/>
+  </div>
+  <app-file-upload [visible]="visible" (visibleChange)="onVisibleChange($event)"
+    (urlFile)="selectUrlFile($event)"></app-file-upload>
+  @if (image()) {
+    <p-image [src]="image()" alt="Image" width="250" height="250" [preview]="true" />
+  }
+</form>

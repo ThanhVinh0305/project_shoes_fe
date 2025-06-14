@@ -1,0 +1,25 @@
+<div class="flex justify-content-between align-items-center mb-3">
+  <div class="header font-18-px font-bold">
+    {{ isEdit() ? 'Cập nhật' : 'Tạo mới' }} nhà cung cấp
+  </div>
+  <div class="btn-group">
+    <p-button label="Huỷ" severity="secondary" class="mr-3" (onClick)="goReturn()"/>
+    <p-button label="{{ isEdit() ? 'Lưu' : 'Thêm mới' }}" (onClick)="onSave()"/>
+  </div>
+</div>
+<form [formGroup]="form">
+  <div>
+    <div class="mb-4">
+      <app-base-input formControlName="name" placeholder="Tên nhà cung cấp"
+        [errors]="[{key: 'required', message:  'Tên nhà cung cấp không được bỏ trống.'}]"></app-base-input>
+    </div>
+    <div class="mb-4">
+      <app-base-input formControlName="phone_number" placeholder="Số điện thoại"
+        [errors]="[{key: 'required', message:  'Số điện thoại nhà cung cấp không được bỏ trống.'}]"></app-base-input>
+    </div>
+    <div class="mb-4">
+      <app-base-input formControlName="address" placeholder="Địa chỉ" typeInput="textarea" [maxLength]="2000"
+        [errors]="[{key: 'required', message:  'Địa chỉ nhà cung cấp không được bỏ trống.'}]"></app-base-input>
+    </div>
+  </div>
+</form>

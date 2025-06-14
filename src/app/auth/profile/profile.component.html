@@ -1,0 +1,42 @@
+<div class="profile-container flex align-items-center">
+  <div class="card w-100-percent">
+    <div class="image flex justify-content-center">
+      <img src="../../../assets/images/IDR_PROFILE_AVATAR_27@1x.png" alt="">
+    </div>
+    <h1 class="text-align-center">Thông tin cá nhân</h1>
+    <form [formGroup]="form">
+      <div class="mb-4 flex">
+        <div class="mr-1 w-50-percent">
+          <app-base-input formControlName="first_name" placeholder="Họ"
+            [errors]="[{ key: 'required', message: 'Họ không được để trống'}]"></app-base-input>
+        </div>
+        <div class="ml-1 w-50-percent">
+          <app-base-input formControlName="last_name" placeholder="Tên"
+            [errors]="[{ key: 'required', message: 'Tên không được để trống'}]"></app-base-input>
+        </div>
+      </div>
+      <div class="mb-4">
+        <app-base-input formControlName="phone_number" placeholder="Số điện thoại"
+          [errors]="[{ key: 'required', message: 'Số điện thoại không được để trống'}]"></app-base-input>
+      </div>
+      <div class="mb-4">
+        <app-base-input formControlName="email" placeholder="Email"
+          [errors]="[{ key: 'required', message: 'Email không được để trống'}, { key: 'email', message: 'Sai định dạng email' }]">
+        </app-base-input>
+      </div>
+      <div class="mb-4">
+        <app-base-input formControlName="address" placeholder="Địa chỉ" typeInput="textarea"
+          [errors]="[{ key: 'required', message: 'Địa chỉ không được để trống'}]">
+        </app-base-input>
+      </div>
+      <div class="btn-group flex justify-content-between">
+        @if (!isEdit()) {
+          <p-button label="Chỉnh sửa thông tin cá nhân" type="Submit" (onClick)="editProfile()"/>
+        } @else {
+          <p-button label="Lưu" type="Submit" (onClick)="onSave()"/>
+        }
+        <p-button label="Quay lại trang chủ" type="Submit" (onClick)="goHome()"/>
+      </div>
+    </form>
+  </div>
+</div>

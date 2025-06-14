@@ -1,0 +1,66 @@
+@import "../../@themes/variable.scss";
+
+.header-container {
+  .header-top-container {
+    .header-top {
+      width: 60%;
+      margin: auto;
+    }
+
+    .user {
+      img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .header-menu {
+    padding: 0.5rem 0.5rem;
+    background: #ffffff;
+    color: #334155;
+    border: 1px solid #e2e8f0;
+
+    .header-menu-container {
+      width: 60%;
+      margin: auto;
+
+      .menu-bar {
+        border-left: 1px solid $primary-color;
+        border-right: 1px solid $primary-color;
+      }
+
+      .menu-nav {
+        .menu-nav-item {
+          padding: 0 0.5rem 0 0.5rem;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+.menu-item-container {
+  .menu-item:hover {
+    background-color: #f1f5f9;
+  }
+}
+
+@media only screen and (max-width: 1500px) {
+  .header-container {
+    .header-top-container {
+      .header-top {
+        width: 90%;
+      }
+    }
+
+    .header-menu {
+
+      .header-menu-container {
+        width: 90%;
+        margin: auto;
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+<p-dialog header="Upload Image" [modal]="true" [(visible)]="visible" [style]="{ width: '500px' }">
+  <div class="dropzone cursor-pointer flex flex-column justify-content-center align-items-center" dragAndDropFile (file)="outputFile($event)" (click)="onSelectImage()">
+    @if (!file) {
+      <div class="flex flex-column w-full h-full justify-content-center align-items-center"><i
+        class="pi pi-file text-4xl text-primary"></i><span class="block font-semibold text-900 text-lg mt-3">Drop or
+        select images</span></div>
+    } @else {
+      <div class="font-semibold text-900 text-lg mb-3">{{ file.name }}</div>
+    }
+  </div>
+  @if (file) {
+    <div class="mt-2 btn-upload">
+      <p-button label="Upload" (onClick)="uploadImage()" />
+    </div>
+  }
+</p-dialog>

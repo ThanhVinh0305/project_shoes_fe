@@ -1,0 +1,17 @@
+<div class="dialog-delete-container">
+  <div class="text-center mb-3">
+    <i class="{{ icon() + (icon() === 'pi pi-trash' ? ' text-danger' : '') + ' font-100-px' }}"></i>
+  </div>
+  <div class="text-center mb-3">
+    <p>{{ confirmText() }}</p>
+  </div>
+  <div class="btn-group flex">
+    <div class="btn-cancel col-6">
+      <p-button label="Hủy" severity="secondary" (onClick)="onCancel()" />
+    </div>
+    <div class="btn-confirm col-6">
+      <p-button [label]="confirmLabelButton()" (onClick)="onConfirm()" />
+    </div>
+  </div>
+</div>
+

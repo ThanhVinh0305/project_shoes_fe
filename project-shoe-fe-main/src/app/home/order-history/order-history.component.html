@@ -1,0 +1,71 @@
+<div class="order-history-container pt-4">
+  <div class="card">
+    <div class="font-weight-bold font-20-px text-align-center mb-3">
+      Danh sách đơn hàng đã mua
+    </div>
+    @for (item of orders(); track $index) {
+    <div class="order card mb-3 p-0">
+      <div class="header flex">
+        <div class="col p-3 border-right-1-px">
+          <div>Mã đơn hàng</div>
+          <div>{{ item.id }}</div>
+        </div>
+        <div class="col p-3 border-right-1-px">
+          <div>Ngày đặt hàng</div>
+          <div>{{ item.created_date | date : "dd-MM-yyyy" }}</div>
+        </div>
+        <div class="col p-3">
+          <div>Tổng tiền</div>
+          <div>{{ item.total | number }} Đ</div>
+        </div>
+      </div>
+      @for (product of item.products; track $index) {
+      <div class="product flex p-3">
+        <div class="image">
+          <img
+            class="border-round"
+            [src]="
+              product.product && product.product.images && product.product.images[0]
+                ? product.product.images[0].attachment
+                : noImage
+            "
+            [alt]="product.name"
+          />
+        </div>
+        <div class="description ml-3">
+          <div class="font-weight-bold font-18-px mb-2">
+            <a
+              routerLink="/product"
+              [queryParams]="{ id: product.product_id }"
+              >{{ product.product?.name || "" }}</a
+            >
+          </div>
+          <div class="mb-1">Size: {{ product.size }}</div>
+          <div class="mb-2">Giá: {{ product.product?.promotion_price || product.product?.price | number }} Đ</div>
+          <p-button label="Mua lại" [outlined]="true" (onClick)="goPayment(product)"/>
+        </div>
+      </div>
+      }
+      <div
+        class="flex function text-align-center border-top-1-px align-items-center"
+      >
+        <div class="col" (click)="onRepurchase(item)">
+          <i class="pi pi-folder ml-1"></i> Mua lại đơn hàng
+        </div>
+        <!-- <div class="col"><i class="pi pi-undo ml-1"></i> Trả lại đơn hàng</div> -->
+        <!-- <div class="col" (click)="onGoDetail(item.id)">
+          <i class="pi pi-file ml-1"></i> Xem chi tiết đơn hàng
+        </div>
+        <div class="col"><i class="pi pi-comment ml-1"></i> Đánh giá</div> -->
+      </div>
+    </div>
+    }
+    <p-paginator
+      (onPageChange)="onPageChange($event)"
+      [first]="first()"
+      [rows]="rows()"
+      [totalRecords]="totalRecords()"
+      [rowsPerPageOptions]="rowsPerPageOptions"
+    />
+  </div>
+</div>
