@@ -86,7 +86,22 @@ export class AuthenticationService {
   }
 
   login(data: LoginBody, currentUrl?: string) {
-    this.httpService.post('/auth/login', { data: data, ignoreAuthToken: true })
+    // Đảm bảo không gửi null lên backend
+    const payload: LoginBody = {
+      username: data.username?.trim() || '',
+      password: data.password || ''
+    };
+
+    if (!payload.username || !payload.password) {
+      this.messageService.showMessage({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Tên đăng nhập và mật khẩu không được bỏ trống'
+      });
+      return;
+    }
+
+    this.httpService.post('/auth/login', { data: payload, ignoreAuthToken: true })
     .pipe(map(result => result.data))
     .subscribe((res: LoginResponse) => {
       this.saveToken(res);

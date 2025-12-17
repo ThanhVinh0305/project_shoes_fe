@@ -2,6 +2,8 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { BadgeModule } from "primeng/badge";
 import { MenuModule } from "primeng/menu";
+import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
 import { BaseComponent } from '../../@core/base/base.component';
 import { User } from '../../@core/models/auth.model';
 import { ImportModule } from '../../@themes/import.theme';
@@ -15,7 +17,9 @@ import { Category } from '../../@core/models/product.model';
   imports: [
     BadgeModule,
     MenuModule,
-    ImportModule
+    ImportModule,
+    FormsModule,
+    InputTextModule
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
@@ -60,6 +64,7 @@ export class HeaderComponent extends BaseComponent implements OnInit {
     }
   ];
   categories = signal<Category[]>([]);
+  searchText = '';
 
   ngOnInit(): void {
     this.rxSubscribe(this.authenticationService.getCurrentUserObservable(), (currentUser) => {
@@ -94,6 +99,14 @@ export class HeaderComponent extends BaseComponent implements OnInit {
   onClick(command: (() => void) | undefined) {
     if (command) {
       command();
+    }
+  }
+
+  onSearch() {
+    if (this.searchText.trim()) {
+      this.router.navigate(['/products'], {
+        queryParams: { name: this.searchText.trim() }
+      });
     }
   }
 }

@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { BaseComponent } from "../../@core/base/base.component";
 import { BaseInputComponent } from "../../@components/base-input/base-input.component";
 import { User } from "../../@core/models/auth.model";
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
   selector: 'app-profile',
@@ -12,19 +13,30 @@ import { User } from "../../@core/models/auth.model";
   styleUrl: './profile.component.scss',
   imports: [
     ImportModule,
-    BaseInputComponent
+    BaseInputComponent,
+    DropdownModule
   ]
 })
 export class ProfileComponent extends BaseComponent implements OnInit {
   isEdit = signal(false);
-  form!: FormGroup<{
-    first_name: FormControl<string | null>;
-    last_name: FormControl<string | null>;
-    phone_number: FormControl<string | null>;
-    email: FormControl<string | null>;
-    address: FormControl<string | null>;
-  }>;
-  user = signal<User | undefined>(undefined)
+  form!: FormGroup;
+  user = signal<User | undefined>(undefined);
+
+  // Mapping từ database (1=Nữ, 2=Nam, 3=Unisex) sang options cho dropdown khi edit
+  genderOptions = [
+    { label: 'Nữ', value: 1 },
+    { label: 'Nam', value: 2 },
+    { label: 'Unisex', value: 3 }
+  ];
+
+  // Hiển thị gender_name từ API, nếu không có thì hiển thị "Chưa cập nhật"
+  getGenderDisplayText(): string {
+    const genderName = this.user()?.gender_name;
+    if (genderName && genderName.trim()) {
+      return genderName;
+    }
+    return 'Chưa cập nhật';
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -41,6 +53,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       phone_number: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       address: ['', [Validators.required]],
+      gender_id: [null, [Validators.required]],
     })
     if (!this.isEdit()) {
       this.form.disable();

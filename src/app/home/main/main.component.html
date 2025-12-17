@@ -1,50 +1,241 @@
-<div class="banner">
-  <div class="image">
-    <img src="../../../assets/images/image-banner.jpg" alt="banner"
-    width="100%" height="100%">
-  </div>
-  <div class="text">
-    <div class="font-weight-bold font-70-px mb-5">Nâng niu mỗi bước đi của bạn</div>
-    <div class="font-weight-bold font-35-px">Nâng tầm vẻ đẹp cho đôi chân của bạn</div>
+<!-- Banner section: 1 box lớn + 2 box nhỏ -->
+<div class="banner-section">
+  <div class="banner-container">
+    <!-- Box lớn - Carousel banner -->
+    <div class="banner-large">
+      <div class="carousel-wrapper">
+        <div class="carousel-container" [style.transform]="'translateX(-' + currentSlide() * 100 + '%)'">
+          @for (banner of banners(); track $index) {
+            <div class="carousel-slide">
+              <img [src]="banner" alt="Banner {{ $index + 1 }}" class="banner-image">
+            </div>
+          }
+        </div>
+        <!-- Navigation buttons -->
+        <button class="carousel-btn carousel-btn-prev" (click)="prevSlide()">
+          <i class="pi pi-chevron-left"></i>
+        </button>
+        <button class="carousel-btn carousel-btn-next" (click)="nextSlide()">
+          <i class="pi pi-chevron-right"></i>
+        </button>
+        <!-- Dots indicator -->
+        <div class="carousel-dots">
+          @for (banner of banners(); track $index) {
+            <span 
+              class="dot" 
+              [class.active]="currentSlide() === $index"
+              (click)="goToSlide($index)"
+            ></span>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 box nhỏ chồng lên nhau -->
+    <div class="banner-small-container">
+      @for (smallBanner of smallBanners(); track $index) {
+        <div class="banner-small">
+          <img [src]="smallBanner" [alt]="'Banner nhỏ ' + ($index + 1)" class="small-banner-image">
+        </div>
+      }
+    </div>
   </div>
 </div>
-<div class="slogan flex pd-1-rem justify-content-center">
-  <div class="font-weight-500">Tất cả sản phẩm đều được bảo hành 12 Tháng —</div>
-  <div>Đền 10 Lần giá trị đơn hàng nếu không phải hàng thật!</div>
+
+<!-- Thương hiệu section -->
+<div class="brand-section">
+  <div class="brand-container">
+    <h2 class="brand-title">Thương hiệu</h2>
+    <div class="brand-grid">
+      @for (brand of brands(); track brand.id) {
+        <div class="brand-item cursor-pointer" (click)="goToBrand(brand.id)">
+          <div class="brand-image-wrapper">
+            <img [src]="brand.image || noImage" [alt]="brand.name" class="brand-image">
+          </div>
+          <div class="brand-name">{{ brand.name }}</div>
+        </div>
+      }
+    </div>
+  </div>
 </div>
 
-<div class="product-category-container mb-6">
-  <h2 class="product-category-header flex justify-content-center">Danh mục sản phẩm</h2>
+<!-- 1. Sale section - Sản phẩm đang giảm giá (đầu tiên) -->
+@if (saleProducts().length > 0) {
+<div class="sale-section">
+  <div class="sale-container">
+    <div class="sale-title-row">
+      <h2 class="sale-title">Sản phẩm đang giảm giá</h2>
+      @if (saleCountdownTime()) {
+      <div class="sale-timer-inline">Kết thúc sau <span>{{ saleCountdownTime() }}</span></div>
+      }
+    </div>
+    <div class="sale-products-wrapper">
+      <button class="sale-nav-btn sale-nav-prev" (click)="scrollSaleProducts('prev')">
+        <i class="pi pi-chevron-left"></i>
+      </button>
+      <div class="sale-products-container" #saleProductsContainer>
+        <div class="sale-products-list" [style.transform]="'translateX(-' + saleScrollPosition() + 'px)'">
+          @for (product of saleProducts(); track product.id) {
+            <div class="sale-product-item">
+              <div class="product-card" routerLink="/product" [queryParams]="{ id: product.id }">
+                <div class="product-image">
+                  <img [src]="product.images && product.images[0] ? product.images[0].attachment : noImage" [alt]="product.name">
+                </div>
+                <div class="product-info">
+                  <div class="product-name">{{ product.name }}</div>
+                  <div class="product-price">
+                    @if (product.promotion_price) {
+                      <span class="promotion-price">{{ product.promotion_price | number:'1.0-0' }} Đ</span>
+                      <span class="original-price">{{ product.price | number:'1.0-0' }} Đ</span>
+                    } @else {
+                      <span class="current-price">{{ product.price | number:'1.0-0' }} Đ</span>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+      <button class="sale-nav-btn sale-nav-next" (click)="scrollSaleProducts('next')">
+        <i class="pi pi-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
+}
 
-  <div class="product-category-list grid mb-3">
-    @for (item of categories(); track $index) {
-      <div class="product-category-item cursor-pointer col-12 md:col-6 lg:col-4 xl:col-3" routerLink="/products" [queryParams]="{ category: item.id }">
-        <div class="image-container">
-          <img [src]="item.image" [alt]="item.name" width="100%" height="100%">
+<!-- 2. Lượt xem cao nhất - chỉ hiện khi đăng nhập (thứ 2) -->
+@if (currentUserBase) {
+<div class="sale-section">
+  <div class="sale-container">
+    <h2 class="sale-title">Lượt xem cao nhất</h2>
+    @if (mostViewedProducts().length > 0) {
+      <div class="sale-products-wrapper">
+        <button class="sale-nav-btn sale-nav-prev" (click)="scrollMostViewedProducts('prev')">
+          <i class="pi pi-chevron-left"></i>
+        </button>
+        <div class="sale-products-container" #mostViewedContainer>
+          <div class="sale-products-list" [style.transform]="'translateX(-' + mostViewedScrollPosition() + 'px)'">
+            @for (product of mostViewedProducts(); track product.id) {
+              <div class="sale-product-item">
+                <div class="product-card" routerLink="/product" [queryParams]="{ id: product.id }">
+                  <div class="product-image">
+                    <img [src]="product.images && product.images[0] ? product.images[0].attachment : noImage" [alt]="product.name">
+                  </div>
+                  <div class="product-info">
+                    <div class="product-name">{{ product.name }}</div>
+                    @if ((product.view_count ?? product.viewCount) !== undefined && (product.view_count ?? product.viewCount) !== null) {
+                      <div class="product-view-count">
+                        <i class="pi pi-eye"></i> Đã xem: {{ (product.view_count ?? product.viewCount) | number:'1.0-0' }} lần
+                      </div>
+                    }
+                    <div class="product-price">
+                      @if (product.promotion_price) {
+                        <span class="promotion-price">{{ product.promotion_price | number:'1.0-0' }} Đ</span>
+                        <span class="original-price">{{ product.price | number:'1.0-0' }} Đ</span>
+                      } @else {
+                        <span class="current-price">{{ product.price | number:'1.0-0' }} Đ</span>
+                      }
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
         </div>
-        <div class="content">
-          <a><b class="cursor-pointer">{{ item.name }}</b></a>
-        </div>
+        <button class="sale-nav-btn sale-nav-next" (click)="scrollMostViewedProducts('next')">
+          <i class="pi pi-chevron-right"></i>
+        </button>
+      </div>
+    } @else {
+      <div class="empty-message">
+        <p>Chưa có gợi ý. Backend trả về rỗng hoặc bạn chưa đủ lượt xem.</p>
       </div>
     }
   </div>
 </div>
-
-@if (productPromotions().length) {
-  <div class="product-sell mt-3 mb-6">
-    <div class="font-weight-bold font-25-px mb-4 text-align-center">Sản phẩm khuyến mại</div>
-    <app-products-other [products]="productPromotions()"></app-products-other>
-    <div class="font-weight-bold font-25-px mb-4 text-align-center">
-      <!-- <a class="cursor-pointer text-primary" [routerLink]="['/products']">Xem tất cả sản phẩm khuyến mại</a> -->
-    </div>
-  </div>
 }
 
-<div class="product-sell mt-3 mb-6">
-  <div class="font-weight-bold font-25-px mb-4 text-align-center">Danh sách sản phẩm</div>
-  <app-products-other [products]="productSell()"></app-products-other>
-  <div class="font-weight-bold font-25-px mb-4 text-align-center">
-    <a class="cursor-pointer text-primary">Xem tất cả sản phẩm</a>
+<!-- 3. Top Tìm Kiếm - chỉ hiện khi đăng nhập (thứ 3) - ĐÃ COMMENT -->
+<!-- @if (currentUserBase) {
+<div class="sale-section">
+  <div class="sale-container">
+    <h2 class="sale-title">Top Tìm Kiếm</h2>
+    @if (topSearchProducts().length > 0) {
+      <div class="sale-products-wrapper">
+        <button class="sale-nav-btn sale-nav-prev" (click)="scrollHorizontal(topSearchContainer, 'prev')">
+          <i class="pi pi-chevron-left"></i>
+        </button>
+        <div class="sale-products-container" #topSearchContainer>
+          <div class="sale-products-list">
+            @for (product of topSearchProducts(); track product.id) {
+              <div class="sale-product-item">
+                <div class="product-card" routerLink="/product" [queryParams]="{ id: product.id }">
+                  <div class="product-image">
+                    <img [src]="product.images && product.images[0] ? product.images[0].attachment : noImage" [alt]="product.name">
+                  </div>
+                  <div class="product-info">
+                    <div class="product-name">{{ product.name }}</div>
+                    <div class="product-price">
+                      @if (product.promotion_price) {
+                        <span class="promotion-price">{{ product.promotion_price | number:'1.0-0' }} Đ</span>
+                        <span class="original-price">{{ product.price | number:'1.0-0' }} Đ</span>
+                      } @else {
+                        <span class="current-price">{{ product.price | number:'1.0-0' }} Đ</span>
+                      }
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+        <button class="sale-nav-btn sale-nav-next" (click)="scrollHorizontal(topSearchContainer, 'next')">
+          <i class="pi pi-chevron-right"></i>
+        </button>
+      </div>
+    } @else {
+      <div class="empty-message">
+        <p>Chưa có gợi ý. Bạn cần tìm kiếm ít nhất 40 lần để nhận gợi ý.</p>
+      </div>
+    }
+  </div>
+</div>
+} -->
+
+<!-- 4. Gợi ý hôm nay - dạng lưới (cuối cùng) -->
+<div class="suggest-section">
+  <div class="suggest-container">
+    <h2 class="suggest-title">Gợi ý hôm nay</h2>
+    @if (todayProducts().length > 0) {
+      <div class="suggest-grid">
+        @for (product of todayProducts(); track product.id) {
+          <div class="suggest-item">
+            <div class="suggest-card" routerLink="/product" [queryParams]="{ id: product.id }">
+              <div class="suggest-image">
+                <img [src]="product.images && product.images[0] ? product.images[0].attachment : noImage" [alt]="product.name">
+              </div>
+              <div class="suggest-info">
+                <div class="suggest-name">{{ product.name }}</div>
+                <div class="suggest-price">
+                  @if (product.promotion_price) {
+                    <span class="promotion-price">{{ product.promotion_price | number:'1.0-0' }} Đ</span>
+                    <span class="original-price">{{ product.price | number:'1.0-0' }} Đ</span>
+                  } @else {
+                    <span class="current-price">{{ product.price | number:'1.0-0' }} Đ</span>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="empty-message">
+        <p>Chưa có gợi ý hôm nay.</p>
+      </div>
+    }
   </div>
 </div>
 

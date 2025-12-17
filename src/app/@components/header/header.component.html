@@ -1,47 +1,55 @@
 <div class="header-container">
-  <div class="header-top-container">
-    <div class="grid header-top pd-10-px">
-      <div class="col-4 contact flex align-items-center">
-        <div class="mr-5-px">
-        </div>
-        <div class="mr-5-px">Bán hàng online: </div>
-        <div><b>19002192</b></div>
-      </div>
-      <div class="col-4 flex justify-content-center">
-        <img src="./assets/images/vugia.png" width="176px" height="56px">
-      </div>
-      <div class="col-4 flex justify-content-end align-items-center">
+  <!-- Thanh trên cùng: Đăng nhập/Đăng ký -->
+  <div class="header-top-bar">
+    <div class="header-top-bar-content">
+      <div class="hotline">Bán hàng online: <b>19002192</b></div>
+      <div class="top-auth">
         @if (currentUser()) {
-          <div class="user flex justify-content-center align-items-center mr-3 cursor-pointer" (click)="sidebarVisible = !sidebarVisible">
-            <img src="../../../assets/images/IDR_PROFILE_AVATAR_27@1x.png" alt="avatar" class="mr-2">
-            <div class="font-17-px">Xin chào {{ currentUser()?.first_name + ' '}} {{ currentUser()?.last_name }}</div>
+          <div class="user-info-top cursor-pointer" (click)="sidebarVisible = !sidebarVisible">
+            <img src="../../../assets/images/IDR_PROFILE_AVATAR_27@1x.png" alt="avatar" class="avatar-img-small">
+            <span class="user-name-small">{{ currentUser()?.first_name }} {{ currentUser()?.last_name }}</span>
           </div>
         } @else {
-          <div class="login-container flex align-items-center mr-3">
-            <div class="login mr-3">
-              <a routerLink="/login">Đăng nhập</a>
-            </div>
-            <div class="register">
-              <a routerLink="/register">Đăng ký</a>
-            </div>
+          <div class="auth-links-top">
+            <a routerLink="/login" class="auth-link-top">Đăng nhập</a>
+            <span class="separator-top">|</span>
+            <a routerLink="/register" class="auth-link-top">Đăng ký</a>
           </div>
         }
-        <i class="pi pi-shopping-cart font-25-px cursor-pointer" pBadge [value]="cart()?.products?.length || 0" (click)="goCart()"></i>
       </div>
     </div>
   </div>
-  <div class="header-menu">
-    <div class="grid header-menu-container pd-10-px">
-      <div class="col-7 menu-nav flex align-items-center justify-content-between">
-        <div class="menu-nav-item" routerLink="/home">Home</div>
-        @for (item of categories(); track $index) {
-          @if ($index < 4) {
-            <div class="menu-nav-item" routerLink="/products" [queryParams]="{ category: item.id }">{{ item.name }}</div>
-          }
-        }
+
+  <!-- Thanh chính: Logo | Tìm kiếm | Giỏ hàng -->
+  <div class="header-main">
+    <div class="header-main-content">
+      <!-- Logo bên trái -->
+      <div class="header-logo">
+        <img src="./assets/images/vugia.png" alt="Logo" class="logo-img">
+      </div>
+
+      <!-- Thanh tìm kiếm ở giữa -->
+      <div class="header-search">
+        <div class="search-wrapper">
+          <i class="pi pi-search search-icon"></i>
+          <input 
+            type="text" 
+            pInputText 
+            placeholder="Tìm kiếm sản phẩm..." 
+            class="search-input"
+            (keyup.enter)="onSearch()"
+            [(ngModel)]="searchText"
+          />
+        </div>
+      </div>
+
+      <!-- Bên phải: Giỏ hàng -->
+      <div class="header-right">
+        <i class="pi pi-shopping-cart cart-icon cursor-pointer" pBadge [value]="cart()?.products?.length || 0" (click)="goCart()"></i>
       </div>
     </div>
   </div>
+
 </div>
 <p-sidebar [(visible)]="sidebarVisible" position="right" [dismissible]="false">
   <h3 class="mb-6">Xin chào {{ currentUser()?.first_name + ' '}} {{ currentUser()?.last_name }}</h3>

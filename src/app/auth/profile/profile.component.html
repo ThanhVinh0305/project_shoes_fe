@@ -29,6 +29,28 @@
           [errors]="[{ key: 'required', message: 'Địa chỉ không được để trống'}]">
         </app-base-input>
       </div>
+      <div class="mb-4">
+        <label class="block text-900 font-medium mb-2">Giới tính <span class="text-red-500">*</span></label>
+        @if (isEdit()) {
+          <p-dropdown
+            [options]="genderOptions"
+            formControlName="gender_id"
+            placeholder="Chọn giới tính"
+            optionLabel="label"
+            [style]="{ width: '100%' }"
+            [showClear]="false"
+          />
+        } @else {
+          <div class="p-inputtext p-component w-full" style="padding: 0.75rem; background-color: #f3f4f6; border: 1px solid #e5e7eb;">
+            {{ getGenderDisplayText() }}
+          </div>
+        }
+        @if (form.controls['gender_id'].touched && form.controls['gender_id'].errors) {
+          <div class="text-error text-error-form mt-1">
+            Giới tính không được để trống
+          </div>
+        }
+      </div>
       <div class="btn-group flex justify-content-between">
         @if (!isEdit()) {
           <p-button label="Chỉnh sửa thông tin cá nhân" type="Submit" (onClick)="editProfile()"/>

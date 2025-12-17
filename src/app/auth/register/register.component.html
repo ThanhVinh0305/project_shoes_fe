@@ -39,6 +39,22 @@
           [errors]="[{ key: 'required', message: 'Địa chỉ không được để trống'}]">
         </app-base-input>
       </div>
+      <div class="mb-4">
+        <label class="block text-900 font-medium mb-2">Giới tính <span class="text-red-500">*</span></label>
+        <p-dropdown
+          [options]="genderOptions"
+          formControlName="genderId"
+          placeholder="Chọn giới tính"
+          optionLabel="label"
+          [style]="{ width: '100%' }"
+          [showClear]="false"
+        />
+        @if (form.controls['genderId'].touched && form.controls['genderId'].errors) {
+          <div class="text-error text-error-form mt-1">
+            Giới tính không được để trống
+          </div>
+        }
+      </div>
       <p-button label="Đăng ký" type="Submit" (onClick)="onRegister()"/>
       <div class="register mt-3">
         Bạn đã có tài khoản hãy <a routerLink="/login">Đăng nhập tài khoản ngay </a>

@@ -17,6 +17,11 @@ export interface Product {
   percent_discount?: number;
   is_promotion?: boolean;
   product_properties_id?: number;
+  color?: string; // Màu sắc sản phẩm (ví dụ: "Black", "White", "Red", "Blue")
+  gender_id?: number; // 0 = Nữ, 1 = Nam, 2 = Unisex (dùng để filter/search)
+  gender_name?: string; // Tên giới tính từ backend: "Nữ", "Nam", "Unisex" (dùng để hiển thị)
+  view_count?: number; // Lượt xem (snake_case)
+  viewCount?: number; // Lượt xem (camelCase) từ ProductResponse.user_top_viewed
 }
 
 export interface Image {
@@ -32,9 +37,10 @@ export interface Size {
 }
 
 export interface Brand {
-  id?: string;
+  id?: number; // bigint (Long) từ Java, serialize thành number trong JSON
   name?: string;
   description?: string;
+  image?: string;
 }
 
 export interface Category {
@@ -67,6 +73,11 @@ export interface ParamSearch {
 export interface BasePageResponse<T> {
   total?: number;
   data?: T[];
+}
+
+export interface RecommendBlock {
+  code?: string;
+  products?: Product[];
 }
 
 export interface Size {

@@ -1,12 +1,584 @@
 @import "../../@themes/variable.scss";
 
+// Banner section: 1 box lớn + 2 box nhỏ
+.banner-section {
+  margin: 2rem 0;
+  padding: 0 1rem;
+
+  .banner-container {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+
+    // Box lớn - Carousel
+    .banner-large {
+      flex: 2;
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+      .carousel-wrapper {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        overflow: hidden;
+
+        .carousel-container {
+          display: flex;
+          width: 100%;
+          height: 100%;
+          transition: transform 0.5s ease-in-out;
+
+          .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+
+            .banner-image {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              object-position: center;
+              display: block;
+            }
+          }
+        }
+
+        .carousel-btn {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background: rgba(255, 255, 255, 0.8);
+          border: none;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.3s;
+          z-index: 2;
+
+          i {
+            font-size: 18px;
+            color: #374151;
+          }
+
+          &:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateY(-50%) scale(1.1);
+          }
+
+          &.carousel-btn-prev {
+            left: 1rem;
+          }
+
+          &.carousel-btn-next {
+            right: 1rem;
+          }
+        }
+
+        .carousel-dots {
+          position: absolute;
+          bottom: 1rem;
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          gap: 0.5rem;
+          z-index: 2;
+
+          .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+
+            &.active {
+              background: $white;
+              width: 24px;
+              border-radius: 5px;
+            }
+
+            &:hover {
+              background: rgba(255, 255, 255, 0.8);
+            }
+          }
+        }
+      }
+    }
+
+    // 2 box nhỏ chồng lên nhau
+    .banner-small-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .banner-small {
+        width: 100%;
+        height: 195px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: transform 0.3s;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+                    .small-banner-image {
+                      width: 100%;
+                      height: 100%;
+                      object-fit: cover;
+                      object-position: center;
+                      display: block;
+                    }
+      }
+    }
+  }
+}
+
+// Thương hiệu section
+.brand-section {
+  margin: 3rem 0;
+  padding: 2rem 1rem;
+  background: $white;
+
+  .brand-container {
+    width: 80%;
+    margin: auto;
+
+    .brand-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: $primary-color;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .brand-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 8px;
+      overflow: hidden;
+      background: $white;
+
+      .brand-item {
+        width: 100%;
+        text-align: center;
+        transition: transform 0.3s, background-color 0.3s;
+        padding: 1.5rem 1rem;
+        border-right: 1px solid rgba(0, 0, 0, 0.08);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        background: $white;
+
+        // Bỏ border phải cho cột cuối
+        &:nth-child(4n) {
+          border-right: none;
+        }
+
+        // Bỏ border dưới cho 2 hàng cuối
+        &:nth-child(n+5) {
+          border-bottom: none;
+        }
+
+        &:hover {
+          background: $background-color;
+        }
+
+        .brand-image-wrapper {
+          width: 100%;
+          height: 120px;
+          border-radius: 8px;
+          overflow: hidden;
+          background: $white;
+          border: 1px solid rgba(0, 0, 0, 0.05);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 0.75rem;
+          transition: all 0.3s;
+
+          &:hover {
+            border-color: $primary-color;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+          }
+
+          .brand-image {
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
+            display: block;
+            background: $white; // Xóa phông kẻ caro bằng cách đặt background trắng
+            mix-blend-mode: normal; // Đảm bảo không có blend mode gây ra pattern
+          }
+        }
+
+        .brand-name {
+          font-size: 13px;
+          color: #374151;
+          font-weight: 500;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}
+
+// Sale section - Horizontal product list
+.sale-section {
+  margin: 3rem 0;
+  padding: 2rem 1rem;
+  background: $white;
+
+  .sale-container {
+    width: 80%;
+    margin: auto;
+
+    .empty-message {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #6b7280;
+      font-size: 14px;
+      
+      p {
+        margin: 0;
+      }
+    }
+
+    .sale-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+
+      .sale-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: $primary-color;
+        margin: 0;
+      }
+
+      .sale-timer-inline {
+        font-size: 14px;
+        color: #111827;
+
+        span {
+          font-weight: 700;
+          color: #ef4444;
+          margin-left: 4px;
+          letter-spacing: 0.5px;
+        }
+      }
+    }
+
+    .sale-products-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .sale-nav-btn {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid $primary-color;
+        background: $white;
+        color: $primary-color;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        z-index: 2;
+
+        i {
+          font-size: 18px;
+        }
+
+        &:hover {
+          background: $primary-color;
+          color: $white;
+          transform: scale(1.1);
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+
+      .sale-products-container {
+        flex: 1;
+        overflow: hidden;
+        position: relative;
+
+        .sale-products-list {
+          display: flex;
+          gap: 1.5rem;
+          transition: transform 0.5s ease-in-out;
+          padding: 0.5rem 0;
+
+          .sale-product-item {
+            flex-shrink: 0;
+            width: 300px;
+
+            .product-card {
+              background: $white;
+              border: 1px solid $border-color;
+              border-radius: 8px;
+              overflow: hidden;
+              cursor: pointer;
+              transition: all 0.3s;
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+
+              &:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+                border-color: $primary-color;
+              }
+
+              .product-image {
+                width: 100%;
+                height: 250px;
+                overflow: hidden;
+                background: $background-color;
+
+                img {
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                  transition: transform 0.3s;
+                }
+              }
+
+              &:hover .product-image img {
+                transform: scale(1.05);
+              }
+
+              .product-info {
+                padding: 1rem;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+
+                          .product-name {
+                            font-size: 14px;
+                            color: #374151;
+                            font-weight: 500;
+                            margin-bottom: 0.5rem;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 2;
+                            -webkit-box-orient: vertical;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            min-height: 40px;
+                          }
+
+                          .product-view-count {
+                            font-size: 12px;
+                            color: #6b7280;
+                            margin-bottom: 0.5rem;
+                            display: flex;
+                            align-items: center;
+                            gap: 0.25rem;
+
+                            i {
+                              font-size: 14px;
+                              color: #9ca3af;
+                            }
+                          }
+
+                          .product-price {
+                  display: flex;
+                  align-items: center;
+                  gap: 0.5rem;
+                  flex-wrap: wrap;
+
+                  .promotion-price {
+                    font-size: 18px;
+                    font-weight: 700;
+                    color: $primary-color;
+                  }
+
+                  .original-price {
+                    font-size: 14px;
+                    color: #9ca3af;
+                    text-decoration: line-through;
+                  }
+
+                  .current-price {
+                    font-size: 18px;
+                    font-weight: 700;
+                    color: $primary-color;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 .slogan {
   border-bottom: 1px solid $border-color;
 }
 
+// Gợi ý hôm nay - dạng lưới
+.suggest-section {
+  margin: 3rem 0;
+  padding: 2rem 1rem;
+  background: $white;
+
+  .suggest-container {
+    width: 80%;
+    margin: auto;
+
+    .suggest-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: $primary-color;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .empty-message {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #6b7280;
+      font-size: 14px;
+      
+      p {
+        margin: 0;
+      }
+    }
+
+    .suggest-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+
+      .suggest-item {
+        .suggest-card {
+          background: $white;
+          border: 1px solid $border-color;
+          border-radius: 8px;
+          overflow: hidden;
+          cursor: pointer;
+          transition: all 0.3s;
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+
+          &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-color: $primary-color;
+          }
+
+          .suggest-image {
+            width: 100%;
+            height: 240px;
+            overflow: hidden;
+            background: $background-color;
+
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              transition: transform 0.3s;
+            }
+          }
+
+          &:hover .suggest-image img {
+            transform: scale(1.05);
+          }
+
+          .suggest-info {
+            padding: 1rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+
+            .suggest-name {
+              font-size: 14px;
+              color: #374151;
+              font-weight: 500;
+              margin-bottom: 0.75rem;
+              display: -webkit-box;
+              -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              min-height: 40px;
+            }
+
+            .suggest-price {
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+              flex-wrap: wrap;
+
+              .promotion-price {
+                font-size: 18px;
+                font-weight: 700;
+                color: $primary-color;
+              }
+
+              .original-price {
+                font-size: 14px;
+                color: #9ca3af;
+                text-decoration: line-through;
+              }
+
+              .current-price {
+                font-size: 18px;
+                font-weight: 700;
+                color: $primary-color;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 .banner {
   position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+
   .image {
+    width: 100%;
+    height: 100%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
   }
 
   .text {
@@ -15,12 +587,14 @@
     left: 0;
     color: $white;
     width: 100%;
-    text-align: center;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 1;
   }
 }
 
@@ -39,6 +613,23 @@
         width: 100%;
         cursor: pointer;
         height: 300px;
+        overflow: hidden;
+        border-radius: 6px;
+        display: block;
+        position: relative;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+          display: block;
+          transition: transform 0.3s ease;
+        }
+
+        &:hover img {
+          transform: scale(1.05);
+        }
       }
     }
 
@@ -61,6 +652,74 @@
 }
 
 @media only screen and (max-width: 1500px) {
+  .banner-section {
+    .banner-container {
+      width: 95%;
+    }
+  }
+
+  .brand-section {
+    .brand-container {
+      width: 95%;
+    }
+  }
+
+  .sale-section {
+    .sale-container {
+      width: 95%;
+    }
+  }
+
+  .suggest-section {
+    .suggest-container {
+      width: 95%;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .brand-section {
+    .brand-container {
+      .brand-grid {
+        grid-template-columns: repeat(2, 1fr);
+
+        .brand-item {
+          &:nth-child(2n) {
+            border-right: none;
+          }
+
+          &:nth-child(n+3) {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+          }
+
+          &:nth-child(n+5) {
+            border-bottom: none;
+          }
+        }
+      }
+    }
+  }
+
+  .banner-section {
+    .banner-container {
+      flex-direction: column;
+
+      .banner-large {
+        .carousel-wrapper {
+          height: 300px;
+        }
+      }
+
+      .banner-small-container {
+        flex-direction: row;
+
+        .banner-small {
+          height: 150px;
+        }
+      }
+    }
+  }
+
   .product-category-container {
     .product-category-header {
     }
@@ -74,5 +733,27 @@
   .product-sell {
     width: 90%;
     margin: auto;
+  }
+
+  .sale-section {
+    .sale-container {
+      .sale-products-wrapper {
+        .sale-products-container {
+          .sale-products-list {
+            .sale-product-item {
+              width: 250px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .suggest-section {
+    .suggest-container {
+      .suggest-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
   }
 }

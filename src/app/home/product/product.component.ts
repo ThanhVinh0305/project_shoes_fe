@@ -83,6 +83,16 @@ export class ProductComponent extends BaseComponent implements OnInit {
         return of(undefined);
       })
     ), (product: Product | undefined) => {
+      if (product) {
+        // Nếu backend chưa trả về gender_name, map từ gender_id
+        if (!product.gender_name && product.gender_id !== undefined && product.gender_id !== null) {
+          product.gender_name = this.mapGenderIdToName(product.gender_id);
+        }
+        console.log('Product data:', product);
+        console.log('Color:', product.color);
+        console.log('Gender name:', product.gender_name);
+        console.log('Gender ID:', product.gender_id);
+      }
       this.product.set(product || {});
       this.images.set(product?.images?.map(o => {
         return o.attachment ? ImageUtil.replaceUrl(o.attachment) : noImage
@@ -232,5 +242,24 @@ export class ProductComponent extends BaseComponent implements OnInit {
       this.onCancelEditComment();
       this.initComment(this.id || 0);
     })
+  }
+
+  /**
+   * Map gender_id thành gender_name (tạm thời cho đến khi backend trả về gender_name)
+   * 0 = Nữ
+   * 1 = Nam
+   * 2 = Unisex
+   */
+  private mapGenderIdToName(genderId: number): string {
+    switch (genderId) {
+      case 0:
+        return 'Nữ';
+      case 1:
+        return 'Nam';
+      case 2:
+        return 'Unisex';
+      default:
+        return '';
+    }
   }
 }

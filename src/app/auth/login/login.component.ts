@@ -53,7 +53,21 @@ export class LoginComponent extends BaseComponent implements OnInit {
       this.form.markAllAsTouched();
       return;
     }
-    console.log(this.currentUrl);
-    this.authenticationService.login(this.form.getRawValue() as LoginBody, this.currentUrl);
+    const payload: LoginBody = {
+      username: (this.form.controls['username'].value || '').trim(),
+      password: this.form.controls['password'].value || ''
+    };
+
+    // Nếu thiếu dữ liệu thì báo lỗi sớm, không gọi API
+    if (!payload.username || !payload.password) {
+      this.messageService.showMessage({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Tên đăng nhập và mật khẩu không được bỏ trống'
+      });
+      return;
+    }
+
+    this.authenticationService.login(payload, this.currentUrl);
   }
 }

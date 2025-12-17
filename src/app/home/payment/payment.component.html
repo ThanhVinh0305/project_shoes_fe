@@ -54,8 +54,8 @@
             <div class="image">
               <img
                 [src]="
-                  item.product && item.product.images
-                    ? item.product.images[0]?.attachment
+                  item.product?.images?.length
+                    ? item.product?.images?.[0]?.attachment
                     : noImage
                 "
                 alt=""

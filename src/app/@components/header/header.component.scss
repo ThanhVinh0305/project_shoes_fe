@@ -1,44 +1,155 @@
 @import "../../@themes/variable.scss";
 
 .header-container {
-  .header-top-container {
-    .header-top {
-      width: 60%;
+  background: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  // Thanh trên cùng: Hotline và Đăng nhập/Đăng ký
+  .header-top-bar {
+    background: $primary-color;
+    color: $white;
+    padding: 0.5rem 0;
+    font-size: 13px;
+
+    .header-top-bar-content {
+      width: 80%;
       margin: auto;
-    }
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-    .user {
-      img {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-      }
-    }
-  }
-
-  .header-menu {
-    padding: 0.5rem 0.5rem;
-    background: #ffffff;
-    color: #334155;
-    border: 1px solid #e2e8f0;
-
-    .header-menu-container {
-      width: 60%;
-      margin: auto;
-
-      .menu-bar {
-        border-left: 1px solid $primary-color;
-        border-right: 1px solid $primary-color;
+      .hotline {
+        font-weight: 400;
       }
 
-      .menu-nav {
-        .menu-nav-item {
-          padding: 0 0.5rem 0 0.5rem;
-          cursor: pointer;
+      .top-auth {
+        .auth-links-top {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+
+          .auth-link-top {
+            color: $white;
+            text-decoration: none;
+            font-size: 13px;
+            transition: opacity 0.3s;
+
+            &:hover {
+              opacity: 0.8;
+            }
+          }
+
+          .separator-top {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+          }
+        }
+
+        .user-info-top {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          .avatar-img-small {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+          }
+
+          .user-name-small {
+            font-size: 13px;
+            color: $white;
+          }
         }
       }
     }
   }
+
+  // Thanh chính: Logo | Tìm kiếm | Giỏ hàng
+  .header-main {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid $border-color;
+    background: $white;
+
+    .header-main-content {
+      width: 80%;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+
+      // Logo bên trái - to hơn
+      .header-logo {
+        flex-shrink: 0;
+
+        .logo-img {
+          height: 70px;
+          width: auto;
+          object-fit: contain;
+          cursor: pointer;
+        }
+      }
+
+      // Thanh tìm kiếm ở giữa - rộng hơn
+      .header-search {
+        flex: 1;
+        min-width: 0;
+
+        .search-wrapper {
+          position: relative;
+          width: 100%;
+
+          .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            z-index: 1;
+            font-size: 18px;
+          }
+
+          .search-input {
+            width: 100%;
+            padding: 0.875rem 1rem 0.875rem 3rem;
+            border: 2px solid $primary-color;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background: $white;
+
+            &:focus {
+              border-color: $primary-color;
+              outline: none;
+              box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            }
+
+            &::placeholder {
+              color: #9ca3af;
+            }
+          }
+        }
+      }
+
+      // Bên phải: Giỏ hàng
+      .header-right {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+
+        .cart-icon {
+          font-size: 28px;
+          color: #374151;
+          transition: color 0.3s;
+
+          &:hover {
+            color: $primary-color;
+          }
+        }
+      }
+    }
+  }
+
 }
 
 .menu-item-container {
@@ -49,17 +160,42 @@
 
 @media only screen and (max-width: 1500px) {
   .header-container {
-    .header-top-container {
-      .header-top {
-        width: 90%;
+    .header-top-bar {
+      .header-top-bar-content {
+        width: 95%;
       }
     }
 
-    .header-menu {
+    .header-main {
+      .header-main-content {
+        width: 95%;
+        gap: 1.5rem;
+      }
+    }
 
-      .header-menu-container {
-        width: 90%;
-        margin: auto;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .header-container {
+    .header-main {
+      .header-main-content {
+        flex-wrap: wrap;
+        gap: 1rem;
+
+        .header-logo {
+          order: 1;
+        }
+
+        .header-search {
+          order: 3;
+          max-width: 100%;
+          width: 100%;
+        }
+
+        .header-right {
+          order: 2;
+        }
       }
     }
   }

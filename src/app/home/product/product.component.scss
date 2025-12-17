@@ -11,6 +11,39 @@
   .product-overview {
     width: 50%;
 
+    .product-info {
+      padding: 1rem;
+      background: $background-color;
+      border-radius: 6px;
+      border: 1px solid $border-color;
+      display: block;
+      visibility: visible;
+
+      .info-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        .info-label {
+          color: #374151;
+          font-size: 14px;
+          min-width: 80px;
+          font-weight: 600;
+        }
+
+        .info-value {
+          color: #1f2937;
+          font-size: 14px;
+          font-weight: 500;
+        }
+      }
+    }
+
     .price-and-review-block {
       .price {
         color: $primary-color;

@@ -33,6 +33,25 @@
     </div>
     <div class="product-overview pr-1 pl-4">
       <h1 class="mb-5">{{ product().name }}</h1>
+      
+      <!-- Thông tin màu sắc và giới tính -->
+      @if (product().color || product().gender_name) {
+        <div class="product-info mb-4">
+          @if (product().color) {
+            <div class="info-item mb-2">
+              <span class="info-label font-weight-bold">Màu sắc:</span>
+              <span class="info-value">{{ product().color }}</span>
+            </div>
+          }
+          @if (product().gender_name) {
+            <div class="info-item mb-2">
+              <span class="info-label font-weight-bold">Giới tính:</span>
+              <span class="info-value">{{ product().gender_name }}</span>
+            </div>
+          }
+        </div>
+      }
+
       <div class="price-and-review-block flex justify-content-between mb-4">
         <div class="price flex">
           @if (product().promotion_price) {
