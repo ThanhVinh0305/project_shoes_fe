@@ -39,7 +39,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
       phone_number: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       address: ['', [Validators.required]],
-      genderId: [null, [Validators.required]],
+      gender_id: [null, [Validators.required]],
     })
   }
 

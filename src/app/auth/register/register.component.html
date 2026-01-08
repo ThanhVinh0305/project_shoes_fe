@@ -43,13 +43,14 @@
         <label class="block text-900 font-medium mb-2">Giới tính <span class="text-red-500">*</span></label>
         <p-dropdown
           [options]="genderOptions"
-          formControlName="genderId"
+          formControlName="gender_id"
           placeholder="Chọn giới tính"
           optionLabel="label"
+          optionValue="value"
           [style]="{ width: '100%' }"
           [showClear]="false"
         />
-        @if (form.controls['genderId'].touched && form.controls['genderId'].errors) {
+        @if (form.controls['gender_id'].touched && form.controls['gender_id'].errors) {
           <div class="text-error text-error-form mt-1">
             Giới tính không được để trống
           </div>
