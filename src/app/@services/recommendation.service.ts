@@ -9,6 +9,6 @@ export class RecommendationService {
   private readonly httpService = inject(HttpService);
 
   getRecommendBlocks(): Observable<any> {
-    return this.httpService.get('/v2/open-api/recommend/blocks');
+    return this.httpService.get('/open-api/recommend/blocks');
   }
 }

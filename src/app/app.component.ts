@@ -5,13 +5,14 @@ import { LoadingComponent } from "./@components/loading/loading.component";
 import { BaseComponent } from './@core/base/base.component';
 import { ImportModule } from './@themes/import.theme';
 import { ConfirmDeleteDialogComponent } from "./@components/confirm-dialog/confirm-delete.component";
+import { ChatPopupComponent } from './@components/chat-popup/chat-popup.component';
 
 @Component({
     selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
-    imports: [RouterOutlet, LoadingComponent, ImportModule, ConfirmDeleteDialogComponent]
+    imports: [RouterOutlet, LoadingComponent, ImportModule, ConfirmDeleteDialogComponent, ChatPopupComponent]
 })
 export class AppComponent extends BaseComponent implements OnInit {
   primeNgConfig = inject(PrimeNGConfig);
