@@ -20,7 +20,7 @@
       @for (item of bill()?.products; track $index) {
         <div class="item flex pt-2 pb-2 border-bottom-1-px">
           <div class="image">
-            <img [src]="item.product && item.product.images && item.product.images[0] ? item.product.images[0].attachment : noImage" alt="" class="border-radius-6-px">
+            <img [src]="item.product && (item.product.thumbnailImg || (item.product.images && item.product.images[0] ? item.product.images[0].attachment : noImage))" alt="" class="border-radius-6-px">
           </div>
           <div class="detail pl-2">
             <div class="name-and-price flex font-weight-bold mb-2 justify-content-between">

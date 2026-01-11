@@ -25,9 +25,10 @@
           <img
             class="border-round"
             [src]="
-              product.product && product.product.images && product.product.images[0]
+              product.product && (product.product.thumbnailImg ||
+              (product.product.images && product.product.images[0]
                 ? product.product.images[0].attachment
-                : noImage
+                : noImage))
             "
             [alt]="product.name"
           />

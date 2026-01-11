@@ -89,9 +89,18 @@ export class ProductComponent extends BaseComponent implements OnInit {
           product.gender_name = this.mapGenderIdToName(product.gender_id);
         }
         console.log('Product data:', product);
+        console.log('Product sizes:', product.sizes);
         console.log('Color:', product.color);
         console.log('Gender name:', product.gender_name);
         console.log('Gender ID:', product.gender_id);
+      }
+      if (product) {
+        // Nếu backend trả về thumbnail thì map sang thumbnailImg
+        if ((product as any).thumbnail) {
+          product.thumbnailImg = ImageUtil.replaceUrl((product as any).thumbnail);
+        } else if (product.thumbnailImg) {
+          product.thumbnailImg = ImageUtil.replaceUrl(product.thumbnailImg);
+        }
       }
       this.product.set(product || {});
       this.images.set(product?.images?.map(o => {
@@ -111,6 +120,17 @@ export class ProductComponent extends BaseComponent implements OnInit {
         }
       }) || []);
     })
+  }
+
+  selectSize(item: any) {
+    console.log('Size clicked:', item);
+    console.log('Item amount:', item.amount);
+    if (item.amount && item.amount > 0) {
+      this.isActive = item.size;
+      console.log('Size selected:', this.isActive);
+    } else {
+      console.log('Size disabled, amount:', item.amount);
+    }
   }
 
   onAddCart() {

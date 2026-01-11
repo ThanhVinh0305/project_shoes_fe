@@ -80,9 +80,8 @@
           <div
             class="size-item col-1 mr-3 border-radius-6-px cursor-pointer mb-3"
             [class.active]="isActive === item.size"
-            (click)="isActive = item.size"
+            (click)="selectSize(item)"
             [class.disable-size]="!item.amount"
-            [class.disable-pointer]="!item.amount"
           >
             {{ item.size }}
           </div>

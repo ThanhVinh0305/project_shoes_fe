@@ -1,9 +1,0 @@
-@import '../../@themes/variable.scss';
-
-:host {
-  &.ng-invalid.ng-touched {
-    ::ng-deep .p-inputtext {
-      border-color: red;
-    }
-  }
-}

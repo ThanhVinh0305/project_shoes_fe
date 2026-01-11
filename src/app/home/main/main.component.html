@@ -59,6 +59,37 @@
   </div>
 </div>
 
+<!-- Block Dành riêng cho bạn (viewer_preferences) -->
+@if (currentUserBase && viewerPreferences().length > 0) {
+<div class="personal-recommend-section">
+  <div class="personal-recommend-container">
+    <h2 class="personal-recommend-title">Dành riêng cho bạn</h2>
+    <div class="personal-recommend-grid">
+      @for (product of viewerPreferences(); track product.id) {
+        <div class="personal-recommend-item">
+          <div class="personal-recommend-card" routerLink="/product" [queryParams]="{ id: product.id }" (click)="onProductClick(product)">
+            <div class="personal-recommend-image">
+              <img [src]="product.thumbnailImg || (product.images && product.images[0] ? product.images[0].attachment : noImage)" [alt]="product.name">
+            </div>
+            <div class="personal-recommend-info">
+              <div class="personal-recommend-name">{{ product.name }}</div>
+              <div class="personal-recommend-price">
+                @if (product.promotion_price) {
+                  <span class="promotion-price">{{ product.promotion_price | number:'1.0-0' }} Đ</span>
+                  <span class="original-price">{{ product.price | number:'1.0-0' }} Đ</span>
+                } @else {
+                  <span class="current-price">{{ product.price | number:'1.0-0' }} Đ</span>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+}
+
 <!-- 1. Sale section - Sản phẩm đang giảm giá (đầu tiên) -->
 @if (saleProducts().length > 0) {
 <div class="sale-section">
@@ -77,9 +108,9 @@
         <div class="sale-products-list" [style.transform]="'translateX(-' + saleScrollPosition() + 'px)'">
           @for (product of saleProducts(); track product.id) {
             <div class="sale-product-item">
-              <div class="product-card" routerLink="/product" [queryParams]="{ id: product.id }">
+              <div class="product-card" routerLink="/product" [queryParams]="{ id: product.id }" (click)="onProductClick(product)">
                 <div class="product-image">
-                  <img [src]="product.images && product.images[0] ? product.images[0].attachment : noImage" [alt]="product.name">
+                  <img [src]="product.thumbnailImg || (product.images && product.images[0] ? product.images[0].attachment : noImage)" [alt]="product.name">
                 </div>
                 <div class="product-info">
                   <div class="product-name">{{ product.name }}</div>
@@ -119,9 +150,9 @@
           <div class="sale-products-list" [style.transform]="'translateX(-' + mostViewedScrollPosition() + 'px)'">
             @for (product of mostViewedProducts(); track product.id) {
               <div class="sale-product-item">
-                <div class="product-card" routerLink="/product" [queryParams]="{ id: product.id }">
+                <div class="product-card" routerLink="/product" [queryParams]="{ id: product.id }" (click)="onProductClick(product)">
                   <div class="product-image">
-                    <img [src]="product.images && product.images[0] ? product.images[0].attachment : noImage" [alt]="product.name">
+                    <img [src]="product.thumbnailImg || (product.images && product.images[0] ? product.images[0].attachment : noImage)" [alt]="product.name">
                   </div>
                   <div class="product-info">
                     <div class="product-name">{{ product.name }}</div>
@@ -171,9 +202,9 @@
           <div class="sale-products-list">
             @for (product of topSearchProducts(); track product.id) {
               <div class="sale-product-item">
-                <div class="product-card" routerLink="/product" [queryParams]="{ id: product.id }">
+                <div class="product-card" routerLink="/product" [queryParams]="{ id: product.id }" (click)="onProductClick(product)">
                   <div class="product-image">
-                    <img [src]="product.images && product.images[0] ? product.images[0].attachment : noImage" [alt]="product.name">
+                    <img [src]="product.thumbnailImg || (product.images && product.images[0] ? product.images[0].attachment : noImage)" [alt]="product.name">
                   </div>
                   <div class="product-info">
                     <div class="product-name">{{ product.name }}</div>
@@ -212,9 +243,9 @@
       <div class="suggest-grid">
         @for (product of todayProducts(); track product.id) {
           <div class="suggest-item">
-            <div class="suggest-card" routerLink="/product" [queryParams]="{ id: product.id }">
+            <div class="suggest-card" routerLink="/product" [queryParams]="{ id: product.id }" (click)="onProductClick(product)">
               <div class="suggest-image">
-                <img [src]="product.images && product.images[0] ? product.images[0].attachment : noImage" [alt]="product.name">
+                <img [src]="product.thumbnailImg || (product.images && product.images[0] ? product.images[0].attachment : noImage)" [alt]="product.name">
               </div>
               <div class="suggest-info">
                 <div class="suggest-name">{{ product.name }}</div>

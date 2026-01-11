@@ -13,7 +13,7 @@
   <div class="px-2 col-12 md:col-6 lg:col-4 xl:col-3">
     <div class="product-item card cursor-pointer" routerLink="/product" [queryParams]="{ id: product.id}">
       <div class="image mb-2">
-        <img [src]="product.images && product.images[0] ? product.images[0].attachment : ''" alt="">
+        <img [src]="product.thumbnailImg || (product.images && product.images[0] ? product.images[0].attachment : '')" alt="">
       </div>
       <div class="content">
         <div class="content__name flex justify-content-between align-items-start mb-2">

@@ -12,6 +12,7 @@ import { CategoryService } from '../../@services/category.service';
 import { CommonModule } from '@angular/common';
 import { SupplierService } from '../../@services/supplier.service';
 import { RecommendService } from '../../@services/recommend.service';
+import { TrackingService } from '../../@services/tracking.service';
 
 @Component({
   selector: 'app-main',
@@ -32,12 +33,20 @@ export class MainComponent extends BaseComponent implements OnInit {
   private readonly categoryService = inject(CategoryService);
   private readonly supplierService = inject(SupplierService);
   private readonly recommendService = inject(RecommendService);
+  private readonly trackingService = inject(TrackingService);
+    // Gọi tracking khi click vào sản phẩm (dùng trong template)
+    onProductClick(product: Product) {
+      if (product.id) {
+        this.trackingService.trackClick(product.id);
+      }
+    }
   productSell = signal<Product[]>([]);
   productPromotions = signal<Product[]>([]);
   saleProducts = signal<Product[]>([]);
   todayProducts = signal<Product[]>([]);
   topSearchProducts = signal<Product[]>([]);
   mostViewedProducts = signal<Product[]>([]);
+  viewerPreferences = signal<Product[]>([]); // Block Dành riêng cho bạn
   saleEndTime = signal<Date | null>(new Date(Date.now() + 72 * 3600 * 1000)); // mặc định +3 ngày
   saleCountdownTime = signal<string>(''); // HH:mm:ss
   categories = signal<Category[]>([]);
@@ -186,6 +195,8 @@ export class MainComponent extends BaseComponent implements OnInit {
       this.todayProducts.set(mapProducts(data.guest_today));
       this.topSearchProducts.set(mapProducts(data.user_top_search));
       this.mostViewedProducts.set(mapProducts(data.user_top_viewed));
+      // Block Dành riêng cho bạn
+      this.viewerPreferences.set(mapProducts(data.viewer_preferences));
     });
   }
 

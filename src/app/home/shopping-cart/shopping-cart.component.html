@@ -24,7 +24,7 @@
       <div class="image col-2">
         <img
           [src]="
-            item.product && item.product.images && item.product.images.length ? item.product.images[0].attachment : noImage
+            item.product && (item.product.thumbnailImg || (item.product.images && item.product.images.length ? item.product.images[0].attachment : noImage))
           "
           alt=""
         />

@@ -2,6 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { TablePageEvent } from 'primeng/table';
 import { environment } from '../../../environments/environment';
 import { BaseComponent } from '../../@core/base/base.component';
+import { noImage } from '../../@core/constants/constant';
 import { ProductService } from '../../@services/product.service';
 import { ImportModule } from '../../@themes/import.theme';
 import { BasePageResponse, ParamSearch, Product } from './../../@core/models/product.model';
@@ -18,6 +19,7 @@ import { BasePageResponse, ParamSearch, Product } from './../../@core/models/pro
 export class ProductManagement extends BaseComponent implements OnInit {
   private readonly productService = inject(ProductService);
   products = signal<Product[]>([]);
+  noImage = noImage;
   rowsPerPageOptions = signal([2, 15 , 20, 30]);
   first = signal(0);
   rows = signal(this.rowsPerPageOptions()[0]);

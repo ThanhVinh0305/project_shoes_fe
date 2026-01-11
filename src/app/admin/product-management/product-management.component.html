@@ -19,7 +19,7 @@
   <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
     <tr>
       <td>{{product.name}}</td>
-      <td class="text-center"><img [src]="product.images[0]?.attachment" [alt]="product.name" width="100" class="shadow-4" /></td>
+      <td class="text-center"><img [src]="product.thumbnailImg || (product.images && product.images[0] ? product.images[0].attachment : noImage)" [alt]="product.name" width="100" class="shadow-4" /></td>
       <td class="text-center">{{product.price | number }} Đ</td>
       <td class="text-center">{{product.categories[0]?.name}}</td>
       <!-- <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td> -->

@@ -77,7 +77,17 @@
 }
 
 .disable-size {
-  background-color: #f3f4f6;
+  background-color: #f3f4f6 !important;
+  color: #9ca3af !important;
+  opacity: 0.5;
+  cursor: not-allowed !important;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-color: #f3f4f6 !important;
+    transform: none;
+  }
 }
 
 .disable-pointer {
