@@ -34,12 +34,12 @@ export class MainComponent extends BaseComponent implements OnInit {
   private readonly supplierService = inject(SupplierService);
   private readonly recommendService = inject(RecommendService);
   private readonly trackingService = inject(TrackingService);
-    // Gọi tracking khi click vào sản phẩm (dùng trong template)
-    onProductClick(product: Product) {
-      if (product.id) {
-        this.trackingService.trackClick(product.id);
-      }
+  // Gọi tracking khi click vào sản phẩm (dùng trong template)
+  onProductClick(product: Product) {
+    if (product.id) {
+      this.trackingService.trackClick(product.id);
     }
+  }
   productSell = signal<Product[]>([]);
   productPromotions = signal<Product[]>([]);
   saleProducts = signal<Product[]>([]);
@@ -65,7 +65,7 @@ export class MainComponent extends BaseComponent implements OnInit {
     './assets/images/banners/Big_banner_5.jpg',
     './assets/images/banners/big_banner_6.jpg'
   ]);
-  
+
   smallBanners = signal<string[]>([
     './assets/images/banners/small/small_banner_1.jpg',
     './assets/images/banners/small/small_banner_2.jpg'
@@ -99,7 +99,7 @@ export class MainComponent extends BaseComponent implements OnInit {
   // Mapping tên brand với logo file từ assets (đã cập nhật với logo mới không có phông kẻ caro)
   private getBrandLogo(brandName?: string): string {
     if (!brandName) return noImage;
-    
+
     const brandNameLower = brandName.toLowerCase().trim();
     const logoMap: { [key: string]: string } = {
       'adidas': './assets/images/brands/adidas2_logo_brand.png',
@@ -112,7 +112,7 @@ export class MainComponent extends BaseComponent implements OnInit {
       'rebook': './assets/images/brands/Reebok-logo_2.jpg',
       'vans': './assets/images/brands/vans_logo_nocaro.jpg'
     };
-    
+
     return logoMap[brandNameLower] || noImage;
   }
 
@@ -185,6 +185,7 @@ export class MainComponent extends BaseComponent implements OnInit {
       const mapProducts = (products?: Product[]) => {
         return (products || []).map(p => ({
           ...p,
+          thumbnailImg: (p as any).thumbnail ? ImageUtil.replaceUrl((p as any).thumbnail) : noImage,
           images: p.images?.map(img => ({
             ...img,
             attachment: img.attachment ? ImageUtil.replaceUrl(img.attachment) : noImage
@@ -202,29 +203,29 @@ export class MainComponent extends BaseComponent implements OnInit {
 
     // Call new Personalized API
     if (this.currentUserBase?.id) {
-       this.rxSubscribe(this.recommendService.getPersonalizedRecommendations(), (res: any) => {
-          // Response is array of ProductResponse (snake_case)
-          // Need to map thumbnail -> thumbnailImg
-          const products = (res || []).map((p: any) => ({
-             ...p,
-             thumbnailImg: p.thumbnail ? ImageUtil.replaceUrl(p.thumbnail) : noImage,
-             images: p.images?.map((img: any) => ({
-                ...img,
-                attachment: img.attachment ? ImageUtil.replaceUrl(img.attachment) : noImage
-             })) || []
-          }));
-          this.personalizedProducts.set(products);
-       });
+      this.rxSubscribe(this.recommendService.getPersonalizedRecommendations(), (res: any) => {
+        // Response is array of ProductResponse (snake_case)
+        // Need to map thumbnail -> thumbnailImg
+        const products = (res || []).map((p: any) => ({
+          ...p,
+          thumbnailImg: p.thumbnail ? ImageUtil.replaceUrl(p.thumbnail) : noImage,
+          images: p.images?.map((img: any) => ({
+            ...img,
+            attachment: img.attachment ? ImageUtil.replaceUrl(img.attachment) : noImage
+          })) || []
+        }));
+        this.personalizedProducts.set(products);
+      });
     }
   }
 
   scrollSaleProducts(direction: 'prev' | 'next') {
     if (!this.saleProductsContainer) return;
-    
+
     const container = this.saleProductsContainer.nativeElement;
     const scrollAmount = 320; // Width of one product card + gap
     const currentPosition = this.saleScrollPosition();
-    
+
     if (direction === 'next') {
       const maxScroll = container.scrollWidth - container.clientWidth;
       const newPosition = Math.min(currentPosition + scrollAmount, maxScroll);
@@ -237,11 +238,11 @@ export class MainComponent extends BaseComponent implements OnInit {
 
   scrollMostViewedProducts(direction: 'prev' | 'next') {
     if (!this.mostViewedContainer) return;
-    
+
     const container = this.mostViewedContainer.nativeElement;
     const scrollAmount = 320; // Width of one product card + gap
     const currentPosition = this.mostViewedScrollPosition();
-    
+
     if (direction === 'next') {
       const maxScroll = container.scrollWidth - container.clientWidth;
       const newPosition = Math.min(currentPosition + scrollAmount, maxScroll);

@@ -22,12 +22,12 @@ export type PaymentMethod = 'cod' | 'vnpay';
   imports: [
     ImportModule,
     BaseInputComponent
-]
+  ]
 })
 export class PaymentComponent extends BaseComponent implements OnInit {
   private readonly billService = inject(BillService);
   private readonly vnpayService = inject(VnpayService);
-  
+
   form!: FormGroup<{
     email: FormControl<string | null>;
     first_name: FormControl<string | null>;
@@ -46,7 +46,7 @@ export class PaymentComponent extends BaseComponent implements OnInit {
   });
   isBuyNow = false;
   noImage = noImage;
-  
+
   // Payment method selection
   paymentMethod = signal<PaymentMethod>('cod');
   paymentMethods = [
@@ -76,6 +76,9 @@ export class PaymentComponent extends BaseComponent implements OnInit {
       this.items.set(items.map(o => {
         if (o.product) {
           o.name = o.product.name;
+          if ((o.product as any).thumbnail) {
+            o.product.thumbnailImg = ImageUtil.replaceUrl((o.product as any).thumbnail);
+          }
           o.product.images = o.product.images?.map(z => {
             z.attachment = z.attachment ? ImageUtil.replaceUrl(z.attachment) : noImage
             return z;
@@ -126,7 +129,7 @@ export class PaymentComponent extends BaseComponent implements OnInit {
           detail: 'Đặt hàng thành công.'
         });
         this.cartService.updateSelectItem([]);
-        this.router.navigate(['/order-detail'], { queryParams: { id: result.id, isPayment: true }});
+        this.router.navigate(['/order-detail'], { queryParams: { id: result.id, isPayment: true } });
       });
       return;
     }
@@ -141,7 +144,7 @@ export class PaymentComponent extends BaseComponent implements OnInit {
       });
       this.cartService.updateSelectItem([]);
       this.cartService.getCartInfo();
-      this.router.navigate(['/order-detail'], { queryParams: { id: result.id, isPayment: true }});
+      this.router.navigate(['/order-detail'], { queryParams: { id: result.id, isPayment: true } });
     })
   }
 
@@ -181,10 +184,10 @@ export class PaymentComponent extends BaseComponent implements OnInit {
     const orderId = bill.id?.toString() || Date.now().toString();
     const amount = this.totalAmount();
     const orderInfo = `Thanh toan don hang ${orderId}`;
-    
+
     // Clear cart selection before redirecting
     this.cartService.updateSelectItem([]);
-    
+
     // Redirect to VNPay mock gateway
     this.vnpayService.redirectToVnpay(orderId, amount, orderInfo);
   }

@@ -3,6 +3,7 @@ import { TablePageEvent } from 'primeng/table';
 import { environment } from '../../../environments/environment';
 import { BaseComponent } from '../../@core/base/base.component';
 import { noImage } from '../../@core/constants/constant';
+import { ImageUtil } from '../../@core/utils/image.util';
 import { ProductService } from '../../@services/product.service';
 import { ImportModule } from '../../@themes/import.theme';
 import { BasePageResponse, ParamSearch, Product } from './../../@core/models/product.model';
@@ -20,7 +21,7 @@ export class ProductManagement extends BaseComponent implements OnInit {
   private readonly productService = inject(ProductService);
   products = signal<Product[]>([]);
   noImage = noImage;
-  rowsPerPageOptions = signal([2, 15 , 20, 30]);
+  rowsPerPageOptions = signal([2, 15, 20, 30]);
   first = signal(0);
   rows = signal(this.rowsPerPageOptions()[0]);
   totalRecords = signal(0);
@@ -41,7 +42,7 @@ export class ProductManagement extends BaseComponent implements OnInit {
           images: o.images?.map(z => {
             return {
               ...z,
-              attachment: z.attachment?.replace(/minio/g, environment.baseApi)
+              attachment: z.attachment ? ImageUtil.replaceUrl(z.attachment) : noImage
             }
           })
         }

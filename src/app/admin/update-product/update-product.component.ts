@@ -118,7 +118,7 @@ export class UpdateProductComponent extends BaseComponent implements OnInit {
         }
       )
       const image: Image = {
-        attachment: url.replace(/minio/g, environment.baseApi)
+        attachment: ImageUtil.replaceUrl(url)
       }
       urls.push(image);
       return urls;

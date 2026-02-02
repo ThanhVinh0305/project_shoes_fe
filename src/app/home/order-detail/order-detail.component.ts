@@ -58,6 +58,9 @@ export class OrderDetailComponent extends BaseComponent implements OnInit {
       })
     ), (result: Bill) => {
       result.products?.forEach(o => {
+        if (o.product && (o.product as any).thumbnail) {
+          o.product.thumbnailImg = ImageUtil.replaceUrl((o.product as any).thumbnail);
+        }
         o.images = o.images?.map(z => {
           z.attachment = z.attachment ? ImageUtil.replaceUrl(z.attachment) : noImage;
           return z;

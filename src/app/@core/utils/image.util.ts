@@ -3,17 +3,23 @@ import { environment } from "../../../environments/environment";
 export class ImageUtil {
   static replaceUrl(url: string) {
     if (!url) return '';
-    // Nếu là localhost:9000 thì thay bằng baseApi
-    if (url.startsWith('http://localhost:9000') || url.startsWith('https://localhost:9000')) {
-      // Giữ nguyên path sau /products/...
-      const path = url.replace(/^https?:\/\/localhost:9000/, '');
+
+    // Handle relative paths
+    if (!url.startsWith('http')) {
+      let path = url.startsWith('/') ? url : '/' + url;
+      // Prepend bucket 'products' if missing and path needs it (heuristic based on observed data)
+      if (!path.startsWith('/products')) {
+        path = '/products' + path;
+      }
       return environment.baseApi + path;
     }
-    // Nếu là minio hoặc các trường hợp khác, thay minio bằng baseApi
-    if (url.includes('minio')) {
-      return url.replace(/minio/g, environment.baseApi);
+
+    // Handle minio internal hostname
+    if (url.includes('minio:9000')) {
+      return url.replace('minio:9000', 'localhost:9000');
     }
-    // Nếu đã là domain đúng thì giữ nguyên
+
+    // If url starts with localhost:9000, it is already valid for local dev
     return url;
   }
 }

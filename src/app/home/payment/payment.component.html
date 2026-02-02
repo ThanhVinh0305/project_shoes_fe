@@ -92,9 +92,10 @@
             <div class="image">
               <img
                 [src]="
-                  item.product?.images?.length
+                  item.product?.thumbnailImg ||
+                  (item.product?.images?.length
                     ? item.product?.images?.[0]?.attachment
-                    : noImage
+                    : noImage)
                 "
                 alt=""
                 class="border-radius-6-px"
