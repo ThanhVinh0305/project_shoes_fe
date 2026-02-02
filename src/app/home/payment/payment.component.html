@@ -45,6 +45,44 @@
               ></app-base-input>
           </div>
         </form>
+
+        <!-- Payment Method Selection -->
+        <div class="payment-method-section mt-4">
+          <div class="font-weight-bold font-18-px mb-3">Phương thức thanh toán</div>
+          <div class="payment-methods">
+            @for (method of paymentMethods; track method.value) {
+              <div 
+                class="payment-method-card"
+                [class.selected]="paymentMethod() === method.value"
+                (click)="selectPaymentMethod(method.value)"
+              >
+                <div class="method-radio">
+                  <i 
+                    class="pi" 
+                    [class.pi-circle]="paymentMethod() !== method.value"
+                    [class.pi-check-circle]="paymentMethod() === method.value"
+                  ></i>
+                </div>
+                <div class="method-icon">
+                  <i [class]="method.icon"></i>
+                </div>
+                <div class="method-info">
+                  <span class="method-label">{{ method.label }}</span>
+                  @if (method.value === 'vnpay') {
+                    <span class="method-desc">Thanh toán an toàn qua cổng VNPAY</span>
+                  } @else {
+                    <span class="method-desc">Thanh toán khi nhận được hàng</span>
+                  }
+                </div>
+                @if (method.value === 'vnpay') {
+                  <div class="vnpay-logo">
+                    <img src="https://sandbox.vnpayment.vn/paymentv2/images/logo.svg" alt="VNPay" />
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </div>
       </div>
       <div class="col-6 md:col-12 lg:col-12 xl:col-6">
         <div class="font-weight-bold font-18-px mb-3">Thông tin sản phẩm</div>
@@ -96,7 +134,7 @@
           class="total flex justify-content-between align-items-center mt-3 mb-3"
         >
           <div>Tổng số tiền phải thanh toán:</div>
-          <div class="mr-2">{{ totalAmount() | number }} Đ</div>
+          <div class="mr-2 total-amount">{{ totalAmount() | number }} Đ</div>
         </div>
         <div class="button-group-submit">
           <p-button
@@ -107,8 +145,8 @@
             (onClick)="goCart()"
           />
           <p-button
-            label="Đặt hàng"
-            icon="pi pi-check"
+            [label]="paymentMethod() === 'vnpay' ? 'Thanh toán VNPay' : 'Đặt hàng'"
+            [icon]="paymentMethod() === 'vnpay' ? 'pi pi-credit-card' : 'pi pi-check'"
             (onClick)="createBill()"
           />
         </div>

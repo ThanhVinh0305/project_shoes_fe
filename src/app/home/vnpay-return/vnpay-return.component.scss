@@ -1,0 +1,217 @@
+.vnpay-return-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.result-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2.5rem;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.result-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+
+    i {
+        font-size: 3rem;
+    }
+
+    &.success {
+        background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+
+        i {
+            color: white;
+        }
+    }
+
+    &.error {
+        background: linear-gradient(135deg, #f44336 0%, #c62828 100%);
+
+        i {
+            color: white;
+        }
+    }
+}
+
+.result-title {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+
+    &.success {
+        color: #2e7d32;
+    }
+
+    &.error {
+        color: #c62828;
+    }
+}
+
+.result-message {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+
+    &.error-message {
+        color: #d32f2f;
+        background: #ffebee;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        font-weight: 500;
+    }
+}
+
+.transaction-details {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: left;
+    margin-bottom: 2rem;
+
+    h3 {
+        font-size: 1rem;
+        color: #333;
+        margin-bottom: 1rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .detail-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 0.6rem 0;
+        border-bottom: 1px dashed #e0e0e0;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            color: #666;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .value {
+            color: #333;
+            font-weight: 500;
+            text-align: right;
+            word-break: break-word;
+            margin-left: 1rem;
+
+            &.success {
+                color: #2e7d32;
+            }
+        }
+
+        &.amount {
+            margin-top: 0.5rem;
+            padding-top: 1rem;
+            border-top: 2px solid #e0e0e0;
+
+            .value {
+                font-size: 1.25rem;
+                font-weight: 700;
+            }
+        }
+
+        &.status {
+            margin-top: 0.5rem;
+
+            .status-badge {
+                padding: 0.25rem 0.75rem;
+                border-radius: 20px;
+                font-size: 0.85rem;
+
+                &.success {
+                    background: #e8f5e9;
+                    color: #2e7d32;
+                }
+
+                &.error {
+                    background: #ffebee;
+                    color: #c62828;
+                }
+            }
+        }
+    }
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    :deep(.p-button) {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+.vnpay-footer {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #666;
+    font-size: 0.85rem;
+
+    img {
+        height: 24px;
+        opacity: 0.7;
+    }
+}
+
+// Responsive
+@media (max-width: 480px) {
+    .vnpay-return-container {
+        padding: 1rem;
+    }
+
+    .result-card {
+        padding: 1.5rem;
+    }
+
+    .result-icon {
+        width: 64px;
+        height: 64px;
+
+        i {
+            font-size: 2.5rem;
+        }
+    }
+
+    .result-title {
+        font-size: 1.5rem;
+    }
+
+    .transaction-details {
+        padding: 1rem;
+
+        .detail-row {
+            flex-direction: column;
+            gap: 0.25rem;
+
+            .value {
+                text-align: left;
+                margin-left: 0;
+            }
+        }
+    }
+}

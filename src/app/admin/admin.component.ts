@@ -58,6 +58,12 @@ export class AdminComponent extends BaseComponent implements OnInit {
     // });
     this.rxSubscribe(this.authenticationService.getCurrentUserObservable(), (currentUser) => {
       this.currentUser.set(currentUser);
+      if (currentUser) {
+        const isAdmin = currentUser.admin || currentUser.roles?.some((r: any) => r.name === 'ADMIN' || r.name === 'ROLE_ADMIN');
+        if (!isAdmin) {
+          this.router.navigate(['/']);
+        }
+      }
     })
   }
 

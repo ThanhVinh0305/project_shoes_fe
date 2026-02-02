@@ -68,6 +68,7 @@ export interface ParamSearch {
   page?: number;
   size?: number;
   is_promoted?: boolean;
+  genders?: number[];
 }
 
 export interface BasePageResponse<T> {

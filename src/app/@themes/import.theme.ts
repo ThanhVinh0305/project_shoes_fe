@@ -41,6 +41,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { PaginatorModule } from 'primeng/paginator';
 import { ChartModule } from 'primeng/chart';
 import { TabViewModule } from 'primeng/tabview';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 @NgModule({
@@ -94,7 +95,8 @@ import { TabViewModule } from 'primeng/tabview';
     DropdownModule,
     PaginatorModule,
     ChartModule,
-    TabViewModule
+    TabViewModule,
+    TooltipModule
   ],
   exports: [
     // export module with angular
@@ -146,7 +148,8 @@ import { TabViewModule } from 'primeng/tabview';
     DropdownModule,
     PaginatorModule,
     ChartModule,
-    TabViewModule
+    TabViewModule,
+    TooltipModule
   ]
 })
 export class ImportModule {}

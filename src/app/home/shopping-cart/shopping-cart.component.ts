@@ -44,9 +44,12 @@ export class ShoppingCartComponent extends BaseComponent implements OnInit {
               return z;
             })
           }
+          if (!o.amount) {
+            o.amount = 1;
+          }
           return o;
         })
-        this.cart.set(cart);
+        this.cart.set({ ...cart });
       }
     });
     this.cartService.getCartInfo();

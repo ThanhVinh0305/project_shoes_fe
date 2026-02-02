@@ -2,7 +2,7 @@ import { Product } from "./product.model";
 
 export interface CartItem extends Product {
   checked?: boolean;
-  amount?: number;
+  amount: number;
   total?: number;
   percent_discount?: number;
   size?: number;

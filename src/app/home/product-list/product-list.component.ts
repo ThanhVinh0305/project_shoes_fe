@@ -49,8 +49,8 @@ export class ProductListComponent extends BaseComponent implements OnInit {
   visible = false;
   form!: FormGroup<{
     name: FormControl<string | null>;
-    brand: FormControl<string | null>;
-    categories: FormControl<[] | null>;
+    brand: FormControl<number | string | null>;
+    categories: FormControl<number | string | null>;
     code: FormControl<string | null>;
     range: FormControl<number[] | null>;
   }>;
@@ -66,16 +66,34 @@ export class ProductListComponent extends BaseComponent implements OnInit {
     this.initData();
   }
 
-  onPageChange($event: PaginatorState) {
-    throw new Error('Method not implemented.');
+  onPageChange(event: PaginatorState) {
+    this.first.set(event.first || 0);
+    this.rows.set(event.rows || 12);
+    // Calculate page number (1-based)
+    const page = (event.first! / event.rows!) + 1;
+    
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: { 
+        page: page,
+        // Preserve other params
+        category: this.form.controls['categories'].value ?? null,
+        name: this.form.controls['name'].value ?? null,
+        code: this.form.controls['code'].value ?? null,
+        brand: this.form.controls['brand'].value ?? null,
+        min: this.form.controls['range'].value ? this.form.controls['range'].value[0] : null,
+        max: this.form.controls['range'].value ? this.form.controls['range'].value[1] : null
+      },
+      queryParamsHandling: 'merge', 
+    });
   }
 
   initForm() {
     this.form = this.fb.group({
       name: new FormControl<string | null>(null),
-      brand: new FormControl<string | null>(null),
+      brand: new FormControl<number | string | null>(null),
       code: new FormControl<string | null>(null),
-      categories: new FormControl<[] | null>(null),
+      categories: new FormControl<number | string | null>(null),
       range: new FormControl<number[] | null>([0, 10000000]),
     });
   }
@@ -100,8 +118,11 @@ export class ProductListComponent extends BaseComponent implements OnInit {
       }
     );
     this.rxSubscribe(this.activatedRoute.queryParams, (params) => {
+      if (params['page']) {
+        this.first.set((Number(params['page']) - 1) * this.rows());
+      }
       const obj: ParamSearch = {
-        page: this.first() + 1,
+        page: (this.first() / this.rows()) + 1,
         size: this.rows(),
         name: params['name'],
         code: params['code'],
@@ -109,10 +130,14 @@ export class ProductListComponent extends BaseComponent implements OnInit {
         brands: params['brand'] ? [params['brand']] : undefined,
         min_cost: params['min'],
         max_cost: params['max'],
+        genders: params['gender'] ? params['gender'].split(',').map(Number) : undefined,
+        is_promoted: params['is_promoted'] === 'true'
       }
       this.form.patchValue({
         name: obj.name,
         code: obj.code,
+        brand: obj.brands ? obj.brands[0] : null,
+        categories: obj.categories ? obj.categories[0] : null,
         range: [obj.min_cost || 0, obj.max_cost || 10000000],
       });
       this.rxSubscribe(this.productService.getProducts(obj), (result: BasePageResponse<Product>) => {

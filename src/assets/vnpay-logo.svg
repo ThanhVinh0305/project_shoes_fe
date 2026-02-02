@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60">
+  <defs>
+    <linearGradient id="vnpayGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#005baa"/>
+      <stop offset="100%" style="stop-color:#00377a"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="60" rx="8" fill="white"/>
+  <text x="20" y="42" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="url(#vnpayGrad)">VNPAY</text>
+  <circle cx="170" cy="30" r="18" fill="#005baa"/>
+  <text x="170" y="36" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">VN</text>
+</svg>

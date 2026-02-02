@@ -25,6 +25,7 @@
 
 .price-color {
   color: $primary-color;
+  font-weight: 700;
 }
 
 .text-ellipsis {
@@ -36,10 +37,249 @@
   -webkit-box-orient: vertical;
 }
 
-.search-product-container {
-  ::ng-deep .p-slider {
-    margin: 1rem 0.5rem;
-    padding: 0 0.5rem;
+/* ============================================
+   NIKE FILTER DIALOG - PREMIUM DESIGN
+   ============================================ */
+::ng-deep .nike-filter-dialog {
+  border-radius: 0 !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+  width: 750px !important;
+  min-width: 750px !important;
+  max-width: 90vw !important;
+
+  .p-dialog {
+    border-radius: 0;
+    width: 100% !important;
+  }
+
+  .p-dialog-header {
+    background: #111 !important;
+    border-bottom: none !important;
+    padding: 1.25rem 1.5rem !important;
+    border-radius: 0 !important;
+
+    .p-dialog-title {
+      font-weight: 700 !important;
+      font-size: 0.875rem !important;
+      text-transform: uppercase !important;
+      letter-spacing: 2px !important;
+      color: #fff !important;
+    }
+
+    .p-dialog-header-close {
+      width: 2rem !important;
+      height: 2rem !important;
+      color: #fff !important;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1) !important;
+      }
+
+      .p-icon {
+        color: #fff !important;
+      }
+    }
+  }
+
+  .p-dialog-content {
+    background: #fff !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+  }
+}
+
+.nike-search-container {
+  padding: 0;
+
+  .filter-section {
+    padding: 1.5rem;
+    border-bottom: 1px solid #f0f0f0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .section-title {
+    display: block;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    color: #111;
+  }
+
+  /* Dropdown Styling - Nike Premium */
+  ::ng-deep .nike-dropdown {
+    width: 100% !important;
+    border: 2px solid #e5e5e5 !important;
+    border-radius: 0 !important;
+    background: #fff !important;
+    transition: border-color 0.2s ease !important;
+
+    &:hover {
+      border-color: #111 !important;
+    }
+
+    &.p-focus {
+      border-color: #111 !important;
+      box-shadow: none !important;
+    }
+
+    .p-dropdown-label {
+      padding: 0.875rem 1rem !important;
+      font-size: 0.875rem !important;
+      color: #111 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      font-weight: 500 !important;
+    }
+
+    .p-dropdown-trigger {
+      background: transparent !important;
+      color: #111 !important;
+      border-radius: 0 !important;
+    }
+
+    .p-dropdown-clear-icon {
+      color: #666 !important;
+    }
+
+    // Remove all inner rounded corners
+    .p-inputtext,
+    .p-dropdown-panel,
+    .p-dropdown-items-wrapper,
+    .p-dropdown-item {
+      border-radius: 0 !important;
+    }
+
+    .p-dropdown-panel {
+      border: 2px solid #111 !important;
+      margin-top: 2px !important;
+    }
+
+    // Remove rounded corners from chips/tags inside dropdown
+    .p-chip,
+    .p-tag,
+    .p-dropdown-label-container,
+    span[class*="chip"],
+    span[class*="tag"] {
+      border-radius: 0 !important;
+    }
+  }
+
+  /* Input Styling - Nike Premium */
+  .input-translucent {
+    ::ng-deep {
+
+      input,
+      .p-inputtext {
+        width: 100% !important;
+        border: 2px solid #e5e5e5 !important;
+        border-radius: 0 !important;
+        padding: 0.875rem 1rem !important;
+        font-size: 0.875rem !important;
+        font-weight: 500 !important;
+        background: #fff !important;
+        transition: border-color 0.2s ease !important;
+
+        &:hover {
+          border-color: #ccc !important;
+        }
+
+        &:focus {
+          border-color: #111 !important;
+          outline: none !important;
+          box-shadow: none !important;
+        }
+
+        &::placeholder {
+          color: #999 !important;
+          font-weight: 400 !important;
+        }
+      }
+    }
+  }
+
+  /* Price Section */
+  .price-display {
+    font-weight: 600;
+    color: #111;
+    font-size: 0.875rem;
+  }
+
+  /* Slider Styling - Nike Premium */
+  ::ng-deep .nike-slider {
+    &.p-slider {
+      background: #e5e5e5 !important;
+      height: 4px !important;
+      border-radius: 0 !important;
+    }
+
+    .p-slider-range {
+      background: #111 !important;
+      border-radius: 0 !important;
+    }
+
+    .p-slider-handle {
+      width: 20px !important;
+      height: 20px !important;
+      border: 2px solid #111 !important;
+      background: #fff !important;
+      border-radius: 50% !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+      transition: all 0.2s ease !important;
+
+      &:hover,
+      &:focus {
+        background: #111 !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+      }
+    }
+  }
+}
+
+/* Footer Actions - Nike Premium */
+.nike-footer-actions {
+  padding: 1.5rem;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  gap: 1rem;
+  background: #fafafa;
+
+  button {
+    flex: 1;
+    padding: 1rem;
+    border-radius: 0;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-nike-secondary {
+    background: #fff;
+    border: 2px solid #e5e5e5;
+    color: #111;
+
+    &:hover {
+      border-color: #111;
+      background: #fff;
+    }
+  }
+
+  .btn-nike-primary {
+    background: #111;
+    border: 2px solid #111;
+    color: #fff;
+
+    &:hover {
+      background: #333;
+      border-color: #333;
+    }
   }
 }
 
@@ -55,3 +295,15 @@
   }
 }
 
+@media only screen and (max-width: 768px) {
+  ::ng-deep .nike-filter-dialog {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+
+    .p-dialog {
+      width: 100% !important;
+      max-height: 100vh !important;
+    }
+  }
+}

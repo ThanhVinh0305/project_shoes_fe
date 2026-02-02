@@ -46,4 +46,12 @@ export class BillService {
     const url = this.urlBase + `/confirm-purchase/${id}`;
     return this.httpService.put(url);
   }
+
+  /**
+   * Confirm payment for VNPay transactions
+   */
+  confirmPurchase(id: number) {
+    const url = this.urlBase + `/confirm-purchase/${id}`;
+    return this.httpService.put(url);
+  }
 }

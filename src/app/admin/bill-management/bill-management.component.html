@@ -24,11 +24,17 @@
       <td class="text-center">{{ item.products?.length }}</td>
       <td class="text-center">{{ item.statusText }}</td>
       <td class="text-center">
-        <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" (onClick)="onEdit(item.id)"/>
-        @if (item.status === 0) {
-          <p-button icon="pi pi-check-circle" severity="success" [rounded]="true" [text]="true" (onClick)="onConfirmBill(item.id)"/>
-          <p-button icon="pi pi-times-circle" severity="danger" [rounded]="true" [text]="true" (onClick)="conCancel(item.id)"/>
-        }
+        <div class="flex gap-2 justify-content-center">
+          <button pButton icon="pi pi-eye" class="p-button-text p-button-info btn-action" 
+                  pTooltip="Xem chi tiết" tooltipPosition="top" (click)="onEdit(item.id)"></button>
+          
+          @if ([0, 3, 4].includes(item.status)) {
+            <button pButton icon="pi pi-check" class="p-button-outlined p-button-success btn-action ml-1" 
+                    pTooltip="Xác nhận" tooltipPosition="top" (click)="onConfirmBill(item.id)"></button>
+            <button pButton icon="pi pi-times" class="p-button-outlined p-button-danger btn-action ml-1" 
+                    pTooltip="Hủy đơn" tooltipPosition="top" (click)="conCancel(item.id)"></button>
+          }
+        </div>
       </td>
     </tr>
   </ng-template>

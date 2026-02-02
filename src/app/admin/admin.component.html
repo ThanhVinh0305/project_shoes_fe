@@ -1,25 +1,39 @@
 <div class="layout-container">
-  <div class="layout-sidebar" [class.layout-static-inactive]="!sidebarVisible">
+  <div class="layout-sidebar" [class.active]="sidebarVisible">
     <app-sidebar></app-sidebar>
   </div>
-  <div class="layout-content-wrapper" [class.ml-15-rem]="sidebarVisible">
-    <div class="header flex justify-content-between">
-      <div class="left flex">
-        <div class="btn-collapse-sidebar">
-          <p-button icon="pi pi-bars" [rounded]="true" [text]="true" severity="secondary"
-            (onClick)="sidebarVisible = !sidebarVisible" />
+  
+  <div class="layout-content-wrapper">
+    <!-- Top Header -->
+    <div class="admin-header">
+      <div class="header-left">
+        <div class="sidebar-toggle" 
+             style="cursor: pointer; background: transparent !important; border: none !important; box-shadow: none !important; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px;" 
+             (click)="sidebarVisible = !sidebarVisible">
+          <i class="pi pi-bars text-xl" style="color: #64748b;"></i>
         </div>
-        <div class="breadcrumb">
-          <p-breadcrumb class="max-w-full" [model]="items()" [home]="home" />
-        </div>
+        <p-breadcrumb [model]="items()" [home]="home" />
       </div>
-      <div class="right">
-        <button type="button" class="p-link" (click)="menu.toggle($event)">
-          <img src="../../assets/images/avatar.png" alt="" class="w-2-rem h-2-rem">
-        </button>
+
+      <div class="header-right">
+        <div class="action-icons">
+          <button pTooltip="Thông báo" tooltipPosition="bottom"><i class="pi pi-bell"></i></button>
+          <button pTooltip="Cài đặt" tooltipPosition="bottom"><i class="pi pi-cog"></i></button>
+        </div>
+        
+        <div class="user-profile" (click)="menu.toggle($event)">
+          <img src="assets/images/avatar.png" alt="Avatar" onerror="this.src='https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png'">
+          <div class="user-info">
+            <span class="name">{{ currentUser()?.first_name }} {{ currentUser()?.last_name }}</span>
+            <span class="role">{{ currentUser()?.roles?.[0]?.name || (currentUser()?.admin ? 'Admin' : 'User') }}</span>
+          </div>
+          <i class="pi pi-chevron-down text-sm text-500 ml-2"></i>
+        </div>
       </div>
     </div>
-    <div class="content card">
+
+    <!-- Main Content -->
+    <div class="content-card">
       <router-outlet></router-outlet>
     </div>
   </div>

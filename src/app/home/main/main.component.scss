@@ -757,3 +757,194 @@
     }
   }
 }
+
+// Personalized Section (Glassmorphism & Beautiful UI)
+.personalized-section {
+  margin: 3rem 0;
+  padding: 3rem 1rem;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+
+  .personalized-container {
+    width: 80%;
+    margin: auto;
+
+    .personalized-title {
+      font-size: 28px;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      background: linear-gradient(to right, $primary-color, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      
+      &::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 3px;
+        background: $primary-color;
+        margin: 10px auto 0;
+        border-radius: 2px;
+      }
+    }
+
+    .personalized-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 2rem;
+
+      .personalized-item {
+        height: 100%;
+
+        .personalized-card {
+          background: rgba(255, 255, 255, 0.8);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1px solid rgba(255, 255, 255, 0.6);
+          border-radius: 16px;
+          overflow: hidden;
+          cursor: pointer;
+          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+
+          &:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: rgba($primary-color, 0.5);
+
+            .view-detail-btn {
+              background: $primary-color;
+              color: white;
+              box-shadow: 0 4px 12px rgba($primary-color, 0.3);
+            }
+          }
+
+          .personalized-image {
+            height: 260px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            background: #f3f4f6;
+
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              transition: transform 0.6s ease;
+            }
+
+            .discount-badge {
+              position: absolute;
+              top: 10px;
+              right: 10px;
+              background: #ef4444;
+              color: white;
+              padding: 4px 10px;
+              border-radius: 20px;
+              font-size: 12px;
+              font-weight: 700;
+              box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+              z-index: 2;
+            }
+          }
+
+          &:hover .personalized-image img {
+            transform: scale(1.1);
+          }
+
+          .personalized-info {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1rem;
+
+            .personalized-name {
+              font-size: 15px;
+              font-weight: 600;
+              color: #1f2937;
+              line-height: 1.4;
+              display: -webkit-box;
+              -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical;
+              overflow: hidden;
+            }
+
+            .personalized-price {
+              display: flex;
+              align-items: baseline;
+              gap: 8px;
+              flex-wrap: wrap;
+
+              .current-price, .promotion-price {
+                font-size: 18px;
+                font-weight: 700;
+                color: $primary-color;
+              }
+
+              .original-price {
+                font-size: 13px;
+                color: #9ca3af;
+                text-decoration: line-through;
+              }
+            }
+
+            .view-detail-btn {
+              width: 100%;
+              padding: 10px;
+              text-align: center;
+              border-radius: 10px;
+              border: 1px solid $primary-color;
+              color: $primary-color;
+              font-weight: 600;
+              transition: all 0.3s;
+              font-size: 14px;
+              background: transparent;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .personalized-section {
+    padding: 2rem 0.5rem;
+    
+    .personalized-container {
+      width: 95%;
+      
+      .personalized-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        
+        .personalized-item {
+          .personalized-card {
+            .personalized-image {
+              height: 180px;
+            }
+            .personalized-info {
+              padding: 1rem;
+              .personalized-name {
+                font-size: 14px;
+              }
+              .personalized-price {
+                 .current-price, .promotion-price {
+                   font-size: 16px;
+                 }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

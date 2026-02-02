@@ -26,8 +26,12 @@
       <td>{{ category.name }}</td>
       <td>{{ category.router_link }}</td>
       <td class="text-center">
-        <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" (onClick)="onEdit(category.id)"/>
-        <p-button icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger" (onClick)="onDelete(category.id)"/>
+        <div class="flex gap-2 justify-content-center">
+          <button pButton icon="pi pi-pencil" class="p-button-outlined p-button-info btn-action" 
+                  pTooltip="Chỉnh sửa" tooltipPosition="top" (click)="onEdit(category.id)"></button>
+          <button pButton icon="pi pi-trash" class="p-button-outlined p-button-danger btn-action" 
+                  pTooltip="Xóa" tooltipPosition="top" (click)="onDelete(category.id)"></button>
+        </div>
       </td>
     </tr>
   </ng-template>

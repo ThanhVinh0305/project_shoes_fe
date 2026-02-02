@@ -1,0 +1,659 @@
+.vnpay-container {
+    max-width: 600px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #005baa 0%, #00377a 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.vnpay-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+
+    .logo img {
+        height: 40px;
+    }
+
+    .secure-badge {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #4caf50;
+        font-size: 0.8rem;
+        background: rgba(255, 255, 255, 0.15);
+        padding: 0.4rem 0.8rem;
+        border-radius: 20px;
+
+        i {
+            font-size: 0.9rem;
+        }
+    }
+}
+
+.order-info {
+    background: white;
+    margin: 1rem;
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+
+    .merchant-info {
+        padding-bottom: 1rem;
+        border-bottom: 1px dashed #e0e0e0;
+        margin-bottom: 1rem;
+
+        .label {
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .value {
+            font-weight: 600;
+            color: #005baa;
+            margin-left: 0.5rem;
+        }
+    }
+
+    .order-detail .row {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+
+        .label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .value {
+            font-weight: 500;
+            color: #333;
+        }
+
+        &.amount {
+            padding-top: 1rem;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 0.5rem;
+
+            .value {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: #d32f2f;
+            }
+        }
+    }
+}
+
+// Payment Method Selection
+.method-selection {
+    background: white;
+    margin: 1rem;
+    border-radius: 12px;
+    padding: 1.5rem;
+
+    h3 {
+        color: #333;
+        margin-bottom: 1.25rem;
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .method-options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .method-card {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.25rem;
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+            border-color: #005baa;
+            background: #f0f7ff;
+            transform: translateX(4px);
+        }
+
+        .method-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+
+            i {
+                font-size: 1.5rem;
+                color: white;
+            }
+
+            &.qr {
+                background: linear-gradient(135deg, #00bcd4 0%, #0097a7 100%);
+            }
+
+            &.card {
+                background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+            }
+        }
+
+        .method-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+
+            .method-name {
+                font-weight: 600;
+                color: #333;
+                font-size: 1rem;
+            }
+
+            .method-desc {
+                font-size: 0.85rem;
+                color: #666;
+            }
+        }
+
+        >i.pi-chevron-right {
+            color: #999;
+        }
+    }
+
+    .cancel-section {
+        margin-top: 1.5rem;
+        text-align: center;
+    }
+}
+
+// QR Section
+.qr-section {
+    background: white;
+    margin: 1rem;
+    border-radius: 12px;
+    padding: 1.5rem;
+
+    .qr-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+
+        h3 {
+            margin: 0;
+            color: #333;
+            flex: 1;
+            text-align: center;
+            margin-right: 40px; // Balance for back button
+        }
+    }
+
+    .qr-content {
+        text-align: center;
+    }
+
+    .qr-frame {
+        background: #f8f9fa;
+        border: 3px solid #005baa;
+        border-radius: 16px;
+        padding: 1.5rem;
+        display: inline-block;
+        margin-bottom: 1.5rem;
+
+        .qr-image {
+            width: 250px;
+            height: 250px;
+            display: block;
+        }
+    }
+
+    .qr-instructions {
+        text-align: left;
+        background: #f0f7ff;
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        margin-bottom: 1rem;
+
+        p {
+            margin: 0.5rem 0;
+            color: #333;
+            font-size: 0.9rem;
+
+            strong {
+                color: #005baa;
+            }
+        }
+    }
+
+    .qr-countdown {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.75rem;
+        background: #fff3e0;
+        border-radius: 8px;
+        color: #e65100;
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+
+        i {
+            font-size: 1.1rem;
+        }
+
+        strong {
+            font-size: 1.1rem;
+            font-family: monospace;
+        }
+    }
+
+    .test-actions {
+        padding-top: 1rem;
+        border-top: 2px dashed #e0e0e0;
+
+        h4 {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .test-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+
+            :deep(.p-button) {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    }
+}
+
+// Back button
+.back-btn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: #f0f0f0;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: #005baa;
+
+        i {
+            color: white;
+        }
+    }
+
+    i {
+        font-size: 1rem;
+        color: #333;
+    }
+}
+
+// Section header with back button
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    h3 {
+        margin: 0;
+        flex: 1;
+        text-align: center;
+        margin-right: 40px;
+    }
+}
+
+.bank-selection {
+    background: white;
+    margin: 1rem;
+    border-radius: 12px;
+    padding: 1.25rem;
+
+    h3 {
+        color: #333;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .bank-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+    }
+
+    .bank-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem 0.5rem;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+            border-color: #005baa;
+            background: #f0f7ff;
+            transform: translateY(-2px);
+        }
+
+        img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            margin-bottom: 0.5rem;
+        }
+
+        span {
+            font-size: 0.75rem;
+            color: #333;
+            text-align: center;
+            font-weight: 500;
+        }
+    }
+}
+
+.card-form,
+.otp-form {
+    background: white;
+    margin: 1rem;
+    border-radius: 12px;
+    padding: 1.5rem;
+
+    .selected-bank {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #e0e0e0;
+        margin-bottom: 1.5rem;
+
+        img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        span {
+            flex: 1;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .change-btn {
+            background: none;
+            border: none;
+            color: #005baa;
+            cursor: pointer;
+            font-size: 0.85rem;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .form-group {
+        margin-bottom: 1.25rem;
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+
+            &:focus {
+                outline: none;
+                border-color: #005baa;
+                box-shadow: 0 0 0 3px rgba(0, 91, 170, 0.1);
+            }
+        }
+    }
+
+    .form-row {
+        display: flex;
+        gap: 1rem;
+
+        .half {
+            flex: 1;
+        }
+    }
+
+    .button-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+
+        :deep(.p-button) {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+}
+
+.otp-form {
+    .otp-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+
+        i {
+            font-size: 2.5rem;
+            color: #005baa;
+            margin-bottom: 0.75rem;
+        }
+
+        h3 {
+            margin: 0.5rem 0;
+            color: #333;
+        }
+
+        p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+    }
+
+    .otp-input {
+        text-align: center;
+        font-size: 1.5rem;
+        letter-spacing: 0.5rem;
+        font-weight: 600;
+    }
+
+    .test-actions {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 2px dashed #e0e0e0;
+
+        h4 {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .test-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+
+            :deep(.p-button) {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    }
+}
+
+.processing {
+    background: white;
+    margin: 1rem;
+    border-radius: 12px;
+    padding: 3rem;
+    text-align: center;
+
+    p {
+        margin-top: 1.5rem;
+        color: #005baa;
+        font-weight: 500;
+        font-size: 1.1rem;
+    }
+
+    .processing-note {
+        display: block;
+        color: #999;
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+    }
+}
+
+// Additional UI elements
+.waiting-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #e3f2fd;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    color: #1565c0;
+    font-size: 0.95rem;
+}
+
+.otp-note {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: #fff3e0;
+    border-radius: 8px;
+    color: #e65100;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+
+    i {
+        font-size: 1rem;
+    }
+}
+
+.scan-success-icon {
+    margin-bottom: 1rem;
+
+    i {
+        font-size: 4rem;
+        color: #4caf50;
+    }
+}
+
+.waiting-state {
+    padding: 3rem 1.5rem;
+
+    h3 {
+        color: #333;
+        margin-bottom: 0.5rem;
+    }
+
+    p {
+        color: #666;
+        margin-bottom: 1.5rem;
+    }
+}
+
+.required {
+    color: #d32f2f;
+}
+
+.cancel-btn {
+    margin-top: 1rem;
+}
+
+.footer-logos {
+    margin-bottom: 0.5rem;
+
+    img {
+        height: 30px;
+        opacity: 0.9;
+    }
+}
+
+.vnpay-footer {
+    padding: 1.5rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+
+    p {
+        margin: 0.25rem 0;
+        font-size: 0.85rem;
+    }
+
+    .security-note {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 0.75rem;
+
+        i {
+            color: #4caf50;
+        }
+    }
+}
+
+// Responsive
+@media (max-width: 480px) {
+    .bank-selection .bank-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card-form .form-row {
+        flex-direction: column;
+    }
+
+    .order-info .order-detail .row.amount .value {
+        font-size: 1.25rem;
+    }
+
+    .qr-section .qr-frame .qr-image {
+        width: 200px;
+        height: 200px;
+    }
+
+    .method-selection .method-card {
+        padding: 1rem;
+
+        .method-icon {
+            width: 44px;
+            height: 44px;
+        }
+    }
+}

@@ -1,0 +1,137 @@
+<div class="vnpay-return-container">
+  <div class="result-card">
+    @if (paymentResult(); as result) {
+      <!-- Success State -->
+      @if (result.isSuccess) {
+        <div class="result-icon success">
+          <i class="pi pi-check-circle"></i>
+        </div>
+        <h1 class="result-title success">Thanh toán thành công!</h1>
+        <p class="result-message">
+          Cảm ơn bạn đã mua hàng. Đơn hàng của bạn đang được xử lý.
+        </p>
+      } @else {
+        <!-- Failure State -->
+        <div class="result-icon error">
+          <i class="pi pi-times-circle"></i>
+        </div>
+        <h1 class="result-title error">Thanh toán thất bại</h1>
+        <p class="result-message error-message">
+          {{ result.message }}
+        </p>
+      }
+
+      <!-- Transaction Details -->
+      <div class="transaction-details">
+        <h3>Chi tiết giao dịch</h3>
+        
+        <div class="detail-row">
+          <span class="label">Mã đơn hàng:</span>
+          <span class="value">{{ result.txnRef }}</span>
+        </div>
+
+        @if (result.isSuccess) {
+          <div class="detail-row">
+            <span class="label">Mã giao dịch VNPay:</span>
+            <span class="value">{{ result.transactionNo }}</span>
+          </div>
+          
+          <div class="detail-row">
+            <span class="label">Mã giao dịch ngân hàng:</span>
+            <span class="value">{{ result.bankTranNo }}</span>
+          </div>
+        }
+
+        <div class="detail-row">
+          <span class="label">Ngân hàng:</span>
+          <span class="value">{{ bankName() }}</span>
+        </div>
+
+        <div class="detail-row">
+          <span class="label">Loại thẻ:</span>
+          <span class="value">{{ result.cardType }}</span>
+        </div>
+
+        <div class="detail-row">
+          <span class="label">Nội dung:</span>
+          <span class="value">{{ result.orderInfo }}</span>
+        </div>
+
+        @if (result.isSuccess) {
+          <div class="detail-row">
+            <span class="label">Thời gian:</span>
+            <span class="value">{{ formatPayDate() }}</span>
+          </div>
+        }
+
+        <div class="detail-row amount">
+          <span class="label">Số tiền:</span>
+          <span class="value" [class.success]="result.isSuccess">
+            {{ formatAmount() }} VNĐ
+          </span>
+        </div>
+
+        <div class="detail-row status">
+          <span class="label">Trạng thái:</span>
+          <span class="value status-badge" [class.success]="result.isSuccess" [class.error]="!result.isSuccess">
+            {{ result.isSuccess ? 'Thành công' : 'Thất bại' }}
+            ({{ result.responseCode }})
+          </span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        @if (result.isSuccess) {
+          <p-button
+            label="Xem đơn hàng"
+            icon="pi pi-shopping-bag"
+            (onClick)="viewOrder()"
+          />
+          <p-button
+            label="Tiếp tục mua sắm"
+            icon="pi pi-shopping-cart"
+            severity="secondary"
+            [outlined]="true"
+            (onClick)="goShopping()"
+          />
+        } @else {
+          <p-button
+            label="Thử lại"
+            icon="pi pi-refresh"
+            (onClick)="goShopping()"
+          />
+          <p-button
+            label="Về trang chủ"
+            icon="pi pi-home"
+            severity="secondary"
+            [outlined]="true"
+            (onClick)="goHome()"
+          />
+        }
+      </div>
+    } @else {
+      <!-- No Result State -->
+      <div class="result-icon error">
+        <i class="pi pi-exclamation-triangle"></i>
+      </div>
+      <h1 class="result-title error">Không tìm thấy thông tin giao dịch</h1>
+      <p class="result-message">
+        Vui lòng kiểm tra lại hoặc liên hệ hỗ trợ.
+      </p>
+      <div class="action-buttons">
+        <p-button
+          label="Về trang chủ"
+          icon="pi pi-home"
+          (onClick)="goHome()"
+        />
+      </div>
+    }
+  </div>
+
+  <!-- VNPay Footer -->
+  <div class="vnpay-footer">
+    <img src="assets/vnpay-logo.svg" alt="VNPAY" />
+    <span>Được bảo mật bởi VNPAY</span>
+  </div>
+</div>

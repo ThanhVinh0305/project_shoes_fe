@@ -46,6 +46,7 @@ export class MainComponent extends BaseComponent implements OnInit {
   todayProducts = signal<Product[]>([]);
   topSearchProducts = signal<Product[]>([]);
   mostViewedProducts = signal<Product[]>([]);
+  personalizedProducts = signal<Product[]>([]); // New Personalized Recommendations
   viewerPreferences = signal<Product[]>([]); // Block Dành riêng cho bạn
   saleEndTime = signal<Date | null>(new Date(Date.now() + 72 * 3600 * 1000)); // mặc định +3 ngày
   saleCountdownTime = signal<string>(''); // HH:mm:ss
@@ -195,9 +196,26 @@ export class MainComponent extends BaseComponent implements OnInit {
       this.todayProducts.set(mapProducts(data.guest_today));
       this.topSearchProducts.set(mapProducts(data.user_top_search));
       this.mostViewedProducts.set(mapProducts(data.user_top_viewed));
-      // Block Dành riêng cho bạn
+      // Block Dành riêng cho bạn (Legacy from getBlocks)
       this.viewerPreferences.set(mapProducts(data.viewer_preferences));
     });
+
+    // Call new Personalized API
+    if (this.currentUserBase?.id) {
+       this.rxSubscribe(this.recommendService.getPersonalizedRecommendations(), (res: any) => {
+          // Response is array of ProductResponse (snake_case)
+          // Need to map thumbnail -> thumbnailImg
+          const products = (res || []).map((p: any) => ({
+             ...p,
+             thumbnailImg: p.thumbnail ? ImageUtil.replaceUrl(p.thumbnail) : noImage,
+             images: p.images?.map((img: any) => ({
+                ...img,
+                attachment: img.attachment ? ImageUtil.replaceUrl(img.attachment) : noImage
+             })) || []
+          }));
+          this.personalizedProducts.set(products);
+       });
+    }
   }
 
   scrollSaleProducts(direction: 'prev' | 'next') {

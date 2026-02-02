@@ -1,57 +1,66 @@
 <div class="header-container">
-  <!-- Thanh trên cùng: Đăng nhập/Đăng ký -->
+  <!-- Top Bar (Nike Grey) -->
   <div class="header-top-bar">
     <div class="header-top-bar-content">
-      <div class="hotline">Bán hàng online: <b>19002192</b></div>
+      <!-- Left side can be empty or added later -->
+      <div class="top-left"></div> 
       <div class="top-auth">
-        @if (currentUser()) {
-          <div class="user-info-top cursor-pointer" (click)="sidebarVisible = !sidebarVisible">
-            <img src="../../../assets/images/IDR_PROFILE_AVATAR_27@1x.png" alt="avatar" class="avatar-img-small">
-            <span class="user-name-small">{{ currentUser()?.first_name }} {{ currentUser()?.last_name }}</span>
-          </div>
-        } @else {
-          <div class="auth-links-top">
-            <a routerLink="/login" class="auth-link-top">Đăng nhập</a>
-            <span class="separator-top">|</span>
-            <a routerLink="/register" class="auth-link-top">Đăng ký</a>
-          </div>
-        }
-      </div>
-    </div>
-  </div>
-
-  <!-- Thanh chính: Logo | Tìm kiếm | Giỏ hàng -->
-  <div class="header-main">
-    <div class="header-main-content">
-      <!-- Logo bên trái -->
-      <div class="header-logo">
-        <img src="./assets/images/vugia.png" alt="Logo" class="logo-img">
-      </div>
-
-      <!-- Thanh tìm kiếm ở giữa -->
-      <div class="header-search">
-        <div class="search-wrapper">
-          <i class="pi pi-search search-icon"></i>
-          <input 
-            type="text" 
-            pInputText 
-            placeholder="Tìm kiếm sản phẩm..." 
-            class="search-input"
-            (keyup.enter)="onSearch()"
-            [(ngModel)]="searchText"
-          />
+        <div class="auth-links-top">
+           <a href="#" class="auth-link-top">Trợ giúp</a>
+           <span class="separator-top">|</span>
+           <a href="#" class="auth-link-top">Tham gia</a>
+           <span class="separator-top">|</span>
+           @if (currentUser()) {
+             <div class="user-info-top cursor-pointer" (click)="sidebarVisible = !sidebarVisible">
+                <span class="user-name-small">Hi, {{ currentUser()?.first_name }}</span>
+             </div>
+           } @else {
+             <a routerLink="/login" class="auth-link-top">Đăng nhập / Đăng ký</a>
+           }
         </div>
       </div>
-
-      <!-- Bên phải: Giỏ hàng -->
-      <div class="header-right">
-        <i class="pi pi-shopping-cart cart-icon cursor-pointer" pBadge [value]="cart()?.products?.length || 0" (click)="goCart()"></i>
-      </div>
     </div>
   </div>
 
+  <!-- Main Nike Header -->
+  <div class="header-main">
+    <div class="header-main-content">
+      <!-- 1. Logo Left -->
+      <div class="header-logo cursor-pointer" routerLink="/">
+        <img src="./assets/images/vugia.png" alt="Vũ Gia" class="logo-img">
+      </div>
+
+      <!-- 2. Navigation Center -->
+      <div class="header-nav-center">
+        <ul class="nav-list">
+            <li class="nav-item" routerLink="/products">Mới & Nổi bật</li>
+            <li class="nav-item" routerLink="/products" [queryParams]="{ gender: '1,2' }">Nam</li>
+            <li class="nav-item" routerLink="/products" [queryParams]="{ gender: '0,2' }">Nữ</li>
+            <li class="nav-item" routerLink="/products" [queryParams]="{ category: 4 }">Trẻ em</li>
+            <li class="nav-item sale-item" routerLink="/products" [queryParams]="{ is_promoted: true }">Sale</li>
+        </ul>
+      </div>
+
+      <!-- 3. Right Icons + Search Pill -->
+      <div class="header-right">
+        <!-- Search Pill -->
+        <div class="search-pill">
+            <i class="pi pi-search search-icon"></i>
+            <input type="text" placeholder="Tìm kiếm" class="search-input-pill" (keyup.enter)="onSearch()" [(ngModel)]="searchText">
+        </div>
+        
+        <!-- Icons -->
+        <div class="action-icons">
+             <i class="pi pi-heart action-icon cursor-pointer"></i>
+             <i class="pi pi-shopping-bag action-icon cursor-pointer" pBadge [value]="cart()?.products?.length || 0" (click)="goCart()"></i>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<p-sidebar [(visible)]="sidebarVisible" position="right" [dismissible]="false">
+
+<!-- Sidebar Menu -->
+<p-sidebar [(visible)]="sidebarVisible" position="right" [dismissible]="true">
   <h3 class="mb-6">Xin chào {{ currentUser()?.first_name + ' '}} {{ currentUser()?.last_name }}</h3>
   <div class="menu-item-container">
     @for (item of menus; track $index) {

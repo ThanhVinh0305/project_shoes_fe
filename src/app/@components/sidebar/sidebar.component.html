@@ -1,83 +1,74 @@
 <div class="layout-sidebar">
   <div class="sidebar-header">
-    <div class="logo"></div>
+    <div class="logo">
+      <i class="pi pi-box"></i>
+      <span>SHOE ADMIN</span>
+    </div>
   </div>
-  <div class="layout-menu-container overflow-y-auto">
-    <ul class="list-none p-3 m-0">
+  <div class="layout-menu-container">
+    <div class="menu-category">Menu Chính</div>
+    <ul class="list-none">
       <li>
-        <!-- <div pRipple pStyleClass="@next" enterClass="hidden" enterActiveClass="slidedown" leaveToClass="hidden"
-          leaveActiveClass="slideup"
-          class="p-3 flex align-items-center justify-content-between text-600 cursor-pointer p-ripple">
-          <span class="font-medium">FAVORITES</span>
-          <i class="pi pi-chevron-down"></i>
-        </div> -->
-        <ul class="list-none p-0 m-0 overflow-hidden">
-          <li>
-            <a pRipple routerLink="/admin" routerLinkActive="isActive" [routerLinkActiveOptions]="{ exact: true }"
-              class="flex align-items-center cursor-pointer p-3 border-round text-700 transition-duration-150 transition-colors p-ripple">
-              <i class="pi pi-home mr-2"></i>
-              <span class="font-medium">Dashboard</span>
-            </a>
-          </li>
-          <li>
-            <a pRipple routerLink="/admin/user-management" routerLinkActive="isActive"
-              class="flex align-items-center cursor-pointer p-3 border-round text-700  transition-duration-150 transition-colors p-ripple">
-              <i class="pi pi-users mr-2"></i>
-              <span class="font-medium">Quản lý người dùng</span>
-            </a>
-          </li>
-          <li>
-            <a pRipple routerLink="/admin/product-management" routerLinkActive="isActive" [routerLinkActiveOptions]="{ exact: true }"
-              class="flex align-items-center cursor-pointer p-3 border-round text-700  transition-duration-150 transition-colors p-ripple">
-              <i class="pi pi-bookmark mr-2"></i>
-              <span class="font-medium">Quản lý sản phẩm</span>
-            </a>
-          </li>
-          <li>
-            <a pRipple routerLink="/admin/category-management" routerLinkActive="isActive" [routerLinkActiveOptions]="{ exact: true }"
-              class="flex align-items-center cursor-pointer p-3 border-round text-700  transition-duration-150 transition-colors p-ripple">
-              <i class="pi pi-bookmark mr-2"></i>
-              <span class="font-medium">Quản lý danh mục</span>
-            </a>
-          </li>
-          <li>
-            <a pRipple routerLink="/admin/supplier-management" routerLinkActive="isActive" [routerLinkActiveOptions]="{ exact: true }"
-              class="flex align-items-center cursor-pointer p-3 border-round text-700  transition-duration-150 transition-colors p-ripple">
-              <i class="pi pi-comments mr-2"></i>
-              <span class="font-medium">Quản lý nhà cung cấp</span>
-              <!-- <span class="inline-flex align-items-center justify-content-center ml-auto bg-primary border-circle"
-                style="min-width: 1.5rem; height: 1.5rem">3</span> -->
-            </a>
-          </li>
-          <li>
-            <a pRipple routerLink="/admin/import-coupon-management" routerLinkActive="isActive" [routerLinkActiveOptions]="{ exact: true }"
-              class="flex align-items-center cursor-pointer p-3 border-round text-700  transition-duration-150 transition-colors p-ripple">
-              <i class="pi pi-calendar mr-2"></i>
-              <span class="font-medium">Quản lý phiếu nhập</span>
-            </a>
-          </li>
-          <li>
-            <a pRipple routerLink="/admin/promotion-program" routerLinkActive="isActive" [routerLinkActiveOptions]="{ exact: true }"
-              class="flex align-items-center cursor-pointer p-3 border-round text-700  transition-duration-150 transition-colors p-ripple">
-              <i class="pi pi-cog mr-2"></i>
-              <span class="font-medium">Quản lý chương trình khuyến mại</span>
-            </a>
-          </li>
-          <li>
-            <a pRipple routerLink="/admin/bill-management" routerLinkActive="isActive" [routerLinkActiveOptions]="{ exact: true }"
-              class="flex align-items-center cursor-pointer p-3 border-round text-700  transition-duration-150 transition-colors p-ripple">
-              <i class="pi pi-cog mr-2"></i>
-              <span class="font-medium">Quản lý đơn hàng</span>
-            </a>
-          </li>
-          <li>
-            <a pRipple routerLink="/admin/warehouse-management" routerLinkActive="isActive" [routerLinkActiveOptions]="{ exact: true }"
-              class="flex align-items-center cursor-pointer p-3 border-round text-700  transition-duration-150 transition-colors p-ripple">
-              <i class="pi pi-cog mr-2"></i>
-              <span class="font-medium">Quản lý kho</span>
-            </a>
-          </li>
-        </ul>
+        <a pRipple routerLink="/admin" routerLinkActive="isActive" [routerLinkActiveOptions]="{ exact: true }">
+          <i class="pi pi-th-large"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a pRipple routerLink="/admin/bill-management" routerLinkActive="isActive">
+          <i class="pi pi-receipt"></i>
+          <span>Quản lý đơn hàng</span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="menu-category">Sản phẩm & Kho</div>
+    <ul class="list-none">
+      <li>
+        <a pRipple routerLink="/admin/product-management" routerLinkActive="isActive">
+          <i class="pi pi-box"></i>
+          <span>Sản phẩm</span>
+        </a>
+      </li>
+      <li>
+        <a pRipple routerLink="/admin/category-management" routerLinkActive="isActive">
+          <i class="pi pi-tags"></i>
+          <span>Danh mục</span>
+        </a>
+      </li>
+      <li>
+        <a pRipple routerLink="/admin/warehouse-management" routerLinkActive="isActive">
+          <i class="pi pi-inbox"></i>
+          <span>Quản lý kho</span>
+        </a>
+      </li>
+      <li>
+        <a pRipple routerLink="/admin/import-coupon-management" routerLinkActive="isActive">
+          <i class="pi pi-file-import"></i>
+          <span>Phiếu nhập</span>
+        </a>
+      </li>
+      <li>
+        <a pRipple routerLink="/admin/supplier-management" routerLinkActive="isActive">
+          <i class="pi pi-truck"></i>
+          <span>Nhà cung cấp</span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="menu-category">Hệ thống</div>
+    <ul class="list-none">
+      <li>
+        <a pRipple routerLink="/admin/user-management" routerLinkActive="isActive">
+          <i class="pi pi-users"></i>
+          <span>Người dùng</span>
+        </a>
+      </li>
+      <li>
+        <a pRipple routerLink="/admin/promotion-program" routerLinkActive="isActive">
+          <i class="pi pi-percentage"></i>
+          <span>Khuyến mãi</span>
+        </a>
       </li>
     </ul>
   </div>

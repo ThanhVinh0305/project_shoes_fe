@@ -29,11 +29,12 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     { label: 'Unisex', value: 3 }
   ];
 
-  // Hiển thị gender_name từ API, nếu không có thì hiển thị "Chưa cập nhật"
+  // Hiển thị giới tính từ gender_id, nếu không có thì hiển thị "Chưa cập nhật"
   getGenderDisplayText(): string {
-    const genderName = this.user()?.gender_name;
-    if (genderName && genderName.trim()) {
-      return genderName;
+    const genderId = this.user()?.gender_id;
+    if (genderId !== undefined && genderId !== null) {
+      const genderOption = this.genderOptions.find(opt => opt.value === genderId);
+      return genderOption ? genderOption.label : 'Chưa cập nhật';
     }
     return 'Chưa cập nhật';
   }

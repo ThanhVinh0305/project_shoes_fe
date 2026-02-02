@@ -28,13 +28,13 @@ export class ProductService {
   getProducts(paramSearch?: ParamSearch) {
     const url = '/open-api/products/search-products';
     let search: ParamSearch = {
-      page: 0,
+      page: 1,
       size: 3000000
     }
     if (paramSearch) {
       search = Object.assign(search, paramSearch);
     }
-    return this.httpService.post(url, { data: paramSearch || {} }).pipe(
+    return this.httpService.post(url, { data: search }).pipe(
       map(res => res.data)
     )
   }

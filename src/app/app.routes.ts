@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { PageNotFoundComponent } from './auth/page-not-found/page-not-found.component';
+import { adminGuard } from './@core/guards/admin.guard';
 
 export const routes: Routes = [
   {
@@ -58,13 +59,21 @@ export const routes: Routes = [
       {
         path: 'warranty-policy',
         loadComponent: () => import('./home/warranty-policy/warranty-policy.component').then(m => m.WarrantyPolicyComponent)
+      },
+      {
+        path: 'vnpay-mock',
+        loadComponent: () => import('./home/vnpay-mock/vnpay-mock.component').then(m => m.VnpayMockComponent)
+      },
+      {
+        path: 'vnpay-return',
+        loadComponent: () => import('./home/vnpay-return/vnpay-return.component').then(m => m.VnpayReturnComponent)
       }
     ]
   },
   {
     path: 'admin',
     loadComponent: () => import('../app/admin/admin.component').then(m => m.AdminComponent),
-    canActivate: [],
+    canActivate: [adminGuard],
     children: [
       {
         path: '',

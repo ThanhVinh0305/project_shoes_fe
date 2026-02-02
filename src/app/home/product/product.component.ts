@@ -58,6 +58,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
   }>;
   isEditComment = signal(false);
   itemEdit?: Comment;
+  showSizeError = false;
 
   ngOnInit(): void {
     this.initForm();
@@ -123,13 +124,9 @@ export class ProductComponent extends BaseComponent implements OnInit {
   }
 
   selectSize(item: any) {
-    console.log('Size clicked:', item);
-    console.log('Item amount:', item.amount);
     if (item.amount && item.amount > 0) {
       this.isActive = item.size;
-      console.log('Size selected:', this.isActive);
-    } else {
-      console.log('Size disabled, amount:', item.amount);
+      this.showSizeError = false;
     }
   }
 
@@ -146,6 +143,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
       return;
     }
     if (!this.isActive) {
+      this.showSizeError = true;
       this.messageService.showMessage({
         severity: 'error',
         summary: 'Error',
@@ -182,6 +180,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
       return;
     }
     if (!this.isActive) {
+      this.showSizeError = true;
       this.messageService.showMessage({
         severity: 'error',
         summary: 'Error',

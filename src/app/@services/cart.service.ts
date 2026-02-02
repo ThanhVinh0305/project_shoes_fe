@@ -5,6 +5,8 @@ import { HttpService } from './http.service';
 import { MessagesService } from './message.service';
 import { Router } from '@angular/router';
 
+const SELECTED_ITEMS_KEY = 'vnpay_selected_items';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +15,31 @@ export class CartService {
   private readonly messageService = inject(MessagesService);
   private readonly urlBase = '/api/v1/cart';
   private readonly cart$ = new BehaviorSubject<Cart | undefined>(undefined);
-  private readonly selectItem$ = new BehaviorSubject<CartItem[]>([]);
+  private readonly selectItem$ = new BehaviorSubject<CartItem[]>(this.loadSelectedItemsFromStorage());
+
+  private loadSelectedItemsFromStorage(): CartItem[] {
+    try {
+      const stored = sessionStorage.getItem(SELECTED_ITEMS_KEY);
+      if (stored) {
+        return JSON.parse(stored);
+      }
+    } catch (e) {
+      console.error('Failed to load selected items from storage', e);
+    }
+    return [];
+  }
+
+  private saveSelectedItemsToStorage(items: CartItem[]): void {
+    try {
+      if (items.length > 0) {
+        sessionStorage.setItem(SELECTED_ITEMS_KEY, JSON.stringify(items));
+      } else {
+        sessionStorage.removeItem(SELECTED_ITEMS_KEY);
+      }
+    } catch (e) {
+      console.error('Failed to save selected items to storage', e);
+    }
+  }
 
   getCartObervable() {
     return this.cart$.asObservable();
@@ -24,7 +50,13 @@ export class CartService {
   }
 
   updateSelectItem(data: CartItem[]) {
+    this.saveSelectedItemsToStorage(data);
     this.selectItem$.next(data);
+  }
+
+  clearSelectedItems() {
+    sessionStorage.removeItem(SELECTED_ITEMS_KEY);
+    this.selectItem$.next([]);
   }
 
   getCartInfo() {

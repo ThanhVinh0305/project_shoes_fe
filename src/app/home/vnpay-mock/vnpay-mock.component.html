@@ -1,0 +1,279 @@
+<div class="vnpay-container">
+  <!-- Header -->
+  <div class="vnpay-header">
+    <div class="logo">
+      <img src="assets/vnpay-logo.svg" alt="VNPAY" />
+    </div>
+    <div class="secure-badge">
+      <i class="pi pi-lock"></i>
+      <span>Bảo mật SSL</span>
+    </div>
+  </div>
+
+  <!-- Order Info -->
+  <div class="order-info">
+    <div class="merchant-info">
+      <span class="label">Đơn vị bán hàng:</span>
+      <span class="value">Shoe Store</span>
+    </div>
+    <div class="order-detail">
+      <div class="row">
+        <span class="label">Mã đơn hàng:</span>
+        <span class="value">{{ paymentInfo()?.vnp_TxnRef }}</span>
+      </div>
+      <div class="row">
+        <span class="label">Nội dung:</span>
+        <span class="value">{{ paymentInfo()?.vnp_OrderInfo }}</span>
+      </div>
+      <div class="row amount">
+        <span class="label">Số tiền:</span>
+        <span class="value">{{ displayAmount() }} VNĐ</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step: Select Payment Method -->
+  @if (step() === 'select-method') {
+    <div class="method-selection">
+      <h3>Chọn phương thức thanh toán</h3>
+      <div class="method-options">
+        <div class="method-card" (click)="selectPaymentType('qr')">
+          <div class="method-icon qr">
+            <i class="pi pi-qrcode"></i>
+          </div>
+          <div class="method-details">
+            <span class="method-name">Quét mã VNPay-QR</span>
+            <span class="method-desc">Quét mã bằng app ngân hàng</span>
+          </div>
+          <i class="pi pi-chevron-right"></i>
+        </div>
+        <div class="method-card" (click)="selectPaymentType('card')">
+          <div class="method-icon card">
+            <i class="pi pi-credit-card"></i>
+          </div>
+          <div class="method-details">
+            <span class="method-name">Thẻ ATM / Internet Banking</span>
+            <span class="method-desc">Nhập thông tin thẻ để thanh toán</span>
+          </div>
+          <i class="pi pi-chevron-right"></i>
+        </div>
+      </div>
+      <div class="cancel-section">
+        <p-button
+          label="Hủy giao dịch"
+          severity="secondary"
+          [text]="true"
+          icon="pi pi-times"
+          (onClick)="cancelPayment()"
+        />
+      </div>
+    </div>
+  }
+
+  <!-- Step: QR Code Scan -->
+  @if (step() === 'qr-scan') {
+    <div class="qr-section">
+      <div class="qr-header">
+        <button class="back-btn" (click)="goBackToSelectMethod()">
+          <i class="pi pi-arrow-left"></i>
+        </button>
+        <h3>Quét mã VNPay-QR</h3>
+      </div>
+
+      <div class="qr-content">
+        <div class="qr-frame">
+          @if (qrDataUrl()) {
+            <img [src]="qrDataUrl()" alt="VNPay QR Code" class="qr-image" />
+          } @else {
+            <p-progressSpinner strokeWidth="4" />
+          }
+        </div>
+        
+        <div class="qr-instructions">
+          <p><strong>Bước 1:</strong> Mở app Ngân hàng hoặc VNPay</p>
+          <p><strong>Bước 2:</strong> Chọn chức năng Quét mã QR</p>
+          <p><strong>Bước 3:</strong> Quét mã và xác nhận thanh toán</p>
+        </div>
+
+        <div class="qr-countdown">
+          <i class="pi pi-clock"></i>
+          <span>Mã QR hết hạn sau: <strong>{{ formatCountdown() }}</strong></span>
+        </div>
+
+        <div class="waiting-indicator">
+          <p-progressSpinner strokeWidth="3" [style]="{ width: '24px', height: '24px' }" />
+          <span>Đang chờ thanh toán...</span>
+        </div>
+
+        <p-button
+          label="Hủy giao dịch"
+          severity="secondary"
+          [outlined]="true"
+          icon="pi pi-times"
+          (onClick)="cancelPayment()"
+          styleClass="cancel-btn"
+        />
+      </div>
+    </div>
+  }
+
+  <!-- Step: QR Waiting (being scanned) -->
+  @if (step() === 'qr-waiting') {
+    <div class="qr-section">
+      <div class="qr-content waiting-state">
+        <div class="scan-success-icon">
+          <i class="pi pi-check-circle"></i>
+        </div>
+        <h3>Đã nhận được thanh toán</h3>
+        <p>Vui lòng xác nhận trên ứng dụng ngân hàng của bạn...</p>
+        <p-progressSpinner strokeWidth="4" />
+      </div>
+    </div>
+  }
+
+  <!-- Step: Select Bank -->
+  @if (step() === 'select-bank') {
+    <div class="bank-selection">
+      <div class="section-header">
+        <button class="back-btn" (click)="goBackToSelectMethod()">
+          <i class="pi pi-arrow-left"></i>
+        </button>
+        <h3>Chọn ngân hàng thanh toán</h3>
+      </div>
+      <div class="bank-grid">
+        @for (bank of banks; track bank.code) {
+          <div class="bank-card" (click)="selectBank(bank)">
+            <img [src]="bank.logo" [alt]="bank.shortName" />
+            <span>{{ bank.shortName }}</span>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Step: Enter Card Info -->
+  @if (step() === 'enter-card') {
+    <div class="card-form">
+      <div class="selected-bank">
+        <img [src]="selectedBank()?.logo" [alt]="selectedBank()?.shortName" />
+        <span>{{ selectedBank()?.name }}</span>
+        <button class="change-btn" (click)="goBackToSelectBank()">Đổi</button>
+      </div>
+
+      <div class="form-group">
+        <label>Số thẻ <span class="required">*</span></label>
+        <input
+          type="text"
+          pInputText
+          [(ngModel)]="cardNumber"
+          placeholder="1234 5678 9012 3456"
+          maxlength="19"
+        />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group half">
+          <label>Chủ thẻ <span class="required">*</span></label>
+          <input
+            type="text"
+            pInputText
+            [(ngModel)]="cardHolder"
+            placeholder="NGUYEN VAN A"
+          />
+        </div>
+        <div class="form-group half">
+          <label>Ngày hết hạn</label>
+          <input
+            type="text"
+            pInputText
+            [(ngModel)]="expiryDate"
+            placeholder="MM/YY"
+            maxlength="5"
+          />
+        </div>
+      </div>
+
+      <div class="button-group">
+        <p-button
+          label="Tiếp tục"
+          icon="pi pi-arrow-right"
+          iconPos="right"
+          (onClick)="submitCardInfo()"
+          [disabled]="!cardNumber() || !cardHolder()"
+        />
+        <p-button
+          label="Hủy giao dịch"
+          severity="secondary"
+          [outlined]="true"
+          (onClick)="cancelPayment()"
+        />
+      </div>
+    </div>
+  }
+
+  <!-- Step: OTP -->
+  @if (step() === 'otp') {
+    <div class="otp-form">
+      <div class="otp-header">
+        <i class="pi pi-lock"></i>
+        <h3>Xác thực OTP</h3>
+        <p>Mã OTP đã được gửi đến số điện thoại của bạn</p>
+      </div>
+
+      <div class="form-group">
+        <label>Nhập mã OTP</label>
+        <input
+          type="text"
+          pInputText
+          [(ngModel)]="otp"
+          placeholder="Nhập mã OTP"
+          maxlength="6"
+          class="otp-input"
+        />
+      </div>
+
+      <div class="otp-note">
+        <i class="pi pi-info-circle"></i>
+        <span>Mã OTP có hiệu lực trong 5 phút</span>
+      </div>
+
+      <div class="button-group">
+        <p-button
+          label="Xác nhận thanh toán"
+          icon="pi pi-check"
+          (onClick)="confirmOtp()"
+          [disabled]="otp().length < 4"
+        />
+        <p-button
+          label="Hủy giao dịch"
+          severity="secondary"
+          [outlined]="true"
+          (onClick)="cancelPayment()"
+        />
+      </div>
+    </div>
+  }
+
+  <!-- Step: Processing -->
+  @if (step() === 'processing') {
+    <div class="processing">
+      <p-progressSpinner
+        strokeWidth="4"
+        animationDuration=".5s"
+      />
+      <p>Đang xử lý giao dịch...</p>
+      <span class="processing-note">Vui lòng không tắt trình duyệt</span>
+    </div>
+  }
+
+  <!-- Footer -->
+  <div class="vnpay-footer">
+    <div class="footer-logos">
+      <img src="assets/vnpay-logo.svg" alt="VNPAY" />
+    </div>
+    <p class="security-note">
+      <i class="pi pi-shield"></i>
+      Giao dịch được bảo mật bởi VNPAY
+    </p>
+  </div>
+</div>

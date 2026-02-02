@@ -60,20 +60,24 @@
 </div>
 
 <!-- Block Dành riêng cho bạn (viewer_preferences) -->
-@if (currentUserBase && viewerPreferences().length > 0) {
-<div class="personal-recommend-section">
-  <div class="personal-recommend-container">
-    <h2 class="personal-recommend-title">Dành riêng cho bạn</h2>
-    <div class="personal-recommend-grid">
-      @for (product of viewerPreferences(); track product.id) {
-        <div class="personal-recommend-item">
-          <div class="personal-recommend-card" routerLink="/product" [queryParams]="{ id: product.id }" (click)="onProductClick(product)">
-            <div class="personal-recommend-image">
+<!-- Block Dành riêng cho bạn (Personalized API) -->
+@if (currentUserBase && personalizedProducts().length > 0) {
+<div class="personalized-section">
+  <div class="personalized-container">
+    <h2 class="personalized-title">✨ Dành riêng cho bạn ✨</h2>
+    <div class="personalized-grid">
+      @for (product of personalizedProducts(); track product.id) {
+        <div class="personalized-item">
+          <div class="personalized-card" routerLink="/product" [queryParams]="{ id: product.id }" (click)="onProductClick(product)">
+            <div class="personalized-image">
               <img [src]="product.thumbnailImg || (product.images && product.images[0] ? product.images[0].attachment : noImage)" [alt]="product.name">
+              @if (product.percent_discount) {
+                <div class="discount-badge">-{{ product.percent_discount }}%</div>
+              }
             </div>
-            <div class="personal-recommend-info">
-              <div class="personal-recommend-name">{{ product.name }}</div>
-              <div class="personal-recommend-price">
+            <div class="personalized-info">
+              <div class="personalized-name">{{ product.name }}</div>
+              <div class="personalized-price">
                 @if (product.promotion_price) {
                   <span class="promotion-price">{{ product.promotion_price | number:'1.0-0' }} Đ</span>
                   <span class="original-price">{{ product.price | number:'1.0-0' }} Đ</span>
@@ -81,6 +85,7 @@
                   <span class="current-price">{{ product.price | number:'1.0-0' }} Đ</span>
                 }
               </div>
+              <div class="view-detail-btn">Xem chi tiết</div>
             </div>
           </div>
         </div>
@@ -136,8 +141,8 @@
 </div>
 }
 
-<!-- 2. Lượt xem cao nhất - chỉ hiện khi đăng nhập (thứ 2) -->
-@if (currentUserBase) {
+<!-- 2. Lượt xem cao nhất - ĐÃ ẨN THEO YÊU CẦU -->
+<!-- @if (currentUserBase) {
 <div class="sale-section">
   <div class="sale-container">
     <h2 class="sale-title">Lượt xem cao nhất</h2>
@@ -186,7 +191,7 @@
     }
   </div>
 </div>
-}
+} -->
 
 <!-- 3. Top Tìm Kiếm - chỉ hiện khi đăng nhập (thứ 3) - ĐÃ COMMENT -->
 <!-- @if (currentUserBase) {

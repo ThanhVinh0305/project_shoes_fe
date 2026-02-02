@@ -3,34 +3,47 @@
     Thế giới giày Vũ Gia
   </div>
   <div class="footer-content pt-4 pb-4">
-    <div class="grid">
-      <div class="col-4 sm:col-12 md:col-12 lg:col-12 xl:col-4">
-        <div class="font-18-px font-weight-bold mb-3">Dịch vụ</div>
-        <div class="divider mb-3"></div>
-        <div class="mb-3"><a routerLink="/terms-and-service">Điều khoản và dịch vụ</a></div>
-        <div class="mb-3"><a routerLink="/guide-shopping">Hướng dẫn mua hàng</a></div>
-        <!-- <div class="mb-3"><a>Phương thức thanh toán</a></div> -->
+    <div class="grid nike-footer-grid">
+      <!-- Column 1: Resources (Nike style: "Find A Store", etc. but adapted) -->
+      <div class="col-3 sm:col-12 md:col-6">
+        <div class="footer-heading">Tài nguyên</div>
+        <ul class="footer-links">
+           <li><a routerLink="/store">Tìm cửa hàng</a></li>
+           <li><a routerLink="/member">Trở thành thành viên</a></li>
+           <li><a routerLink="/feedback">Gửi phản hồi</a></li>
+        </ul>
       </div>
-      <div class="col-4 sm:col-12 md:col-12 lg:col-12 xl:col-4">
-        <div class="font-18-px font-weight-bold mb-3">Chính sách</div>
-        <div class="divider mb-3"></div>
-        <div class="mb-3"><a routerLink="/shipping-policy">Chính sách vận chuyển</a></div>
-        <div class="mb-3"><a routerLink="/refund-policy">Chính sách đổi trả hàng</a></div>
-        <div class="mb-3"><a routerLink="/warranty-policy">Chính sách bảo hành sản phẩm</a></div>
+
+      <!-- Column 2: Help -->
+      <div class="col-3 sm:col-12 md:col-6">
+        <div class="footer-heading">Trợ giúp</div>
+        <ul class="footer-links">
+           <li><a routerLink="/shipping">Trạng thái đơn hàng</a></li>
+           <li><a routerLink="/shipping-policy">Vận chuyển</a></li>
+           <li><a routerLink="/returns">Trả hàng</a></li>
+           <li><a routerLink="/payment">Phương thức thanh toán</a></li>
+           <li><a href="tel:19002192">Liên hệ: 19002192</a></li>
+        </ul>
       </div>
-      <div class="col-4 sm:col-12 md:col-12 lg:col-12 xl:col-4">
-        <div class="font-18-px font-weight-bold mb-3">Theo dõi chúng tôi</div>
-        <div class="divider mb-3"></div>
-        <div class="mb-3">
-          <a href="tel:0123456789" title="Fax: 0123456789"><i class="mr-2 pi pi-phone"></i>099.9999.999</a>
-        </div>
-        <div class="mb-3"><a href="mailto:thegioigiayvugia@gmail.com" title="Mail : thegioigiayvugia@gmail.com"><i class=" mr-2 pi pi-envelope "></i>vugia&#64;gmail.com</a></div>
-        <div class="mb-3"><i class=" mr-2 pi pi-map-marker"></i>Số A, Ngõ B, Quận C, Thành phố D</div>
-        <div class="icon-group flex">
-          <div class="icon"><a href="/" target="_blank"><i class="pi pi-facebook font-22-px mr-2"></i></a></div>
-          <div class="icon"><a href="/" target="_blank"><i class="pi pi-instagram font-22-px mr-2"></i></a></div>
-          <div class="icon"><a href="/" target="_blank"><i class="pi pi-pinterest font-22-px mr-2"></i></a></div>
-          <div class="icon"><a href="/" target="_blank"><i class="pi pi-twitter font-22-px"></i></a></div>
+
+      <!-- Column 3: About (Vũ Gia) -->
+      <div class="col-3 sm:col-12 md:col-6">
+        <div class="footer-heading">Về Vũ Gia</div>
+        <ul class="footer-links">
+           <li><a routerLink="/about">Tin tức</a></li>
+           <li><a routerLink="/careers">Tuyển dụng</a></li>
+           <li><a routerLink="/investors">Nhà đầu tư</a></li>
+           <li><a routerLink="/sustainability">Bền vững</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4: Socials (Right aligned usually, or same column) -->
+      <div class="col-3 sm:col-12 md:col-6 social-col">
+        <div class="icon-group flex gap-3">
+          <a href="#" target="_blank" class="social-icon"><i class="pi pi-facebook"></i></a>
+          <a href="#" target="_blank" class="social-icon"><i class="pi pi-instagram"></i></a>
+          <a href="#" target="_blank" class="social-icon"><i class="pi pi-twitter"></i></a>
+          <a href="#" target="_blank" class="social-icon"><i class="pi pi-youtube"></i></a>
         </div>
       </div>
     </div>

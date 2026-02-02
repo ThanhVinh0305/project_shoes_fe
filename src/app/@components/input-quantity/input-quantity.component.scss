@@ -1,6 +1,10 @@
 ::ng-deep .custom-input-quantity {
   input {
     text-align: center;
+    color: #000 !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+    font-weight: 600;
   }
 
   .p-inputtext {
